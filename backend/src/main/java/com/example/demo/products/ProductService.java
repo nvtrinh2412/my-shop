@@ -19,5 +19,9 @@ public class ProductService {
         return newProduct;
     }
 
+    public void deleteAllProducts(){
+        productRepository.deleteAll();
+    }
+
 
 }
