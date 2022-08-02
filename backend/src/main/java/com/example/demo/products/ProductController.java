@@ -15,7 +15,7 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public ResponseEntity<List<Product>> fetchAllProduct() {
+    public ResponseEntity<List<Product>> getAllProduct() {
         try {
             List<Product> products = productService.getAllProduct();
             return new ResponseEntity<>(products, HttpStatus.OK);
@@ -25,7 +25,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> addNewProduct(@RequestBody Product newProduct) {
+    public ResponseEntity<Product> createProduct(@RequestBody Product newProduct) {
         try {
             Product product = productService.addNewProduct(newProduct);
             return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
@@ -44,4 +44,23 @@ public class ProductController {
         }
     }
 
+
+    @PostMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable("id") String nameId, @RequestBody Product updatedProduct ){
+        Product product = productService.findAndUpdateProduct(nameId,updatedProduct);
+        if(product != null){
+            return new ResponseEntity<>(product,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> findProductByNameId(@PathVariable("id") String nameId){
+        Product product = productService.findProductByNameId(nameId);
+        if(product != null){
+            return new ResponseEntity<>(product,HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }
