@@ -1,8 +1,6 @@
-package com.example.demo.products;
+package com.myshop.products;
 
 import lombok.AllArgsConstructor;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +27,6 @@ public class ProductService {
 
     public Product findProductByNameId(String nameId) {
         Optional productData = productRepository.findProductByNameId(nameId);
-        System.out.println(productData);
         if (productData.isPresent()) {
             return (Product) productData.get();
         } else {
@@ -41,13 +38,20 @@ public class ProductService {
         Product product = findProductByNameId(nameId);
         if (product != null) {
             product.setName(newProduct.getName());
+            product.setNameId(newProduct.getNameId());
             product.setPrice(newProduct.getPrice());
             product.setDescription(newProduct.getDescription());
+            product.setColor(newProduct.getColor());
+
             productRepository.save(product);
             return product;
         } else {
             return null;
         }
 
+    }
+
+    public void deleteProduct(Product product){
+        productRepository.delete(product);
     }
 }

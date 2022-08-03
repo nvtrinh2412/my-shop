@@ -1,26 +1,26 @@
-package com.example.demo.products;
+package com.myshop.products;
 
-import com.example.demo.common.SLUGIFY;
+import com.myshop.common.SLUGIFY;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
 @Data
-@Document("products")
+@Document(collection = "products")
 public class Product {
+
     @Id
-    String Id;
+    private String id;
     @Indexed(unique = true)
-    String nameId;
-    String name;
-    Integer price;
-    String imageUrl;
-    List<String> color;
-    String description;
+    private String nameId;
+    private String name;
+    private Integer price;
+    private String imageUrl;
+    private List<String> color;
+    private String description;
 
 
 
@@ -35,7 +35,7 @@ public class Product {
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
 
@@ -60,7 +60,7 @@ public class Product {
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public String getName() {
@@ -85,4 +85,6 @@ public class Product {
     public String getNameId(){
         return nameId;
     }
+
+
 }

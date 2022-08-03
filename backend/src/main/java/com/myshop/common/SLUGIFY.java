@@ -1,4 +1,4 @@
-package com.example.demo.common;
+package com.myshop.common;
 
 import java.text.Normalizer;
 import java.util.Locale;

@@ -1,4 +1,4 @@
-package com.example.demo.products;
+package com.myshop.products;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/products")
@@ -45,22 +44,36 @@ public class ProductController {
     }
 
 
-    @PostMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable("id") String nameId, @RequestBody Product updatedProduct ){
-        Product product = productService.findAndUpdateProduct(nameId,updatedProduct);
-        if(product != null){
-            return new ResponseEntity<>(product,HttpStatus.OK);
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable("id") String nameId, @RequestBody Product updatedProduct) {
+        Product product = productService.findAndUpdateProduct(nameId, updatedProduct);
+        if (product != null) {
+            return new ResponseEntity<>(product, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> findProductByNameId(@PathVariable("id") String nameId){
+    public ResponseEntity<Product> findProductByNameId(@PathVariable("id") String nameId) {
         Product product = productService.findProductByNameId(nameId);
-        if(product != null){
-            return new ResponseEntity<>(product,HttpStatus.OK);
-        }
-        else
+        if (product != null) {
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        } else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> deleteProductByNameId(@PathVariable("id") String nameID) {
+        Product deletedProduct = productService.findProductByNameId(nameID);
+        if (deletedProduct != null) {
+            try {
+                productService.deleteProduct(deletedProduct);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } catch (Exception e) {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
