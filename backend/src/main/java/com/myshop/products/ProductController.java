@@ -1,5 +1,6 @@
 package com.myshop.products;
 
+import com.myshop.common.SLUGIFY;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,15 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProduct() {
+    @ResponseBody
+    public ResponseEntity<List<Product>> getAllProduct(@RequestParam(required = false) String name) {
+        if(name != null){
+            String formattedSearchName = SLUGIFY.toSlug(name);
+            System.out.println("name: " +  formattedSearchName);
+            List<Product> filteredProducts =  productService.findProductByName(formattedSearchName);
+            System.out.println(filteredProducts);
+            return new ResponseEntity<>(filteredProducts, HttpStatus.OK);
+        }
         try {
             List<Product> products = productService.getAllProduct();
             return new ResponseEntity<>(products, HttpStatus.OK);
@@ -43,16 +52,6 @@ public class ProductController {
         }
     }
 
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable("id") String nameId, @RequestBody Product updatedProduct) {
-        Product product = productService.findAndUpdateProduct(nameId, updatedProduct);
-        if (product != null) {
-            return new ResponseEntity<>(product, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<Product> findProductByNameId(@PathVariable("id") String nameId) {
         Product product = productService.findProductByNameId(nameId);
@@ -60,6 +59,14 @@ public class ProductController {
             return new ResponseEntity<>(product, HttpStatus.OK);
         } else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable("id") String nameId, @RequestBody Product updatedProduct) {
+        Product product = productService.findAndUpdateProduct(nameId, updatedProduct);
+        if (product != null) {
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/{id}")
