@@ -1,6 +1,6 @@
 package com.myshop.products;
 
-import com.myshop.common.SLUGIFY;
+import com.myshop.utils.SLUGIFY;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
