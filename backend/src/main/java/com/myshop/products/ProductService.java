@@ -1,6 +1,9 @@
 package com.myshop.products;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -16,7 +19,7 @@ import java.util.Optional;
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
-    private final MongoTemplate mongoTemplate;
+//    private final MongoTemplate mongoTemplate;
     public List<Product> getAllProduct() {
         return productRepository.findAll();
     }
@@ -62,6 +65,10 @@ public class ProductService {
             return products.get();
         }
         return null;
+    }
+
+    public Page<Product> paginate(Pageable page){
+        return productRepository.findAll(page);
     }
 
 }

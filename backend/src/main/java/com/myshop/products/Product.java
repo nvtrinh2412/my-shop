@@ -10,6 +10,7 @@ import java.util.List;
 
 @Data
 @Document(collection = "products")
+
 public class Product {
 
     @Id
