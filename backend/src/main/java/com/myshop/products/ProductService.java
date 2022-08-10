@@ -1,41 +1,37 @@
 package com.myshop.products;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.TextCriteria;
-import org.springframework.data.mongodb.core.query.TextQuery;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
 @Service
 public class ProductService {
+    final int DEFAULT_PAGE = 0;
+    final int DEFAULT_PAGE_SIZE = 7;
     private final ProductRepository productRepository;
-//    private final MongoTemplate mongoTemplate;
+
     public List<Product> getAllProduct() {
         return productRepository.findAll();
     }
 
     public Product addNewProduct(Product newProduct) {
-        productRepository.save(newProduct);
-        return newProduct;
+        try {
+            return productRepository.save(newProduct);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public Product findProductByNameId(String nameId) {
-        Optional productData = productRepository.findProductByNameId(nameId);
-        if (productData.isPresent()) {
-            return (Product) productData.get();
-        } else {
-            return null;
-        }
+        Optional<Product> productData = productRepository.findProductByNameId(nameId);
+        return (Product) productData.orElse(null);
     }
 
     public Product findAndUpdateProduct(String nameId, Product newProduct) {
@@ -50,25 +46,40 @@ public class ProductService {
 
     }
 
-
     public void deleteAllProducts() {
         productRepository.deleteAll();
     }
 
-    public void deleteProduct(Product product){
+    public void deleteProduct(Product product) {
         productRepository.delete(product);
     }
 
-    public List<Product> findProductByName(String name){
+    public List<Product> findProductByName(String name) {
         Optional<List<Product>> products = productRepository.findProductByName(name);
-        if(products.isPresent()){
-            return products.get();
+        return products.orElse(null);
+    }
+
+    public Page<Product> findPaginated(String page, String size) {
+        int pageNumber;
+        int pageSize;
+        try {
+            pageNumber = Integer.parseInt(page);
+            pageSize = Integer.parseInt(size);
+        } catch (Exception e) {
+            pageNumber = DEFAULT_PAGE;
+            pageSize = DEFAULT_PAGE_SIZE;
         }
-        return null;
+        return productRepository.findAll(PageRequest.of(pageNumber, pageSize));
     }
 
-    public Page<Product> paginate(Pageable page){
-        return productRepository.findAll(page);
+    public List<Product> getAllProductWithSort(String sortCriteria, String sortOrder) {
+        Sort sort;
+        if (sortOrder.equals("asc")) {
+            sort = Sort.by(sortCriteria).ascending();
+        } else {
+            sort = Sort.by(sortCriteria).descending();
+        }
+        Pageable pageable =  PageRequest.of(DEFAULT_PAGE, DEFAULT_PAGE_SIZE, sort);
+        return productRepository.findAll(pageable).getContent();
     }
-
 }
