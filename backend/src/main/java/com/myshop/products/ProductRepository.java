@@ -17,4 +17,6 @@ public interface ProductRepository extends JpaRepository<Product, String> {
 
     @Query(value = "SELECT * FROM products WHERE name_id LIKE %:name%", nativeQuery = true)
     Optional<List<Product>> findProductByName(String name);
+
+
 }

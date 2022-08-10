@@ -12,12 +12,12 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private long id;
 
     @Column(name = "name_id", nullable = false, unique = true)
     private String nameId;
     private String name;
-    private Integer price;
+    private float price;
     private String imageUrl;
     @ElementCollection
     private List<String> color;
@@ -27,7 +27,7 @@ public class Product {
 
     private String description;
 
-    public Product(String name, Integer price, String imageUrl, List<String> color, String description) {
+    public Product(String name, float price, String imageUrl, List<String> color, String description) {
         this.name = name;
         this.price = price;
         this.imageUrl = imageUrl;
@@ -35,7 +35,6 @@ public class Product {
         this.description = description;
         this.nameId = SLUGIFY.toSlug(name);
     }
-
     public Product() {
 
     }
@@ -73,11 +72,11 @@ public class Product {
         this.name = name;
     }
 
-    public Integer getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 

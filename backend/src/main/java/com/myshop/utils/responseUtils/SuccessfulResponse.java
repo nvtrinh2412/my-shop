@@ -3,13 +3,14 @@ package com.myshop.utils.responseUtils;
 import java.util.List;
 
 public class SuccessfulResponse<T> extends ResponseData{
+
+    int DEFAULT_TOTAL_PAGE = 1;
+    int DEFAULT_CURRENT_PAGE = 1;
     private int result;
     private List<T> data;
 
-
-
-    private int totalPage;
-    private int currentPage;
+    private int totalPage = DEFAULT_TOTAL_PAGE;
+    private int currentPage = DEFAULT_CURRENT_PAGE;
 
     public SuccessfulResponse(int result, List data) {
         super("success");

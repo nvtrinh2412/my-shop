@@ -94,7 +94,7 @@ class ProductServiceTest {
     @Test
     void findAndUpdateProduct() {
         // 1. create mock data
-        int testPrice = 200;
+        float testPrice = 200;
         Product product = new Product("Long T-shirt", 100, "image", List.of("red", "blue", "green"), "This is a test product");
         Product updatedProduct = new Product("Long T-shirt", testPrice, "image", List.of("red", "blue", "green"), "Product updated");
         String givenNameId = "long-t-shirt";
@@ -105,7 +105,7 @@ class ProductServiceTest {
         // 3. call method to test
         Product result = productService.findAndUpdateProduct(givenNameId, updatedProduct);
         // 4. verify result
-        assertThat(result.getPrice().equals(testPrice));
+        assertThat(result.getPrice()).isEqualTo(testPrice);
         // 5. verify behavior of mock
         verify(productRepository).findProductByNameId(any(String.class));
         verify(productRepository).save(any(Product.class));
