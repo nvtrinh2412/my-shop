@@ -12,7 +12,7 @@ public class SuccessfulResponse<T> extends ResponseData{
     private int totalPage = DEFAULT_TOTAL_PAGE;
     private int currentPage = DEFAULT_CURRENT_PAGE;
 
-    public SuccessfulResponse(int result, List data) {
+    public SuccessfulResponse(int result, List<T> data) {
         super("success");
         this.result = result;
         this.data= data;

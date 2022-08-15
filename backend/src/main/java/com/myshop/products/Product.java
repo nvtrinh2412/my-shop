@@ -12,8 +12,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private long id;
-
+    private Long id;
     @Column(name = "name_id", nullable = false, unique = true)
     private String nameId;
     private String name;
@@ -23,8 +22,6 @@ public class Product {
     private List<String> color;
     @ElementCollection
     private List<String> size;
-
-
     private String description;
 
     public Product(String name, float price, String imageUrl, List<String> color, String description) {

@@ -8,14 +8,17 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Min;
 import java.util.List;
 
 
 @RestController
 @RequestMapping("api/v1/products")
 @AllArgsConstructor
+@Validated
 public class ProductController {
 
     final int UNIQUE_RESULT = 1;
@@ -33,13 +36,13 @@ public class ProductController {
     }
 
     @GetMapping(params = {"name"})
-    public ResponseEntity<ResponseData> getAllProductOfName(@RequestParam String name) {
+    public ResponseEntity<ResponseData> getAllProductByName(@RequestParam String name) {
         try {
             List<Product> products;
             String formattedSearchName = SLUGIFY.toSlug(name);
             products = productService.findProductByName(formattedSearchName);
 
-            if (products == null || products.size() == 0)
+            if (products == null || products.isEmpty())
                 return new ResponseEntity<>(new FailureResponse("Not found"), HttpStatus.NOT_FOUND);
 
             return new ResponseEntity<>(new SuccessfulResponse<>(products.size(), products), HttpStatus.OK);
@@ -49,36 +52,12 @@ public class ProductController {
         }
     }
 
-    @GetMapping(params = {"page","size"})
-    public ResponseEntity<ResponseData> getAllProductWithPaginate(@RequestParam String page, @RequestParam String size) {
-        try {
-            Page<Product> paginated = productService.findPaginated(page, size);
-
-            List<Product> products = paginated.getContent();
-            int totalPages = paginated.getTotalPages();
-            int currentPage = paginated.getNumber() + 1; //page starts from 0
-            return new ResponseEntity<>(new SuccessfulResponse<>(products.size(), products,currentPage,totalPages), HttpStatus.OK);
-
-        } catch (Exception e) {
-            return new ResponseEntity<>(new FailureResponse("Internal Server Error"), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @GetMapping(params = {"page","size","sort"})
+    public ResponseEntity<List<Product>> getAllProductWithSortAndPagination(@RequestParam @Min(0)Integer page, @RequestParam @Min(20) Integer size,@RequestParam String sort) {
+            List<Product> products = productService.getAllProductWithSortAndPagination(page, size,sort);
+            return ResponseEntity.ok(products);
     }
 
-
-    @GetMapping(params = {"sort"})
-    public ResponseEntity<ResponseData> getAllProductWithSort(@RequestParam String sort) {
-        try {
-            //sort param like this "price-desc"
-            String criteria = sort.split("-")[0];
-            String order = sort.split("-")[1];
-
-            List<Product> products = productService.getAllProductWithSort(criteria, order);
-            return new ResponseEntity<>(new SuccessfulResponse<>(products.size(), products), HttpStatus.OK);
-
-        } catch (Exception e) {
-            return new ResponseEntity<>(new FailureResponse("Internal Server Error"), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
     @PostMapping
     public ResponseEntity<ResponseData> createProduct(@RequestBody Product newProduct) {
         try {

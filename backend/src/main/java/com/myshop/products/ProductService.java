@@ -12,9 +12,10 @@ import java.util.Optional;
 
 @AllArgsConstructor
 @Service
+
 public class ProductService {
     final int DEFAULT_PAGE = 0;
-    final int DEFAULT_PAGE_SIZE = 7;
+    final int DEFAULT_PAGE_SIZE = 20;
     private final ProductRepository productRepository;
 
     public List<Product> getAllProduct() {
@@ -31,7 +32,7 @@ public class ProductService {
 
     public Product findProductByNameId(String nameId) {
         Optional<Product> productData = productRepository.findProductByNameId(nameId);
-        return (Product) productData.orElse(null);
+        return productData.orElse(null);
     }
 
     public Product findAndUpdateProduct(String nameId, Product newProduct) {
@@ -58,28 +59,19 @@ public class ProductService {
         Optional<List<Product>> products = productRepository.findProductByName(name);
         return products.orElse(null);
     }
-
-    public Page<Product> findPaginated(String page, String size) {
-        int pageNumber;
-        int pageSize;
-        try {
-            pageNumber = Integer.parseInt(page);
-            pageSize = Integer.parseInt(size);
-        } catch (Exception e) {
-            pageNumber = DEFAULT_PAGE;
-            pageSize = DEFAULT_PAGE_SIZE;
-        }
-        return productRepository.findAll(PageRequest.of(pageNumber, pageSize));
-    }
-
-    public List<Product> getAllProductWithSort(String sortCriteria, String sortOrder) {
+    public List<Product> getAllProductWithSortAndPagination(Integer page, Integer size,String sortString){
+        String sortCriteria = sortString.split("-")[0];
+        String sortOrder = sortString.split("-")[1];
         Sort sort;
         if (sortOrder.equals("asc")) {
             sort = Sort.by(sortCriteria).ascending();
         } else {
             sort = Sort.by(sortCriteria).descending();
         }
-        Pageable pageable =  PageRequest.of(DEFAULT_PAGE, DEFAULT_PAGE_SIZE, sort);
+
+        Pageable pageable =  PageRequest.of(page, size, sort);
+        System.out.println("Product: "+productRepository.findAll(pageable).getContent());
         return productRepository.findAll(pageable).getContent();
     }
+
 }
