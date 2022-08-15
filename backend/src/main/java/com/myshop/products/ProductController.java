@@ -5,7 +5,7 @@ import com.myshop.utils.responseUtils.FailureResponse;
 import com.myshop.utils.responseUtils.ResponseData;
 import com.myshop.utils.responseUtils.SuccessfulResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -17,13 +17,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/products")
-@AllArgsConstructor
 @Validated
 public class ProductController {
 
-    final int UNIQUE_RESULT = 1;
+    static final int UNIQUE_RESULT = 1;
     private final ProductService productService;
 
+    @Autowired
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
     @GetMapping
     public ResponseEntity<ResponseData> getAllProduct() {
         try {
@@ -57,6 +60,7 @@ public class ProductController {
             List<Product> products = productService.getAllProductWithSortAndPagination(page, size,sort);
             return ResponseEntity.ok(products);
     }
+
 
     @PostMapping
     public ResponseEntity<ResponseData> createProduct(@RequestBody Product newProduct) {

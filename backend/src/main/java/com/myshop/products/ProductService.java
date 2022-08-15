@@ -1,7 +1,6 @@
 package com.myshop.products;
 
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -14,8 +13,8 @@ import java.util.Optional;
 @Service
 
 public class ProductService {
-    final int DEFAULT_PAGE = 0;
-    final int DEFAULT_PAGE_SIZE = 20;
+    static final int DEFAULT_PAGE = 0;
+    static final int DEFAULT_PAGE_SIZE = 20;
     private final ProductRepository productRepository;
 
     public List<Product> getAllProduct() {
@@ -44,7 +43,6 @@ public class ProductService {
         } else {
             return null;
         }
-
     }
 
     public void deleteAllProducts() {
@@ -70,8 +68,6 @@ public class ProductService {
         }
 
         Pageable pageable =  PageRequest.of(page, size, sort);
-        System.out.println("Product: "+productRepository.findAll(pageable).getContent());
         return productRepository.findAll(pageable).getContent();
     }
-
 }

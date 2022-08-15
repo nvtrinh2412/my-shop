@@ -64,12 +64,12 @@ class ProductServiceTest {
         ArgumentCaptor<Product> argument = ArgumentCaptor.forClass(Product.class);
         verify(productRepository).save(argument.capture());
         Product capturedProduct = argument.getValue();
+
         assertEquals(product, capturedProduct);
     }
 
     @Test
     void findProductByNameId() {
-
         Product product = new Product("Long T-shirt", 100, "image", List.of("red", "blue", "green"), "This is a test product");
         String givenNameId = "long-t-shirt";
 
@@ -78,7 +78,6 @@ class ProductServiceTest {
         Product result = productService.findProductByNameId(givenNameId);
 
         assertThat(result.getNameId()).isEqualTo(givenNameId);
-
         verify(productRepository).findProductByNameId(any(String.class));
     }
 
@@ -109,7 +108,7 @@ class ProductServiceTest {
         when(productRepository.findAll()).thenReturn(productsList);
         productService.deleteAllProducts();
 
-        assertThat(productRepository.findAll().size()).isEqualTo(0);
+        assertThat(productRepository.findAll().size()).isZero();
 
         verify(productRepository).deleteAll();
         verify(productRepository).findAll();
@@ -117,7 +116,6 @@ class ProductServiceTest {
 
     @Test
     void deleteProduct() {
-
         Product product = new Product("Long T-shirt", 100, "image", List.of("red", "blue", "green"), "This is a test product");
         String givenNameId = product.getNameId();
 
@@ -133,19 +131,16 @@ class ProductServiceTest {
 
     @Test
     void findProductByName() {
-
         Product product1 = new Product("Long T-shirt", 100, "image", List.of("red", "blue", "green"), "This is a test product");
         Product product2 = new Product("Short T-shirt", 100, "image", List.of("red", "blue", "green"), "This is a test product");
         List<Product> productsList = new ArrayList<>();
         productsList.add(product1);
         productsList.add(product2);
         String searchName = "T-shirt";
-
         when(productRepository.findProductByName("T-shirt")).thenReturn(Optional.of(productsList));
         List<Product> result = productService.findProductByName(searchName);
 
         assertThat(result.size()).isEqualTo(productsList.size());
-
         verify(productRepository).findProductByName(any(String.class));
     }
 

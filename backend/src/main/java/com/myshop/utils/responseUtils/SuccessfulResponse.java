@@ -18,7 +18,7 @@ public class SuccessfulResponse<T> extends ResponseData{
         this.data= data;
 
     }
-    public SuccessfulResponse(int result, List data,int currentPage, int totalPage) {
+    public SuccessfulResponse(int result, List<T> data,int currentPage, int totalPage) {
         super("success");
         this.result = result;
         this.data= data;
