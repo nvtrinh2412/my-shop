@@ -1,12 +1,6 @@
 package com.myshop.products;
 
-import com.myshop.utils.SLUGIFY;
-import com.myshop.utils.responseUtils.FailureResponse;
-import com.myshop.utils.responseUtils.ResponseData;
-import com.myshop.utils.responseUtils.SuccessfulResponse;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -19,101 +13,67 @@ import java.util.List;
 @RequestMapping("api/v1/products")
 @Validated
 public class ProductController {
-
-    static final int UNIQUE_RESULT = 1;
     private final ProductService productService;
 
     @Autowired
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
-    @GetMapping
-    public ResponseEntity<ResponseData> getAllProduct() {
-        try {
-            List<Product> products = productService.getAllProduct();
-            return new ResponseEntity<>(new SuccessfulResponse<>(products.size(), products), HttpStatus.OK);
 
-        } catch (Exception e) {
-            return new ResponseEntity<>(new FailureResponse("Internal Server Error"), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @GetMapping
+    public ResponseEntity<List<Product>> getAllProduct() {
+        List<Product> products = productService.getAllProduct();
+        return ResponseEntity.ok(products);
     }
 
     @GetMapping(params = {"name"})
-    public ResponseEntity<ResponseData> getAllProductByName(@RequestParam String name) {
-        try {
-            List<Product> products;
-            String formattedSearchName = SLUGIFY.toSlug(name);
-            products = productService.findProductByName(formattedSearchName);
-
-            if (products == null || products.isEmpty())
-                return new ResponseEntity<>(new FailureResponse("Not found"), HttpStatus.NOT_FOUND);
-
-            return new ResponseEntity<>(new SuccessfulResponse<>(products.size(), products), HttpStatus.OK);
-
-        } catch (Exception e) {
-            return new ResponseEntity<>(new FailureResponse("Internal Server Error"), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<List<Product>> getAllProductByName(@RequestParam String name) {
+        List<Product> products = productService.findProductByName(name);
+        return ResponseEntity.ok(products);
     }
 
-    @GetMapping(params = {"page","size","sort"})
-    public ResponseEntity<List<Product>> getAllProductWithSortAndPagination(@RequestParam @Min(0)Integer page, @RequestParam @Min(20) Integer size,@RequestParam String sort) {
-            List<Product> products = productService.getAllProductWithSortAndPagination(page, size,sort);
-            return ResponseEntity.ok(products);
+    @GetMapping(params = {"page", "size", "sort"})
+    public ResponseEntity<List<Product>> getAllProductWithSortAndPagination(@RequestParam @Min(0) Integer page, @RequestParam @Min(20) Integer size, @RequestParam String sort) {
+        List<Product> products = productService.getAllProductWithSortAndPagination(page, size, sort);
+        return ResponseEntity.ok(products);
     }
-
 
     @PostMapping
-    public ResponseEntity<ResponseData> createProduct(@RequestBody Product newProduct) {
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         try {
-            Product product = productService.addNewProduct(newProduct);
-            return new ResponseEntity<>(new SuccessfulResponse<>(UNIQUE_RESULT, List.of(product)), HttpStatus.CREATED);
+            Product createdProduct = productService.addNewProduct(product);
+            return ResponseEntity.ok(createdProduct);
         } catch (Exception e) {
-            return new ResponseEntity<>(new FailureResponse("Product's name is already exist "), HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.badRequest().build();
         }
     }
 
     @DeleteMapping
-    public ResponseEntity<ResponseData> deleteAllProducts() {
-        try {
-            productService.deleteAllProducts();
-            return new ResponseEntity<>(new SuccessfulResponse<>(UNIQUE_RESULT, null), HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(new FailureResponse("Internal Server Error"), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<Product> deleteAllProducts() {
+        productService.deleteAllProducts();
+        return ResponseEntity.accepted().body(null);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseData> findProductByNameId(@PathVariable("id") String nameId) {
+    public ResponseEntity<Product> findProductByNameId(@PathVariable("id") String nameId) {
         Product product = productService.findProductByNameId(nameId);
-
-        if (product != null) {
-            return new ResponseEntity<>(new SuccessfulResponse<>(UNIQUE_RESULT, List.of(product)), HttpStatus.OK);
-        } else return new ResponseEntity<>(new FailureResponse("Product not found"), HttpStatus.NOT_FOUND);
+        return ResponseEntity.ok(product);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseData> updateProduct(@PathVariable("id") String nameId, @RequestBody Product updatedProduct) {
-        Product product = productService.findAndUpdateProduct(nameId, updatedProduct);
-        if (product != null) {
-            return new ResponseEntity<>(new SuccessfulResponse<>(UNIQUE_RESULT, List.of(product)), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(new FailureResponse("Product not found"), HttpStatus.NOT_FOUND);
+    public ResponseEntity<Product> updateProduct(@PathVariable("id") String nameId, @RequestBody Product product) {
+        Product updatedProduct = productService.findAndUpdateProduct(nameId, product);
+        return ResponseEntity.ok(updatedProduct);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseData> deleteProductByNameId(@PathVariable("id") String nameID) {
-        Product deletedProduct = productService.findProductByNameId(nameID);
-        if (deletedProduct != null) {
-            try {
-                productService.deleteProduct(deletedProduct);
-                return new ResponseEntity<>(new SuccessfulResponse<>(UNIQUE_RESULT, null), HttpStatus.NO_CONTENT);
-            } catch (Exception e) {
-                return new ResponseEntity<>(new FailureResponse("Internal Server Error"), HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+    public ResponseEntity<String> deleteProductByNameId(@PathVariable("id") String nameID) {
+        try {
+            productService.findAndDeleteProduct(nameID);
+            return ResponseEntity.ok("Product deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Product not found");
         }
-
-        return new ResponseEntity<>(new FailureResponse("Product not found"), HttpStatus.NOT_FOUND);
     }
-
 
 }
