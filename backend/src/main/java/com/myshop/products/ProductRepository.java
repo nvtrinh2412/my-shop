@@ -1,22 +1,15 @@
 package com.myshop.products;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ProductRepository extends MongoRepository<Product, String> {
+public interface ProductRepository extends JpaRepository<Product, String> {
 
-    @Query("{'nameId': ?0 }")
     Optional<Product> findProductByNameId(String nameId);
-
-    @Query("{'nameId': { $regex : ?0} }")
     Optional<List<Product>> findProductByName(String name);
+
 }

@@ -1,35 +1,37 @@
 package com.myshop.products;
 
 import com.myshop.utils.SLUGIFY;
-import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Data
-@Document(collection = "products")
+@Entity
+@Table( name = "products",
+        indexes =@Index(columnList = "name_id", unique = true))
+
 public class Product {
-
     @Id
-    private String id;
-    @Indexed(unique = true)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", nullable = false)
+    private Long id;
+    @Column(name = "name_id", nullable = false)
+    @NotBlank(message = "Name is required")
     private String nameId;
+    @NotNull
     private String name;
-    private Integer price;
+    @NotNull
+    private float price;
+    @NotNull
     private String imageUrl;
+    @ElementCollection
     private List<String> color;
+    @ElementCollection
     private List<String> size;
-
-
-
     private String description;
 
-
-
-
-    public Product(String name, Integer price, String imageUrl, List<String> color, String description) {
+    public Product(String name, float price, String imageUrl, List<String> color, String description) {
         this.name = name;
         this.price = price;
         this.imageUrl = imageUrl;
@@ -37,7 +39,19 @@ public class Product {
         this.description = description;
         this.nameId = SLUGIFY.toSlug(name);
     }
-    public void updateWith(Product newProduct){
+    public Product() {
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void updateWith(Product newProduct) {
         this.setName(newProduct.getName());
         this.setNameId(newProduct.getNameId());
         this.setPrice(newProduct.getPrice());
@@ -46,30 +60,46 @@ public class Product {
         this.setSize(newProduct.getSize());
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getNameId() {
+        return nameId;
     }
 
+    public void setNameId(String nameId) {
+        this.nameId = nameId;
+    }
+
+    public String getName() {
+        return name;
+    }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setPrice(Integer price) {
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
         this.price = price;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
+    public List<String> getColor() {
+        return color;
+    }
+
     public void setColor(List<String> color) {
         this.color = color;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
     public List<String> getSize() {
         return size;
     }
@@ -78,31 +108,12 @@ public class Product {
         this.size = size;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public List<String> getColor() {
-        return color;
-    }
-
     public String getDescription() {
         return description;
     }
-    public String getNameId(){
-        return nameId;
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
