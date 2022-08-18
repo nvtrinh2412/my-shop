@@ -3,20 +3,27 @@ package com.myshop.products;
 import com.myshop.utils.SLUGIFY;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-@Table(name = "products")
+@Table( name = "products",
+        indexes =@Index(columnList = "name_id", unique = true))
 
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
-    @Column(name = "name_id", nullable = false, unique = true)
+    @Column(name = "name_id", nullable = false)
+    @NotBlank(message = "Name is required")
     private String nameId;
+    @NotNull
     private String name;
+    @NotNull
     private float price;
+    @NotNull
     private String imageUrl;
     @ElementCollection
     private List<String> color;
@@ -112,7 +119,6 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "id='" + id + '\'' +
                 ", nameId='" + nameId + '\'' +
                 ", name='" + name + '\'' +
                 ", price=" + price +

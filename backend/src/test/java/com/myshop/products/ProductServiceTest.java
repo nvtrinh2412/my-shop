@@ -109,7 +109,7 @@ class ProductServiceTest {
         when(productRepository.findAll()).thenReturn(productsList);
         productService.deleteAllProducts();
 
-        assertThat(productRepository.findAll().size()).isEqualTo(0);
+        assertThat(productRepository.findAll().isEmpty());
 
         verify(productRepository).deleteAll();
         verify(productRepository).findAll();

@@ -4,11 +4,9 @@ import com.myshop.roles.Role;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.UniqueElements;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,16 +43,11 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
                 ", name='" + name + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", roles=" + roles +
                 '}';
-    }
-
-    public Long getId() {
-        return id;
     }
 
 
