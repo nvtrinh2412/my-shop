@@ -7,9 +7,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -65,6 +63,7 @@ class ProductServiceTest {
         ArgumentCaptor<Product> argument = ArgumentCaptor.forClass(Product.class);
         verify(productRepository).save(argument.capture());
         Product capturedProduct = argument.getValue();
+
         assertEquals(product, capturedProduct);
     }
 
@@ -100,37 +99,33 @@ class ProductServiceTest {
         verify(productRepository).findAll();
     }
 
-//    @Test
-//    void deleteProduct() {
-//
-//        Product product = new Product("Long T-shirt", 100, "image", List.of("red", "blue", "green"), "This is a test product");
-//        Long id = product.getId();
-//
-//        when(productRepository.findProductById(product.getId())).thenReturn(null);
-//
-//        productService.deleteProduct(product);
-//
-//        assertNull(productRepository.findProductById(id));
-//
-//        verify(productRepository).findProductById(any(Long.class));
-//        verify(productRepository).delete(any(Product.class));
-//    }
+    @Test
+    void deleteProduct() {
 
+        Product product = new Product("Long T-shirt", 100, "image", List.of("red", "blue", "green"), "This is a test product");
+        Long id = product.getId();
+
+        when(productRepository.findProductById(product.getId())).thenReturn(null);
+
+        productService.deleteProduct(product);
+
+        assertNull(productRepository.findProductById(id));
+
+        verify(productRepository).findProductById(any(Long.class));
+        verify(productRepository).delete(any(Product.class));
+    }
     @Test
     void findProductByName() {
-
         Product product1 = new Product("Long T-shirt", 100, "image", List.of("red", "blue", "green"), "This is a test product");
         Product product2 = new Product("Short T-shirt", 100, "image", List.of("red", "blue", "green"), "This is a test product");
         List<Product> productsList = new ArrayList<>();
         productsList.add(product1);
         productsList.add(product2);
         String searchName = "T-shirt";
-
         when(productRepository.findProductByName("T-shirt")).thenReturn(Optional.of(productsList));
         List<Product> result = productService.findProductByName(searchName);
 
         assertThat(result.size()).isEqualTo(productsList.size());
-
         verify(productRepository).findProductByName(any(String.class));
     }
 

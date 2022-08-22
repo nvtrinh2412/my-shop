@@ -6,7 +6,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
-
 import static com.myshop.utils.variable.ConfigurationVariable.*;
 
 @RestController
@@ -31,8 +30,7 @@ public class ProductController {
                                                              @RequestParam(defaultValue = DEFAULT_PAGE) Integer page,
                                                              @RequestParam(defaultValue = DEFAULT_SIZE) Integer size,
                                                              @RequestParam(defaultValue = DEFAULT_SORT) String key,
-                                                             @RequestParam(defaultValue = DEFAULT_ORDER) String order
-    ) {
+                                                             @RequestParam(defaultValue = DEFAULT_ORDER) String order){
         List<Product> products = productService.getAllProductWithCreteria(name, page, size, key, order);
         return ResponseEntity.ok(products);
     }
@@ -65,6 +63,7 @@ public class ProductController {
     public ResponseEntity<String> deleteProductByNameId(@PathVariable("id") Long id) {
         productService.findAndDeleteProduct(id);
         return ResponseEntity.ok("Product deleted successfully");
+
     }
 
 }

@@ -19,9 +19,6 @@ import java.util.List;
                 @Index(columnList = "name")
         })
 public class Product {
-    Date createdAt;
-    Date updatedAt;
-    Date deletedAt;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
@@ -39,6 +36,12 @@ public class Product {
     private String description;
     @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
+    @Column(name = "created_at")
+    private Date createdAt;
+    @Column(name = "updated_at")
+    private Date updatedAt;
+    @Column(name = "deleted_at")
+    private Date deletedAt;
 
 
     public Product() {

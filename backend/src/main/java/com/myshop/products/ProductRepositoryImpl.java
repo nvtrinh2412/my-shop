@@ -21,7 +21,7 @@ public class ProductRepositoryImpl {
     }
 
     public List<Product> getAllProducts() {
-        String query = "SELECT * FROM products WHERE deletedAt IS NULL";
+        String query = "SELECT * FROM products WHERE deleted_at IS NULL";
         Query nativeQuery = entityManager.createNativeQuery(query, Product.class);
         List<Product> products = nativeQuery.getResultList();
         return products;

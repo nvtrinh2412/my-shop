@@ -23,9 +23,6 @@ import java.util.Collection;
 @Table(name = "users",
         indexes = @Index(columnList = "username", unique = true))
 public class User {
-    Date createdAt;
-    Date updatedAt;
-    Date deletedAt;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
@@ -39,6 +36,12 @@ public class User {
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles = new ArrayList<>();
+    @Column(name = "created_at")
+    private Date createdAt;
+    @Column(name = "updated_at")
+    private Date updatedAt;
+    @Column(name = "deleted_at")
+    private Date deletedAt;
 
     public User(String name, String username, String password, Collection<Role> roles) {
         this.name = name;

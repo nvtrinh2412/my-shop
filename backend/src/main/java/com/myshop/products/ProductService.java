@@ -57,6 +57,11 @@ public class ProductService {
         }
     }
 
+    public List<Product> findProductByName(String name) {
+        Optional<List<Product>> products = productRepository.findProductByName(name);
+        return products.orElse(null);
+    }
+
     public void deleteProduct(Product product) {
         product.setDeletedAt(new Date(System.currentTimeMillis()));
     }
@@ -65,23 +70,6 @@ public class ProductService {
         Product product = findProductById(id);
         deleteProduct(product);
     }
-
-    public List<Product> findProductByName(String name) {
-        Optional<List<Product>> products = productRepository.findProductByName(name);
-        return products.orElse(null);
-    }
-
-    public List<Product> getAllProductWithSortAndPagination(Integer page, Integer size, String key, String order) {
-        Sort sort;
-        if (order.equals("desc")) {
-            sort = Sort.by(Sort.Direction.DESC, key);
-        } else {
-            sort = Sort.by(Sort.Direction.ASC, key);
-        }
-        Pageable pageable = PageRequest.of(page, size, sort);
-        return productRepository.findAll(pageable).getContent();
-    }
-
     public List<Product> getAllProductWithCreteria(String name,
                                                    Integer page,
                                                    Integer size,
