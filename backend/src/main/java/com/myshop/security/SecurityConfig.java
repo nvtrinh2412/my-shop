@@ -13,7 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -37,14 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
 
-        //without authentication (for test only)
         http.authorizeRequests().anyRequest().permitAll();
-
-        // with authentication
-//        http.authorizeRequests().antMatchers( "/api/login").permitAll();
-//        http.authorizeRequests().antMatchers("/api/v1/products/**").hasAuthority("ROLE_USER");
-//        http.authorizeRequests().antMatchers("/api/v1/users/**").hasAnyAuthority("ROLE_ADMIN","ROLE_SUPER_ADMIN");
-//        http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(customAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
     }
@@ -54,5 +46,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
 }
 
