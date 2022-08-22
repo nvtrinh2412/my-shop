@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RoleService {
     private final RoleRepository roleRepository;
+
     public void saveRole(Role role) {
         roleRepository.save(role);
     }
+
 }

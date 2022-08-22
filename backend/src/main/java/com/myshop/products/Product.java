@@ -1,35 +1,50 @@
 package com.myshop.products;
 
-import com.myshop.utils.SLUGIFY;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.myshop.categories.Category;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
-@Table( name = "products",
-        indexes =@Index(columnList = "name_id", unique = true))
-
+@Setter
+@Getter
+@Table(name = "products",
+        indexes = {
+                @Index(columnList = "id", unique = true),
+                @Index(columnList = "name")
+        })
 public class Product {
+    Date createdAt;
+    Date updatedAt;
+    Date deletedAt;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
-    @Column(name = "name_id", nullable = false)
-    @NotBlank(message = "Name is required")
-    private String nameId;
-    @NotNull
+    @NotNull(message = "Name is required")
     private String name;
-    @NotNull
+    @NotNull(message = "Price is required")
     private float price;
-    @NotNull
+    @NotNull(message = "ImageURL is required")
     private String imageUrl;
     @ElementCollection
     private List<String> color;
     @ElementCollection
     private List<String> size;
     private String description;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Category category;
+
+
+    public Product() {
+
+    }
 
     public Product(String name, float price, String imageUrl, List<String> color, String description) {
         this.name = name;
@@ -37,89 +52,53 @@ public class Product {
         this.imageUrl = imageUrl;
         this.color = color;
         this.description = description;
-        this.nameId = SLUGIFY.toSlug(name);
-    }
-    public Product() {
-
+        this.createdAt = new Date(System.currentTimeMillis());
     }
 
-    public Long getId() {
-        return id;
+    public Product(String name, float price, String imageUrl, List<String> color, List<String> size, String description, Category category) {
+        this.name = name;
+        this.price = price;
+        this.imageUrl = imageUrl;
+        this.color = color;
+        this.size = size;
+        this.description = description;
+        this.category = category;
+        this.createdAt = new Date(System.currentTimeMillis());
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Product(Product product) {
+        this.name = product.name;
+        this.price = product.price;
+        this.imageUrl = product.imageUrl;
+        this.color = product.color;
+        this.description = product.description;
+        this.category = product.category;
+        this.createdAt = new Date(System.currentTimeMillis());
     }
 
     public void updateWith(Product newProduct) {
         this.setName(newProduct.getName());
-        this.setNameId(newProduct.getNameId());
         this.setPrice(newProduct.getPrice());
         this.setDescription(newProduct.getDescription());
         this.setColor(newProduct.getColor());
         this.setSize(newProduct.getSize());
+        this.setImageUrl(newProduct.getImageUrl());
+        this.setUpdatedAt(new Date(System.currentTimeMillis()));
     }
 
-    public String getNameId() {
-        return nameId;
+    @JsonIgnore
+    public Long getId() {
+        return id;
     }
 
-    public void setNameId(String nameId) {
-        this.nameId = nameId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public List<String> getColor() {
-        return color;
-    }
-
-    public void setColor(List<String> color) {
-        this.color = color;
-    }
-
-    public List<String> getSize() {
-        return size;
-    }
-
-    public void setSize(List<String> size) {
-        this.size = size;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    @JsonSetter
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
         return "Product{" +
-                ", nameId='" + nameId + '\'' +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", imageUrl='" + imageUrl + '\'' +
@@ -128,6 +107,5 @@ public class Product {
                 ", description='" + description + '\'' +
                 '}';
     }
-
 
 }

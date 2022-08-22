@@ -1,10 +1,6 @@
 package com.myshop.users;
 
-import com.myshop.utils.responseUtils.ResponseData;
-import com.myshop.utils.responseUtils.SuccessfulResponse;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -12,7 +8,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
-@RestController @RequiredArgsConstructor
+@RestController
+@RequiredArgsConstructor
 @RequestMapping("api/v1/users")
 public class UserController {
     private final UserService userService;
@@ -20,8 +17,8 @@ public class UserController {
     @PostMapping
     public ResponseEntity<User> saveUser(@RequestBody User user) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentRequest().path("/api/v1/users").toUriString());
-         User newUser = userService.saveUser(user);
-         return ResponseEntity.created(uri).body(newUser);
+        User newUser = userService.saveUser(user);
+        return ResponseEntity.created(uri).body(newUser);
     }
 
     @GetMapping
@@ -33,11 +30,6 @@ public class UserController {
     @DeleteMapping("/{username}")
     public ResponseEntity<User> deleteUserByUsername(@PathVariable String username) {
         userService.deleteUserByUsername(username);
-        return ResponseEntity.ok().build();
-    }
-    @DeleteMapping("/{id}")
-    public ResponseEntity<User> deleteUserById(@PathVariable Long id) {
-        userService.deleteUserById(id);
         return ResponseEntity.ok().build();
     }
 

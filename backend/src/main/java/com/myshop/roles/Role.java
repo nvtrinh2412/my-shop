@@ -1,5 +1,7 @@
 package com.myshop.roles;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,8 +12,8 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
 @Getter
+@Setter
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +26,16 @@ public class Role {
         return "Role{" +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    @JsonIgnore
+    public Long getId() {
+        return id;
+    }
+
+    @JsonSetter
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

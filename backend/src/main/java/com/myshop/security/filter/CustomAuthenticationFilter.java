@@ -21,12 +21,14 @@ import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.myshop.utils.variable.ConfigurationVariable.EXPIRED_ACCESS_TIME;
+import static com.myshop.utils.variable.ConfigurationVariable.EXPIRED_REFRESH_TIME;
+
 
 @Slf4j
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
-    private static final int EXPIRED_ACCESS_TIME = 10 * 60 * 1000;
-    private static final int EXPIRED_REFRESH_TIME = 30 * 60 * 1000;
+
 
     public CustomAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
@@ -36,7 +38,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        log.info("Attempt authentication with username: {} password: {}", username,password);
+        log.info("Attempt authentication with username: {} password: {}", username, password);
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
         return authenticationManager.authenticate(authenticationToken);
     }
@@ -44,7 +46,8 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         User user = (User) authResult.getPrincipal();
-        Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
+        String SECRET = "secret";
+        Algorithm algorithm = Algorithm.HMAC256(SECRET.getBytes());
         String access_token = JWT.create()
                 .withSubject(user.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRED_ACCESS_TIME))
@@ -58,10 +61,10 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .withIssuer(request.getRequestURL().toString())
                 .sign(algorithm);
 
-        Map<String,String> tokens = new HashMap<>();
+        Map<String, String> tokens = new HashMap<>();
         tokens.put("access_token", access_token);
         tokens.put("refresh_token", refresh_token);
         response.setContentType("application/json");
-        new ObjectMapper().writeValue(response.getOutputStream(),tokens);
+        new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
 }

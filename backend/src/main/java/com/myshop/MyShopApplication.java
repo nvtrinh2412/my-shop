@@ -7,13 +7,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
-public class MyShopApplication{
-	public static void main(String[] args) {
-		SpringApplication.run(MyShopApplication.class, args);
-	}
+public class MyShopApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(MyShopApplication.class, args);
+    }
 
-	@Bean
-	PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
 }

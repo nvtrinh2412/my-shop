@@ -1,13 +1,17 @@
 package com.myshop.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.myshop.roles.Role;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -15,18 +19,22 @@ import java.util.Collection;
 @NoArgsConstructor
 @Transactional
 @Slf4j
-
-@Table(name = "users" ,
-        indexes =@Index(columnList = "username", unique = true))
+@Getter
+@Setter
+@Table(name = "users",
+        indexes = @Index(columnList = "username", unique = true))
 public class User {
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @NotNull
+    Date createdAt;
+    Date updatedAt;
+    Date deletedAt;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", nullable = false)
     private Long id;
     @NotNull(message = "Name is required")
     private String name;
-
     @NotNull(message = "Username is required")
-    @UniqueElements
+    @Column(unique = true)
     private String username;
     @NotNull(message = "Password is required")
     private String password;
@@ -38,6 +46,14 @@ public class User {
         this.username = username;
         this.password = password;
         this.roles = roles;
+        this.createdAt = new Date(System.currentTimeMillis());
+    }
+
+    public User(String name, String username, String password) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.createdAt = new Date(System.currentTimeMillis());
     }
 
     @Override
@@ -45,41 +61,28 @@ public class User {
         return "User{" +
                 ", name='" + name + '\'' +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
                 ", roles=" + roles +
                 '}';
     }
 
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonSetter
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public Collection<Role> getRoles() {
-        return roles;
+    @JsonIgnore
+    public Long getId() {
+        return id;
     }
 
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
+    @JsonSetter
+    public void setId(Long id) {
+        this.id = id;
     }
+
 }
