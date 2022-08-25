@@ -7,8 +7,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
+import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,8 +20,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
-@DataJpaTest
 @ExtendWith(MockitoExtension.class)
+@SpringBootTest
 class ProductServiceTest {
 
     @Mock
@@ -69,34 +68,20 @@ class ProductServiceTest {
     }
 
     @Test
-    void findProductByNameId() {
-        Product product = new Product("Long T-shirt", 100, "image", List.of("red", "blue", "green"), "This is a test product");
-        String givenNameId = "long-t-shirt";
-
-        when(productRepository.findProductByNameId(any(String.class))).thenReturn(Optional.of(product));
-
-        Product result = productService.findProductByNameId(givenNameId);
-
-        assertThat(result.getNameId()).isEqualTo(givenNameId);
-        verify(productRepository).findProductByNameId(any(String.class));
-    }
-
-    @Test
     void findAndUpdateProduct() {
 
         float testPrice = 200;
         Product product = new Product("Long T-shirt", 100, "image", List.of("red", "blue", "green"), "This is a test product");
         Product updatedProduct = new Product("Long T-shirt", testPrice, "image", List.of("red", "blue", "green"), "Product updated");
-        String givenNameId = "long-t-shirt";
-
-        when(productRepository.findProductByNameId(product.getNameId())).thenReturn(Optional.of(product));
+        when(productRepository.findProductById(product.getId())).thenReturn(Optional.of(product));
         when(productRepository.save(any(Product.class))).thenReturn(product);
 
-        Product result = productService.findAndUpdateProduct(givenNameId, updatedProduct);
+        Product result = productService.findAndUpdateProduct(product.getId(), updatedProduct);
 
         assertThat(result.getPrice()).isEqualTo(testPrice);
 
-        verify(productRepository).findProductByNameId(any(String.class));
+
+        verify(productRepository).findProductById(any(Long.class));
         verify(productRepository).save(any(Product.class));
     }
 
@@ -108,7 +93,7 @@ class ProductServiceTest {
         when(productRepository.findAll()).thenReturn(productsList);
         productService.deleteAllProducts();
 
-        assertThat(productRepository.findAll().size()).isZero();
+        assertThat(productRepository.findAll().isEmpty());
 
         verify(productRepository).deleteAll();
         verify(productRepository).findAll();
@@ -116,19 +101,19 @@ class ProductServiceTest {
 
     @Test
     void deleteProduct() {
-        Product product = new Product("Long T-shirt", 100, "image", List.of("red", "blue", "green"), "This is a test product");
-        String givenNameId = product.getNameId();
 
-        when(productRepository.findProductByNameId(product.getNameId())).thenReturn(null);
+        Product product = new Product("Long T-shirt", 100, "image", List.of("red", "blue", "green"), "This is a test product");
+        Long id = product.getId();
+
+        when(productRepository.findProductById(product.getId())).thenReturn(null);
 
         productService.deleteProduct(product);
 
-        assertNull(productRepository.findProductByNameId(givenNameId));
+        assertNull(productRepository.findProductById(id));
 
-        verify(productRepository).findProductByNameId(any(String.class));
+        verify(productRepository).findProductById(any(Long.class));
         verify(productRepository).delete(any(Product.class));
     }
-
     @Test
     void findProductByName() {
         Product product1 = new Product("Long T-shirt", 100, "image", List.of("red", "blue", "green"), "This is a test product");

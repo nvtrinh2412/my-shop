@@ -1,23 +1,20 @@
 package com.myshop.products;
 
-import com.myshop.utils.SLUGIFY;
-import org.apache.commons.lang3.StringUtils;
-import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.NoResultException;
-import javax.validation.ConstraintViolationException;
-import java.sql.SQLException;
+import org.springframework.web.server.ResponseStatusException;
+import javax.transaction.Transactional;
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ProductService {
-    static final int DEFAULT_PAGE = 0;
-    static final int DEFAULT_PAGE_SIZE = 20;
     private final ProductRepository productRepository;
 
     public ProductService(ProductRepository productRepository) {
@@ -25,60 +22,67 @@ public class ProductService {
     }
 
     public List<Product> getAllProduct() {
-        return productRepository.findAll();
+        return productRepository.getAllProducts();
     }
 
-    public Product addNewProduct(Product newProduct) throws ConstraintViolationException {
-            return productRepository.save(newProduct);
-
+    public Product addNewProduct(Product product) throws DataAccessException {
+        product.setCreatedAt(new Date(System.currentTimeMillis()));
+        return productRepository.save(product);
     }
 
-    public Product findProductByNameId(String nameId)  {
-        Optional<Product> productData = productRepository.findProductByNameId(nameId);
-        return productData.orElse(null);
-    }
-
-    public Product findAndUpdateProduct(String nameId, Product newProduct) {
-        Product product = findProductByNameId(nameId);
-        if (product != null) {
-            product.updateWith(newProduct);
-            productRepository.save(product);
-            return product;
+    public Product findProductById(Long id) throws ResponseStatusException {
+        Optional<Product> productData = productRepository.findProductById(id);
+        if (productData.isPresent()) {
+            return productData.get();
         } else {
-            return null;
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product with nameID \"" + id + "\" not found");
         }
     }
 
-    public void deleteAllProducts() {
-        productRepository.deleteAll();
+    public Product findAndUpdateProduct(Long id, Product newProduct) {
+        Product product = findProductById(id);
+        product.updateWith(newProduct);
+        productRepository.save(product);
+        return product;
     }
 
-    public void deleteProduct(Product product) {
-        productRepository.delete(product);
-    }
-    public void findAndDeleteProduct(String nameId)  {
-        Product product = findProductByNameId(nameId);
-        if (product != null) {
-            deleteProduct(product);
+    public void deleteAllProducts() {
+        try {
+            List<Product> products = productRepository.getAllProducts();
+            for (Product product : products) {
+                product.setDeletedAt(new Date(System.currentTimeMillis()));
+            }
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot delete all products");
         }
     }
 
     public List<Product> findProductByName(String name) {
-        String formattedSearchName = SLUGIFY.toSlug(name);
-        Optional<List<Product>> products = productRepository.findProductByName(formattedSearchName);
+        Optional<List<Product>> products = productRepository.findProductByName(name);
         return products.orElse(null);
     }
-    public List<Product> getAllProductWithSortAndPagination(Integer page, Integer size,String sortString){
-        String sortCriteria = sortString.split("-")[0];
-        String sortOrder = sortString.split("-")[1];
+
+    public void deleteProduct(Product product) {
+        product.setDeletedAt(new Date(System.currentTimeMillis()));
+    }
+
+    public void findAndDeleteProduct(Long id) {
+        Product product = findProductById(id);
+        deleteProduct(product);
+    }
+    public List<Product> getAllProductWithCreteria(String name,
+                                                   Integer page,
+                                                   Integer size,
+                                                   String key,
+                                                   String order) {
         Sort sort;
-        if (sortOrder.equals("asc")) {
-            sort = Sort.by(sortCriteria).ascending();
+        if (order.equals("desc")) {
+            sort = Sort.by(Sort.Direction.DESC, key);
         } else {
-            sort = Sort.by(sortCriteria).descending();
+            sort = Sort.by(Sort.Direction.ASC, key);
         }
-        Pageable pageable =  PageRequest.of(page, size, sort);
-        return productRepository.findAll(pageable).getContent();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return productRepository.findByNameContaining(name, pageable);
     }
 
 }
