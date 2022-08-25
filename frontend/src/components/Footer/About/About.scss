@@ -1,0 +1,70 @@
+@import "../../../common/mixins.scss";
+
+.about {
+  &__container {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    padding: 48px 0px;
+    border-bottom: 1px solid #888;
+  }
+  &__brand {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: fit-content;
+    &--img {
+      @include logo_icon;
+      &:hover {
+        @include zoom_animation;
+      }
+    }
+    &--name {
+      padding: 0 12px;
+      align-self: center;
+      font-weight: 700;
+    }
+  }
+
+  &__information {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    &-item {
+      display: block;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 0 0 16px;
+      &:hover {
+        color: #888;
+      }
+    }
+    &-shopping {
+    }
+    & &-other {
+    }
+  }
+  &__more {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    height: fit-content;
+    align-items: center;
+    &-icon {
+      display: inline-block;
+      height: 24px;
+      width: 24px;
+    }
+    &-language {
+      padding: 3px 25px;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      margin-left: 15px;
+      &--icon {
+        @include logo_icon;
+        height: 24px;
+        width: 24px;
+      }
+    }
+  }
+}

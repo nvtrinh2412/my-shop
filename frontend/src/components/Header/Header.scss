@@ -1,0 +1,106 @@
+@import "../../common/mixins.scss";
+
+.active {
+  color: white !important;
+}
+.header {
+  padding: 0 24px;
+  height: 74px;
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 34px;
+  width: calc(100% / 3);
+  &__logo {
+    &--img {
+      height: 32px;
+      width: 32px;
+      @include logo_icon;
+    }
+    &:hover{
+      @include zoom_animation;
+    }
+  }
+  &__links {
+    margin-left: 24px;
+    &--item {
+      line-height: 1.5rem;
+      color: #888;
+      margin-left: 16px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        color: white;
+      }
+    }
+  }
+}
+
+.search {
+  width: calc(100% / 3);
+  border: 0.1px solid #e5e7eb5c;
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__input {
+    font-size: 100%;
+    border: none;
+    color: #888;
+    transition: all 0.3s ease-in-out;
+    height: 40px;
+    width: 270px;
+    padding: 8px 40px 8px 12px;
+    &:focus {
+      outline: none;
+      color: white;
+    }
+  }
+
+  &__icon {
+    color: white;
+    font-size: 16px;
+    margin-right: 12px;
+  }
+}
+
+.checkout {
+  width: calc(100% / 3);
+  display: flex;
+  justify-content: flex-end;
+  &__container {
+    width: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 16px;
+  }
+  &__icon {
+    height: 22px;
+    width: 24px;
+    color: white;
+    &:hover {
+      @include zoom_animation;
+    }
+  }
+
+  &__avatar {
+    &--img {
+      @include logo_icon;
+      border: white solid 0.2px;
+      &:hover {
+        @include zoom_animation;
+      }
+    }
+  }
+}

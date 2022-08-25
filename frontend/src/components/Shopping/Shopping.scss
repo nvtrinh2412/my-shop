@@ -1,0 +1,25 @@
+.shopping {
+  display: flex;
+  justify-content: center;
+  &__container {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-gap: 40px;
+    padding: 24px;
+  }
+
+  &__products {
+    display: flex;
+    justify-content: center;
+    padding: 0 30px 50px;
+
+  }
+
+  &__criteria {
+    &--left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+  }
+}
