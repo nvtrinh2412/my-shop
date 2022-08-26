@@ -1,0 +1,55 @@
+.loading {
+  &__container {
+    position: relative;
+    min-width: 256px;
+    min-height: 256px;
+    background-image: linear-gradient(
+    90deg,
+    rgb(0, 0, 0) 0%,
+    rgb(70, 70, 70) 25%,
+    rgb(153, 153, 153) 51%,
+    rgb(0, 0, 0) 100%
+  ) !important;
+  background-size: 300% 300%;
+  animation: AnimateBG 2s ease infinite;
+  }
+
+  &__image {
+    width: 256px;
+    height: 256px;
+    background-color: #43434375;
+    opacity: 0.9;
+    transition: transform 0.5s;
+  }
+
+  &__info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+  }
+}
+
+.loading-animation {
+  background-image: linear-gradient(
+    90deg,
+    rgb(0, 0, 0) 0%,
+    rgb(70, 70, 70) 25%,
+    rgb(153, 153, 153) 51%,
+    rgb(0, 0, 0) 100%
+  ) !important;
+  background-size: 300% 300%;
+  animation: AnimateBG 2s ease infinite;
+}
+
+@keyframes AnimateBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

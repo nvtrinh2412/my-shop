@@ -1,14 +1,14 @@
-@import "../../common/mixins.scss";
+@import ".../../../../../assets/common/mixins.scss";
 
 .active {
   color: white !important;
 }
 .header {
-  padding: 0 24px;
-  height: 74px;
   display: flex;
   flex-grow: 1;
   justify-content: space-between;
+  height: 74px;
+  padding: 0 24px;
   align-items: center;
   font-size: 16px;
 }
@@ -31,15 +31,16 @@
   }
   &__links {
     margin-left: 24px;
-    &--item {
-      line-height: 1.5rem;
+    &-item {
       color: #888;
+      line-height: 1.5rem;
       margin-left: 16px;
       text-decoration: none;
       font-weight: 500;
       transition: all 0.3s ease-in-out;
       &:hover {
         color: white;
+        cursor: pointer;
       }
     }
   }
@@ -54,13 +55,14 @@
     justify-content: space-between;
   }
   &__input {
-    font-size: 100%;
-    border: none;
-    color: #888;
-    transition: all 0.3s ease-in-out;
     height: 40px;
     width: 270px;
     padding: 8px 40px 8px 12px;
+    color: #888;
+    font-size: 100%;
+    border: none;
+    transition: all 0.3s ease-in-out;
+
     &:focus {
       outline: none;
       color: white;

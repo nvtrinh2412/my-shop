@@ -1,5 +1,6 @@
 .product {
   background-color: transparent;
+
   &__container {
     position: relative;
     min-width: 256px;
@@ -22,7 +23,7 @@
     left: 0;
     background-color: transparent;
 
-    &--name {
+    &-name {
       font-size: 18px;
       font-weight: 700;
       line-height: 1.5rem;
@@ -30,7 +31,7 @@
       padding: 16px 24px;
     }
 
-    &--price {
+    &-price {
       font-size: 14px;
       font-weight: 600;
       line-height: 1.5rem;
@@ -47,8 +48,32 @@
   .product__image {
     transform: scale(1.1);
   }
-  .product__info--name,
-  .product__info--price {
+  .product__info-name,
+  .product__info-price {
     background-color: #7928c1;
+  }
+}
+
+.loading {
+  background-image: linear-gradient(
+    90deg,
+    rgb(0, 0, 0) 0%,
+    rgb(70, 70, 70) 25%,
+    rgb(153, 153, 153) 51%,
+    rgb(0, 0, 0) 100%
+  ) !important;
+  background-size: 300% 300%;
+  animation: AnimateBG 2s ease infinite;
+}
+
+@keyframes AnimateBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }

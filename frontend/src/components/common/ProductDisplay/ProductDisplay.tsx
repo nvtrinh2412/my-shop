@@ -1,13 +1,12 @@
-import React from "react";
-import Criteria from "./Criteria/Criteria";
-import ProductList from "./ProductList/ProductList";
-import "./Shopping.scss";
-function Shopping() {
+import React from 'react';
+import Criteria from './Criteria/Criteria';
+import ProductList from './ProductList/ProductList';
+import './ProductDisplay.scss';
+function ProductDisplay() {
   return (
     <>
       <div className="shopping">
         <div className="shopping__container">
-
           <div className="shopping__criteria--left">
             <Criteria />
             <Criteria />
@@ -26,4 +25,4 @@ function Shopping() {
   );
 }
 
-export default Shopping;
+export default ProductDisplay;

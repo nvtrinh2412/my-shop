@@ -1,14 +1,15 @@
 import React from 'react';
-import './App.css';
-import Footer from './components/Footer/Footer';
-import Header from './components/Header/Header';
-import Shopping from './components/Shopping/Shopping';
+import './App.scss';
+import Footer from './components/common/Footer/Footer';
+import Header from './components/common/Header/Header';
+import ProductDisplay from './components/common/ProductDisplay/ProductDisplay';
+
 function App() {
   return (
     <div className="App">
-    <Header/>
-    <Shopping/>
-    <Footer/>
+      <Header />
+      <ProductDisplay />
+      <Footer />
     </div>
   );
 }

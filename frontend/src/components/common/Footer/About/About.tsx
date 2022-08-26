@@ -1,8 +1,8 @@
-import React from "react";
-import "./About.scss";
-import { Link } from "react-router-dom";
-import {BsGithub} from "react-icons/bs";
-function About() {
+import React from 'react';
+import './About.scss';
+import { Link } from 'react-router-dom';
+import { BsGithub } from 'react-icons/bs';
+function About(): JSX.Element {
   return (
     <>
       <div className="about">
@@ -13,7 +13,7 @@ function About() {
               src="https://image.shutterstock.com/image-vector/triangle-icon-vector-on-white-260nw-1714935088.jpg"
               alt="Vercel Logo"
             />
-            <span className="about__brand--name" >ACME</span>
+            <span className="about__brand--name">ACME</span>
           </div>
 
           <div className="about__information">
@@ -40,10 +40,14 @@ function About() {
           </div>
 
           <div className="about__more">
-            <BsGithub className="about__more-icon"/>
-           <div className="about__more-language">
-            <img  className="about__more-language--icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/United-states_flag_icon_round.svg/2048px-United-states_flag_icon_round.svg.png" alt="US-UK" />
-           </div>
+            <BsGithub className="about__more-icon" />
+            <div className="about__more-language">
+              <img
+                className="about__more-language--icon"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/United-states_flag_icon_round.svg/2048px-United-states_flag_icon_round.svg.png"
+                alt="US-UK"
+              />
+            </div>
           </div>
         </div>
       </div>

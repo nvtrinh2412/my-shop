@@ -1,8 +1,10 @@
-import { FaSearch } from "react-icons/fa";
-import { FiShoppingBag } from "react-icons/fi";
-import { NavLink } from "react-router-dom";
-import "./Header.scss";
+import React from 'react';
+import { FaSearch } from 'react-icons/fa';
+import { FiShoppingBag } from 'react-icons/fi';
+import { BrowserRouter as Router, Routes, Route, Link, NavLink } from 'react-router-dom';
+import './Header.scss';
 function Header() {
+
   return (
     <>
       <div className="header">
@@ -15,13 +17,13 @@ function Header() {
             />
           </div>
           <div className="navigation__links">
-            <NavLink className="navigation__links--item" to="/">
+            <NavLink className="navigation__links-item"  end to ="/search">
               All
             </NavLink>
-            <NavLink className="navigation__links--item" to="/clothes">
+            <NavLink className="navigation__links-item" end to="/search/clothes">
               New Arrival
             </NavLink>
-            <NavLink className="navigation__links--item" to="/featured">
+            <NavLink className="navigation__links-item" end to="/search/featured">
               Featured
             </NavLink>
           </div>
@@ -29,11 +31,7 @@ function Header() {
 
         <div className="search">
           <div className="search__container">
-            <input
-              className="search__input"
-              type="text"
-              placeholder="Search for products..."
-            />
+            <input className="search__input" type="text" placeholder="Search for products..." />
             <FaSearch className="search__icon" />
           </div>
         </div>
