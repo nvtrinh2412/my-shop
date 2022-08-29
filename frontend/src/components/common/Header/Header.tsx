@@ -4,7 +4,6 @@ import { FiShoppingBag } from 'react-icons/fi';
 import { BrowserRouter as Router, Routes, Route, Link, NavLink } from 'react-router-dom';
 import './Header.scss';
 function Header() {
-
   return (
     <>
       <div className="header">
@@ -17,7 +16,7 @@ function Header() {
             />
           </div>
           <div className="navigation__links">
-            <NavLink className="navigation__links-item"  end to ="/search">
+            <NavLink className="navigation__links-item" end to="/search">
               All
             </NavLink>
             <NavLink className="navigation__links-item" end to="/search/clothes">

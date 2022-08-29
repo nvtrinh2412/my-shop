@@ -1,4 +1,4 @@
-@import ".../../../../../assets/common/mixins.scss";
+@import '../../../assets/scss/mixins.scss';
 
 .active {
   color: white !important;
@@ -25,7 +25,7 @@
       width: 32px;
       @include logo_icon;
     }
-    &:hover{
+    &:hover {
       @include zoom_animation;
     }
   }

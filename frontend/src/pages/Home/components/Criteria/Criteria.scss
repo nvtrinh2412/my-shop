@@ -10,11 +10,22 @@
   &__criteria {
   }
   &__criterion {
+    display: block;
     color: rgb(102, 102, 102);
     line-height: 36px;
     font-size: 14px;
+    text-decoration: none;
     &:hover {
-      color: white;
+      color: white !important;
+      cursor: pointer;
     }
   }
+}
+
+.active {
+  text-decoration: underline solid 1px;
+  color: rgb(102, 102, 102) !important;
+}
+.removed_underline {
+  text-decoration: none !important;
 }

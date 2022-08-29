@@ -4,17 +4,20 @@ module.exports = {
         es2015: true
     },
     extends: [
-        // 'plugin:react/recommended',
+        'plugin:react/recommended',
         'standard-with-typescript',
         "prettier",
-        "eslint:recommended"
+        "eslint:recommended",
     ],
     overrides: [
     ],
     parserOptions: {
-        ecmaVersion: 'latest',
+        ecmaFeatures: {
+            jsx: true
+        },
+        ecmaVersion: 2018,
         sourceType: 'module',
-        project: "./tsconfig.json"
+        project: './tsconfig.json'
     },
     plugins: [
         'react'
