@@ -12,19 +12,15 @@ public class ProductRepositoryImpl {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Optional<List<Product>> findProductByName(String name) {
-        String query = "SELECT * FROM products WHERE name LIKE :name";
+    public List<Product> findByCreatedAtYear(int currentYear) {
+        String query = "SELECT * FROM products WHERE extract(year from created_at) = :currentYear AND deleted_at IS NULL ";
         Query nativeQuery = entityManager.createNativeQuery(query, Product.class);
-        nativeQuery.setParameter("name", "%" + name + "%");
-        List<Product> products = nativeQuery.getResultList();
-        return Optional.ofNullable(products);
-    }
-
-    public List<Product> getAllProducts() {
-        String query = "SELECT * FROM products WHERE deleted_at IS NULL";
-        Query nativeQuery = entityManager.createNativeQuery(query, Product.class);
+        nativeQuery.setParameter("currentYear", currentYear);
         List<Product> products = nativeQuery.getResultList();
         return products;
     }
+
+
+
 
 }

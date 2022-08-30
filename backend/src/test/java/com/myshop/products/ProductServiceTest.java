@@ -1,5 +1,6 @@
 package com.myshop.products;
 
+import com.myshop.categories.CategoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,6 +27,8 @@ class ProductServiceTest {
 
     @Mock
     private ProductRepository productRepository;
+    @Mock
+    private CategoryRepository categoryRepository;
 
     @InjectMocks
     private ProductService productService;
@@ -33,7 +36,7 @@ class ProductServiceTest {
 
     @BeforeEach
     void setUp() {
-        productService = new ProductService(productRepository);
+        productService = new ProductService(productRepository, categoryRepository);
     }
 
     @Test
@@ -122,11 +125,11 @@ class ProductServiceTest {
         productsList.add(product1);
         productsList.add(product2);
         String searchName = "T-shirt";
-        when(productRepository.findProductByName("T-shirt")).thenReturn(Optional.of(productsList));
+        when(productRepository.findProductByNameContainingIgnoreCase("T-shirt")).thenReturn(Optional.of(productsList));
         List<Product> result = productService.findProductByName(searchName);
 
         assertThat(result.size()).isEqualTo(productsList.size());
-        verify(productRepository).findProductByName(any(String.class));
+        verify(productRepository).findProductByNameContainingIgnoreCase(any(String.class));
     }
 
 }

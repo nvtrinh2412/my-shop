@@ -9,9 +9,14 @@ import javax.persistence.*;
 @Entity
 @Setter
 @Getter
+@Table(name = "categories",
+        indexes = {
+                @Index(columnList = "id", unique = true),
+                @Index(columnList = "name")
+        })
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(name = "name", nullable = false)
     private String name;

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.myshop.categories.Category;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
@@ -18,6 +20,7 @@ import java.util.List;
                 @Index(columnList = "id", unique = true),
                 @Index(columnList = "name")
         })
+@Where(clause = "deleted_at is NULL")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -43,6 +46,8 @@ public class Product {
     @Column(name = "deleted_at")
     private Date deletedAt;
 
+    @Column(name = "designer")
+    private String designer;
 
     public Product() {
 

@@ -8,12 +8,15 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, String> {
 
-    List<Product> getAllProducts();
-
     Optional<Product> findProductById(Long id);
 
-    Optional<List<Product>> findProductByName(String name);
+    Optional<List<Product>> findProductByNameContainingIgnoreCase(String name);
 
     List<Product> findByNameContaining(String name, Pageable pageable);
 
+    List<Product> findByCreatedAtYear(int currentYear);
+
+    List<Product> findByCategoryId(Long categoryId);
+
+    List<Product> findByCategoryIdAndDesignerContainingAndNameIgnoreCaseContaining(Long categoryId, String designer, String name,  Pageable pageable);
 }
