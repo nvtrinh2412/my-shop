@@ -1,5 +1,10 @@
+@import '../../../../assets/scss/variables.scss';
+
 .filter {
   padding-bottom: 40px;
+  display: block;
+  line-height: 36px !important;
+  font-size: $base-font-size !important;
   &__container {
     color: white;
   }
@@ -7,14 +12,15 @@
   &__title {
     line-height: 40px;
   }
-  &__criteria {
-  }
+
   &__criterion {
-    display: block;
-    color: rgb(102, 102, 102);
-    line-height: 36px;
-    font-size: 14px;
     text-decoration: none;
+    color: $gray-dark !important;
+
+    &--active {
+      color: $gray-dark !important;
+      text-decoration: underline solid 1px;
+    }
     &:hover {
       color: white !important;
       cursor: pointer;
@@ -22,10 +28,6 @@
   }
 }
 
-.active {
-  text-decoration: underline solid 1px;
-  color: rgb(102, 102, 102) !important;
-}
 .removed_underline {
   text-decoration: none !important;
 }

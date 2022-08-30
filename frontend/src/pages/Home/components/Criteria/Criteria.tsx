@@ -1,17 +1,19 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
 import slugify from 'slugify';
-import { updateCategory, updateUrl, setUrl, updateDesigner, updateSort } from './filterSlice';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import classNames from 'classnames';
+import { updateCategory, updateUrl, updateDesigner, updateSort } from './filterSlice';
 import './Criteria.scss';
+
 interface IProps {
   title: string;
   criteria: string[];
   type: string;
 }
-function Criteria(props: IProps): JSX.Element {
+const Criteria = (props: IProps) => {
   const { type, title, criteria } = props;
-  const [selectedIdx, setSelectedIdx] = useState<Number>(-1);
+  const [selectedIdx, setSelectedIdx] = useState<number>(-1);
   const dispatch = useDispatch();
   const sortList = [
     {
@@ -50,24 +52,25 @@ function Criteria(props: IProps): JSX.Element {
     dispatch(updateUrl());
   };
   return (
-    <>
-      <div className="filter">
-        <div className="filter__container">
-          <h3 className="filter__title">{title}</h3>
-          <div className="filter__criteria">
-            {criteria.map((criterion: string, idx: number) => {
-              const filterUrl = `/${props.type}/${slugify(criterion, { lower: true, trim: true })}`;
-              return (
-                <NavLink to={filterUrl} className="removed_underline" key={idx} onClick={() => handleClick(idx)}>
-                  <p className={`filter__criterion ${selectedIdx === idx ? 'active' : ''}`}>{criterion}</p>
-                </NavLink>
-              );
-            })}
-          </div>
+    <div className="filter">
+      <div className="filter__container">
+        <h3 className="filter__title">{title}</h3>
+        <div className="filter__criteria">
+          {criteria.map((criterion: string, idx: number) => {
+            const filterUrl = `/${type}/${slugify(criterion, { lower: true, trim: true })}`;
+            const isSelected = selectedIdx === idx ? "--active" : "";
+            // const criterionClassName = classNames('filter__criterion', {active: selectedIdx === idx })
+            const criterionClassName = classNames({ [`filter__criterion${isSelected}`]: true });
+            return (
+              <Link to={filterUrl} className="removed_underline" onClick={() => handleClick(idx)}>
+                <p className={criterionClassName}>{criterion}</p>
+              </Link>
+            );
+          })}
         </div>
       </div>
-    </>
+    </div>
   );
-}
+};
 
 export default Criteria;

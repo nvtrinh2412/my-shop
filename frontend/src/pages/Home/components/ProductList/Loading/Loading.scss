@@ -1,11 +1,14 @@
+@import '../../../../../assets/scss/variables.scss';
+@import '../../../../../assets/scss/mixins.scss';
+
 .loading {
   &-list {
-    display: flex;
-    justify-content: center;
+    @include flex(none, center);
 
     &__container {
       display: grid;
-      grid-template-columns: auto auto auto;
+      grid-template-columns: 1fr 1fr 1fr;
+      box-sizing: border-box;
       grid-gap: 20px;
       margin-bottom: 24px;
     }
@@ -14,13 +17,7 @@
     position: relative;
     min-width: 256px;
     min-height: 256px;
-    background-image: linear-gradient(
-      90deg,
-      rgb(0, 0, 0) 0%,
-      rgb(70, 70, 70) 25%,
-      rgb(153, 153, 153) 51%,
-      rgb(0, 0, 0) 100%
-    ) !important;
+    background-image: $gray-gradient;
     background-size: 300% 300%;
     animation: AnimateBG 2s ease infinite;
   }
@@ -28,27 +25,14 @@
   &__image {
     width: 256px;
     height: 256px;
-    background-color: #43434375;
+    background-color: $gray-background;
     opacity: 0.9;
     transition: transform 0.5s;
-  }
-
-  &__info {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: transparent;
   }
 }
 
 .loading-animation {
-  background-image: linear-gradient(
-    90deg,
-    rgb(0, 0, 0) 0%,
-    rgb(70, 70, 70) 25%,
-    rgb(153, 153, 153) 51%,
-    rgb(0, 0, 0) 100%
-  ) !important;
+  background-image: $gray-gradient;
   background-size: 300% 300%;
   animation: AnimateBG 2s ease infinite;
 }

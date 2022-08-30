@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import Product, { IProduct } from './Product/Product';
+import React, { useState } from 'react';
+import Product, { ProductProps } from './Product/Product';
 import './ProductList.scss';
+
 interface IProps {
-  products: IProduct[];
+  products: ProductProps[];
 }
-function ProductList(props: IProps): JSX.Element {
-  const [products, setProducts] = useState<IProduct[]>(props.products);
+const ProductList:React.FC<IProps> = (props: IProps) =>{
+  const [products, setProducts] = useState<ProductProps[]>(props.products);
   return (
-    <>
       <div className="product-list">
         <div className="product-list__container">
-          {products.map((product: IProduct) => {
+          {products.map((product: ProductProps) => {
             const { id, name, price, imageUrl } = product;
             return (
               <section className="product-list__item" key={product.id}>
@@ -20,7 +20,6 @@ function ProductList(props: IProps): JSX.Element {
           })}
         </div>
       </div>
-    </>
   );
 }
 export default ProductList;

@@ -1,17 +1,16 @@
 import React from 'react';
 import './Product.scss';
 
-export interface IProduct {
+export interface ProductProps {
   id: number;
   name: string;
   price: number;
   imageUrl: string;
 }
 
-function Product(props: IProduct) {
+const  Product = (props: ProductProps) =>  {
   const { name, price, imageUrl } = props;
   return (
-    <>
       <section>
         <div className="product">
           <div className="product__container ">
@@ -23,7 +22,6 @@ function Product(props: IProduct) {
           </div>
         </div>
       </section>
-    </>
   );
 }
 

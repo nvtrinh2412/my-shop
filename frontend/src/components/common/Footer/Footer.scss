@@ -1,7 +1,7 @@
+@import '../../../assets/scss/variables.scss';
 .footer{
-  border-top: 1px solid #888;
+  border-top: 1px solid $gray-primary;
   &__container{
     padding: 0 24px;
-    // margin: 0 186px;
   }
 }

@@ -1,28 +1,21 @@
 @import '../../../assets/scss/mixins.scss';
+@import '../../../assets/scss/variables.scss';
 
-.active {
-  color: white !important;
-}
+
 .header {
-  display: flex;
+  @include flex(center, space-between);
   flex-grow: 1;
-  justify-content: space-between;
   height: 74px;
   padding: 0 24px;
-  align-items: center;
-  font-size: 16px;
+  font-size: $font-size--xl;
 }
 
 .navigation {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  @include flex(center, start);
   height: 34px;
   width: calc(100% / 3);
   &__logo {
-    &--img {
-      height: 32px;
-      width: 32px;
+    &-img {
       @include logo_icon;
     }
     &:hover {
@@ -32,12 +25,16 @@
   &__links {
     margin-left: 24px;
     &-item {
-      color: #888;
-      line-height: 1.5rem;
       margin-left: 16px;
+      color: $gray-primary;
+      line-height: 1.5rem;
       text-decoration: none;
       font-weight: 500;
       transition: all 0.3s ease-in-out;
+      &--active {
+        text-decoration: none !important;
+        color: white !important;
+      }
       &:hover {
         color: white;
         cursor: pointer;
@@ -50,15 +47,13 @@
   width: calc(100% / 3);
   border: 0.1px solid #e5e7eb5c;
   &__container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    @include flex(center, space-between);
   }
   &__input {
     height: 40px;
     width: 270px;
     padding: 8px 40px 8px 12px;
-    color: #888;
+    color: $gray-primary;
     font-size: 100%;
     border: none;
     transition: all 0.3s ease-in-out;
@@ -71,20 +66,20 @@
 
   &__icon {
     color: white;
-    font-size: 16px;
+    font-size: $font-size--xl;
     margin-right: 12px;
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 
 .checkout {
   width: calc(100% / 3);
-  display: flex;
-  justify-content: flex-end;
+  @include flex(none, end);
   &__container {
+    @include flex(center, space-between);
     width: 76px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     margin-left: 16px;
   }
   &__icon {
@@ -106,3 +101,4 @@
     }
   }
 }
+

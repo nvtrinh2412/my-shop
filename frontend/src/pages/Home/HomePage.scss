@@ -1,24 +1,24 @@
+@import '../../assets/scss/mixins.scss';
+
 .shopping {
-  display: flex;
-  justify-content: center;
+  @include flex(none, center);
   &__container {
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
     grid-gap: 40px;
-    padding: 24px;
+    margin: 24px 0px;
   }
 
   &__products {
-    display: flex;
-    justify-content: center;
-    padding: 0 30px 50px;
+    @include flex(none, center);
+    margin: 0 30px 50px;
+    min-width: 808px;
   }
 
   &__criteria {
     &--left {
-      display: flex;
+      @include flex(start, none);
       flex-direction: column;
-      align-items: flex-start;
     }
   }
 }

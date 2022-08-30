@@ -1,45 +1,57 @@
 module.exports = {
-    env: {
-        browser: true,
-        es2015: true
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
     },
-    extends: [
-        'plugin:react/recommended',
-        'standard-with-typescript',
-        "prettier",
+    "extends": [
         "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "airbnb",
+        "prettier"
     ],
-    overrides: [
+    "overrides": [
     ],
-    parserOptions: {
-        ecmaFeatures: {
-            jsx: true
-        },
-        ecmaVersion: 2018,
-        sourceType: 'module',
-        project: './tsconfig.json'
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
     },
-    plugins: [
-        'react'
+    "plugins": [
+        "react",
+        "@typescript-eslint",
+        "prettier",
     ],
-    rules: {
-        "@typescript-eslint/explicit-function-return-type": "off",
-        "no-unused-vars": 0,
-        "@typescript-eslint/no-unused-vars": 0,
-        '@typescript-eslint/no-floating-promises': ['warn', { ignoreVoid: true }],
-        "react/prop-types": "off",
-    },
-
-    globals: {
-        React: true,
-        google: true,
-        mount: true,
-        mountWithRouter: true,
-        shallow: true,
-        shallowWithRouter: true,
-        context: true,
-        expect: true,
-        jsdom: true,
-        JSX: true,
-    },
+    "rules": {
+        "no-console": "warn",
+        "import/named": 2,
+        "import/namespace": 2,
+        "import/default": 2,
+        "import/export": 2,
+        "import/extensions": [
+            0,
+            "ignorePackages",
+            {
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
+            }
+        ],
+        "import/no-unresolved": 0,
+        "react/function-component-definition": 0,
+        "react/jsx-filename-extension": [0, { "extensions": [".js", ".jsx"] }],
+        "arrow-body-style": 0,
+        "no-param-reassign": 0,
+        "react/no-unused-prop-types": 1,
+        "react/destructuring-assignment": 0,
+        "@typescript-eslint/no-unused-vars": 1,
+        "no-unused-vars": 1,
+        "no-restricted-syntax": 0
+    }
 }
+

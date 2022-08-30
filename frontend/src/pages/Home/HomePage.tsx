@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import React,{ useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import Criteria from './components/Criteria/Criteria';
-import './HomePage.scss';
-import { rootState } from '../../assets/interface/interface';
-import { IProduct } from './components/ProductList/Product/Product';
-import ProductList from './components/ProductList/ProductList';
+import axios from 'axios';
 import Loading from './components/ProductList/Loading/Loading';
+import { ProductProps } from './components/ProductList/Product/Product';
+import { rootState } from '../../assets/interface/interface';
+import Criteria from './components/Criteria/Criteria';
+import ProductList from './components/ProductList/ProductList';
+import './HomePage.scss';
 
-function HomePage(): JSX.Element {
-  const [products, setProducts] = useState<IProduct[]>([]);
+const HomePage: React.FC = () => {
+  const [products, setProducts] = useState<ProductProps[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [criteria, setCriteria] = useState<string[]>();
@@ -19,11 +19,10 @@ function HomePage(): JSX.Element {
     const fetchData = async () => {
       try {
         setLoading(true);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
         const { data } = await axios.get(dataUrl);
         setProducts(data);
-      } catch (error: any) {
-        setError(error.message);
+      } catch (e:any) {
+        setError(e.message);
       } finally {
         setLoading(false);
       }
@@ -32,7 +31,6 @@ function HomePage(): JSX.Element {
   }, [dataUrl]);
 
   return (
-    <>
       <div className="shopping">
         <div className="shopping__container">
           <div className="shopping__criteria--left">
@@ -50,8 +48,7 @@ function HomePage(): JSX.Element {
           </div>
         </div>
       </div>
-    </>
   );
-}
+};
 
 export default HomePage;

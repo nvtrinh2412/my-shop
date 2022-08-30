@@ -1,6 +1,14 @@
+@import './variables.scss';
+
 @mixin logo_icon {
-  width: 32px;
-  height: 32px;
+  width: $icon-height--large;
+  height: $icon-height--large;
+  border-radius: 50%;
+  object-fit: cover;
+}
+@mixin logo_icon--small {
+  width: $icon-width--small;
+  height: $icon-height--small;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -10,3 +18,10 @@
   transform: scale(1.2);
   overflow: hidden;
 }
+
+@mixin flex($align, $justify) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+}
+

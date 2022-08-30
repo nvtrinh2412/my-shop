@@ -1,16 +1,14 @@
-@import "../../../../assets/scss/mixins.scss";
-
+@import '../../../../assets/scss/mixins.scss';
+@import '../../../../assets/scss/variables.scss';
 .about {
   &__container {
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
     padding: 48px 0px;
-    border-bottom: 1px solid #888;
+    border-bottom: 1px solid $gray-primary;
   }
   &__brand {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
+    @include flex(start, start);
     height: fit-content;
     &--img {
       @include logo_icon;
@@ -31,39 +29,28 @@
     &-item {
       display: block;
       text-decoration: none;
-      font-size: 16px;
+      font-size: $font-size--xl;
       padding: 0 0 16px;
       &:hover {
-        color: #888;
+        color: $gray-primary;
       }
-    }
-    &-shopping {
-    }
-    & &-other {
     }
   }
   &__more {
-    display: flex;
+    @include flex(center, flex-end);
     flex-direction: row;
-    justify-content: flex-end;
     height: fit-content;
-    align-items: center;
     &-icon {
-      display: inline-block;
-      height: 24px;
-      width: 24px;
+      @include logo_icon;
     }
     &-language {
+      @include flex(center, none);
+      margin-left: 15px;
       padding: 3px 25px;
       border: 1px solid #e5e7eb;
       border-radius: 6px;
-      display: flex;
-      align-items: center;
-      margin-left: 15px;
-      &--icon {
-        @include logo_icon;
-        height: 24px;
-        width: 24px;
+      &-icon {
+        @include logo_icon--small;
       }
     }
   }
