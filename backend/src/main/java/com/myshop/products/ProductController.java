@@ -1,9 +1,12 @@
 package com.myshop.products;
 
+import com.myshop.utils.CustomPagable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
@@ -31,21 +34,30 @@ public class ProductController {
     public ResponseEntity<List<Product>> getAllProductByName(@RequestParam String name,
                                                              @RequestParam(defaultValue = DEFAULT_PAGE) Integer page,
                                                              @RequestParam(defaultValue = DEFAULT_SIZE) Integer size,
-                                                             @RequestParam(defaultValue = DEFAULT_SORT) String key,
-                                                             @RequestParam(defaultValue = DEFAULT_ORDER) String order){
+                                                             @RequestParam(defaultValue = DEFAULT_KEY) String key,
+                                                             @RequestParam(defaultValue = DEFAULT_ORDER) String order) {
         List<Product> products = productService.getAllProductWithCriteria(name, page, size, key, order);
         return ResponseEntity.ok(products);
     }
+
     @GetMapping(path = "/new-arrival")
-    public ResponseEntity<List<Product>> getAllProductNewArrival(){
+    public ResponseEntity<List<Product>> getAllProductNewArrival() {
         List<Product> products = productService.getAllProductNewArrival();
         return ResponseEntity.ok(products);
     }
+
     @GetMapping(path = "/filter")
-    public ResponseEntity<List<Product>> getAllProductByCategory(@RequestParam Map<String,String> filerParams){
-        List<Product> products = productService.getAllProductByFilter(filerParams);
+    public ResponseEntity<List<Product>> getAllProductByCategory(@RequestParam Map<String, String> filerParams,
+                                                                 @RequestParam(defaultValue = DEFAULT_PAGE) Integer page,
+                                                                 @RequestParam(defaultValue = DEFAULT_SIZE) Integer size,
+                                                                 @RequestParam(defaultValue = DEFAULT_KEY) String key,
+                                                                 @RequestParam(defaultValue = DEFAULT_ORDER) ORDER order) {
+        Pageable customPagable = new CustomPagable().setup(page, size,key,order.toString());
+        System.out.println("customPagable: " + customPagable);
+        List<Product> products = productService.getAllProductByFilter(filerParams, customPagable);
         return ResponseEntity.ok(products);
     }
+
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody @Valid Product product) {
         Product createdProduct = productService.addNewProduct(product);
@@ -75,7 +87,6 @@ public class ProductController {
         productService.findAndDeleteProduct(id);
         return ResponseEntity.ok("Product deleted successfully");
     }
-
 
 
 }

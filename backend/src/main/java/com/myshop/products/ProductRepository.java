@@ -17,6 +17,7 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     List<Product> findByCreatedAtYear(int currentYear);
 
     List<Product> findByCategoryId(Long categoryId);
+    List<Product> findByDesignerContainingAndNameIgnoreCaseContaining(String designer, String name,  Pageable pageable);
 
-    List<Product> findByCategoryIdAndDesignerContainingAndNameIgnoreCaseContaining(Long categoryId, String designer, String name,  Pageable pageable);
+    List<Product> findByCategoryIdAndDesignerContainingAndNameIgnoreCaseContaining( Long categoryId, String designer, String name,  Pageable pageable);
 }

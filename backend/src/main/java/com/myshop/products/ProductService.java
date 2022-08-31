@@ -97,7 +97,7 @@ public class ProductService {
         return productRepository.findByCreatedAtYear(currentYear);
     }
     public List<Product> getAllProductByCategory(String name) {
-        Optional<Category> category = categoryRepository.findCategoryByName(name);
+        Optional<Category> category = categoryRepository.findCategoryByNameIgnoreCase(name);
         if (category.isPresent()) {
             return productRepository.findByCategoryId(category.get().getId());
         } else {
@@ -105,28 +105,18 @@ public class ProductService {
         }
     }
 
-    public List<Product> getAllProductByFilter(Map<String, String> filerParams) {
-        final int DEFAULT_PAGE = 0;
-        final int DEFAULT_SIZE = 20;
+    public List<Product> getAllProductByFilter(Map<String, String> filerParams,Pageable pageable) {
+
+        System.out.println(filerParams);
         String name = filerParams.get("name") != null ? filerParams.get("name") : "";
         String category = filerParams.get("category") != null ? filerParams.get("category") : "";
         String designer = filerParams.get("designer") != null ? filerParams.get("designer") : "";
-        String key = filerParams.get("key") != null ? filerParams.get("key") : "name";
-        String order = filerParams.get("order") != null ? filerParams.get("order") : "acs";
-        Sort sort;
 
-        if (order.equals("desc")) {
-            sort = Sort.by(Sort.Direction.DESC, key);
-        } else {
-            sort = Sort.by(Sort.Direction.ASC, key);
-        }
-        Pageable pageable = PageRequest.of(DEFAULT_PAGE, DEFAULT_SIZE, sort);
-
-        Optional<Category> categoryData = categoryRepository.findCategoryByName(category);
-        if(categoryData.isPresent()) {
+        Optional<Category> categoryData = categoryRepository.findCategoryByNameIgnoreCase(category);
+        if (categoryData.isPresent()) {
             return productRepository.findByCategoryIdAndDesignerContainingAndNameIgnoreCaseContaining(categoryData.get().getId(), designer,name, pageable);
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category with name \"" + category + "\" not found");
         }
+        return productRepository.findByDesignerContainingAndNameIgnoreCaseContaining(designer,name, pageable);
+
     }
 }
