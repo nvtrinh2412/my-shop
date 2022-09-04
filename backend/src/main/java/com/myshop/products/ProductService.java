@@ -117,5 +117,5 @@ public class ProductService {
         return productRepository.findByDesignerContainingAndNameIgnoreCaseContaining(designer,name, pageable);
 
     }
-
 }
+
