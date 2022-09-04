@@ -4,7 +4,7 @@ import Header from './components/common/Header/Header';
 import ProductDisplay from './pages/Home/HomePage';
 import './App.scss';
 
-function App() {
+const App : React.FC = () => {
   return (
     <div className="App">
       <Header />

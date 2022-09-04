@@ -1,7 +1,7 @@
 import React from 'react';
 import './Loading.scss';
 
-const Loading = () => {
+const Loading: React.FC = () => {
   const boxLoading = Array.from({ length: 12 });
   return (
     <div className="loading-list">

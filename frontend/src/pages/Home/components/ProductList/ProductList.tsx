@@ -5,8 +5,8 @@ import './ProductList.scss';
 interface IProps {
   products: ProductProps[];
 }
-const ProductList:React.FC<IProps> = (props: IProps) =>{
-  const [products, setProducts] = useState<ProductProps[]>(props.products);
+const ProductList: React.FC<IProps> = (props: IProps) => {
+  const { products } = props;
   return (
       <div className="product-list">
         <div className="product-list__container">
@@ -21,5 +21,5 @@ const ProductList:React.FC<IProps> = (props: IProps) =>{
         </div>
       </div>
   );
-}
+};
 export default ProductList;

@@ -1,8 +1,8 @@
 @import '../../../../assets/scss/variables.scss';
 
 .filter {
-  padding-bottom: 40px;
   display: block;
+  padding-bottom: 40px;
   line-height: 36px !important;
   font-size: $base-font-size !important;
   &__container {
@@ -14,13 +14,18 @@
   }
 
   &__criterion {
-    text-decoration: none;
     color: $gray-dark !important;
 
-    &--active {
+
+    &-link{
       color: $gray-dark !important;
-      text-decoration: underline solid 1px;
+      text-decoration: none ;
+      &--active {
+        color: $gray-dark !important ;
+        text-decoration: underline solid 1px !important;
+      }
     }
+
     &:hover {
       color: white !important;
       cursor: pointer;
@@ -28,6 +33,3 @@
   }
 }
 
-.removed_underline {
-  text-decoration: none !important;
-}

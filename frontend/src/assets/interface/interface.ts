@@ -1,7 +1,9 @@
 interface filterState{
+  name: string,
   category: string,
   designer: string,
-  sort: Object,
+  key: string,
+  order: string,
   url: string
 }
 

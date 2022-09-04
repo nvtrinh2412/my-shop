@@ -1,4 +1,5 @@
 @import '../../assets/scss/mixins.scss';
+@import '../../assets/scss/variables.scss';
 
 .shopping {
   @include flex(none, center);
@@ -6,19 +7,24 @@
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
     grid-gap: 40px;
-    margin: 24px 0px;
+    padding: 0px 24px;
   }
 
   &__products {
-    @include flex(none, center);
-    margin: 0 30px 50px;
+    @include flex(none, flex-start);
+    flex-direction: column;
     min-width: 808px;
+    padding: 0 30px 50px 0px;
   }
 
   &__criteria {
     &--left {
-      @include flex(start, none);
+      @include flex(flex-start, none);
       flex-direction: column;
     }
   }
+}
+.result__container {
+  margin: 0 0 48px;
+  font-size: $font-size--xxl;
 }

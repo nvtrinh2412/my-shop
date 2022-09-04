@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import Loading from './components/ProductList/Loading/Loading';
@@ -11,17 +11,15 @@ import './HomePage.scss';
 const HomePage: React.FC = () => {
   const [products, setProducts] = useState<ProductProps[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [criteria, setCriteria] = useState<string[]>();
+  const [error, setError] = useState("");
   const dataUrl = useSelector((state: rootState) => state.filter.url);
   useEffect(() => {
-    setError(null);
     const fetchData = async () => {
       try {
         setLoading(true);
         const { data } = await axios.get(dataUrl);
         setProducts(data);
-      } catch (e:any) {
+      } catch (e: any) {
         setError(e.message);
       } finally {
         setLoading(false);
@@ -31,14 +29,17 @@ const HomePage: React.FC = () => {
   }, [dataUrl]);
 
   return (
+    <div className="home-page">
       <div className="shopping">
         <div className="shopping__container">
           <div className="shopping__criteria--left">
             <Criteria type="categories" title="All Categories" criteria={['New Arrivals', 'Featured']} />
             <Criteria type="designers" title="All Designers" criteria={['ACME', 'Next.js']} />
           </div>
-
-          <div className="shopping__products">{loading ? <Loading /> : <ProductList products={products} />}</div>
+          <div className="shopping__products">
+            <div className="result__container">{loading ? 'Loading ...' : `Showing ${products.length} results`}</div>
+            {loading ? <Loading /> : <ProductList products={products} />}
+          </div>
           <div className="shopping__criteria--right">
             <Criteria
               type="sort"
@@ -48,6 +49,7 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </div>
+    </div>
   );
 };
 
