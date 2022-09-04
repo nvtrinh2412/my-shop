@@ -16,10 +16,9 @@
   &__criterion {
     color: $gray-dark !important;
 
-
-    &-link{
+    &-link {
       color: $gray-dark !important;
-      text-decoration: none ;
+      text-decoration: none;
       &--active {
         color: $gray-dark !important ;
         text-decoration: underline solid 1px !important;
@@ -32,4 +31,3 @@
     }
   }
 }
-

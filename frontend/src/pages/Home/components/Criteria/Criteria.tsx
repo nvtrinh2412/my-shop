@@ -11,7 +11,7 @@ interface IProps {
   criteria: string[];
   type: string;
 }
-const Criteria:React.FC<IProps> = (props: IProps) => {
+const Criteria: React.FC<IProps> = (props: IProps) => {
   const { type, title, criteria } = props;
   const dispatch = useDispatch();
   const sortList = [
