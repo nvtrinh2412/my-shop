@@ -131,5 +131,5 @@ class ProductServiceTest {
         assertThat(result.size()).isEqualTo(productsList.size());
         verify(productRepository).findProductByNameContainingIgnoreCase(any(String.class));
     }
-
 }
+
