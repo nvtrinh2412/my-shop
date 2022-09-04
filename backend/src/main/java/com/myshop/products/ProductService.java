@@ -106,8 +106,6 @@ public class ProductService {
     }
 
     public List<Product> getAllProductByFilter(Map<String, String> filerParams,Pageable pageable) {
-
-        System.out.println(filerParams);
         String name = filerParams.get("name") != null ? filerParams.get("name") : "";
         String category = filerParams.get("category") != null ? filerParams.get("category") : "";
         String designer = filerParams.get("designer") != null ? filerParams.get("designer") : "";
@@ -119,4 +117,5 @@ public class ProductService {
         return productRepository.findByDesignerContainingAndNameIgnoreCaseContaining(designer,name, pageable);
 
     }
+
 }

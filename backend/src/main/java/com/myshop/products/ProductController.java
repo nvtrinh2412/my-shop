@@ -53,7 +53,6 @@ public class ProductController {
                                                                  @RequestParam(defaultValue = DEFAULT_KEY) String key,
                                                                  @RequestParam(defaultValue = DEFAULT_ORDER) ORDER order) {
         Pageable customPagable = new CustomPagable().setup(page, size,key,order.toString());
-        System.out.println("customPagable: " + customPagable);
         List<Product> products = productService.getAllProductByFilter(filerParams, customPagable);
         return ResponseEntity.ok(products);
     }
