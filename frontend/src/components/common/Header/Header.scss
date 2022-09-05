@@ -26,7 +26,7 @@
     &__links {
       margin-left: 24px;
       line-height: 1.5rem;
-      font-weight: 500;
+      font-weight: $font-weight--base;
       &-item {
         margin-left: 16px;
         color: $gray-primary;
@@ -75,19 +75,36 @@
   }
 
   &-checkout {
-    width: calc(100% / 3);
+    position: relative;
     @include flex(none, flex-end);
+    width: calc(100% / 3);
     &__container {
       @include flex(center, space-between);
       width: 76px;
       margin-left: 16px;
     }
-    &__icon {
-      height: 22px;
-      width: 24px;
-      color: white;
-      &:hover {
-        @include zoom_animation;
+    &__cart {
+      &-container {
+        display: flex;
+        flex-direction: column;
+      }
+      &-icon {
+        position: relative;
+        height: 22px;
+        width: 24px;
+        color: white;
+        &:hover {
+          @include zoom_animation;
+        }
+      }
+
+      &-detail {
+        margin-top: 60px;
+
+        bottom: -160px;
+        right: 0;
+        margin-top: 20px;
+        z-index: 1;
       }
     }
 

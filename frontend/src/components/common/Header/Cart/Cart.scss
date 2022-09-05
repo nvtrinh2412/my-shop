@@ -1,0 +1,9 @@
+.cart {
+  background-color: white;
+
+  &__container {
+    background-color: white !important;
+    width: 500px;
+    height: 500px;
+  }
+}

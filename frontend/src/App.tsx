@@ -1,14 +1,16 @@
 import React from 'react';
 import Footer from './components/common/Footer/Footer';
 import Header from './components/common/Header/Header';
-import ProductDisplay from './pages/Home/HomePage';
+import HomePage from './pages/Home/HomePage';
 import './App.scss';
+import ProductDetail from './pages/ProductDetail/ProductDetail';
 
 const App : React.FC = () => {
   return (
     <div className="App">
       <Header />
-      <ProductDisplay />
+      {/* <HomePage /> */}
+      <ProductDetail/>
       <Footer />
     </div>
   );

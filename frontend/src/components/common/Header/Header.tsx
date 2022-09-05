@@ -6,6 +6,7 @@ import { FiShoppingBag } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom';
 import { updateName, updateUrl, resetAll } from '../../../pages/Home/components/Criteria/filterSlice';
 import './Header.scss';
+import Cart from './Cart/Cart';
 
 const Header: React.FC = () => {
   const navLinks = [
@@ -46,7 +47,7 @@ const Header: React.FC = () => {
               return (
                 <NavLink
                   className={({ isActive }) =>
-                    classNames('header-navigation__links-item', {"header-navigation__links-item--active": isActive})
+                    classNames('header-navigation__links-item', { 'header-navigation__links-item--active': isActive })
                   }
                   key={title}
                   to={slug}
@@ -78,11 +79,14 @@ const Header: React.FC = () => {
 
         <div className="header-checkout">
           <div className="header-checkout__container">
-            <FiShoppingBag className="header-checkout__icon" />
+            <div className="header-checkout__cart-container">
+              <FiShoppingBag className="header-checkout__cart-icon" />
+            </div>
             <div className="header-checkout__avatar">
               <img className="header-checkout__avatar-img" src="/images/gradient-avatar.jpg" alt="Vercel Logo" />
             </div>
           </div>
+          <div className="header-checkout__cart-detail">{/* <Cart /> */}</div>
         </div>
       </div>
     </div>

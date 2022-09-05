@@ -1,6 +1,11 @@
 $base-font-size: 14px;
 $font-size--xl: 16px;
 $font-size--xxl: 18px;
+$font-size--xxxl: 32px;
+
+$font-weight--bold: 700;
+$font-weight--semibold: 600;
+$font-weight--base: 500;
 
 $gray-primary: #888;
 $gray-secondary: #999999;
@@ -13,6 +18,13 @@ $gray-gradient: linear-gradient(
   rgb(153, 153, 153) 51%,
   rgb(0, 0, 0) 100%
 ) !important;
+
+$purple-primary: #7928c1;
+$violet: #7928ca;
+$violet-dark: #4c2889;
+$blue-primary: rgb(0, 206, 209);
+
+$orange-primary: rgb(255, 160, 122);
 
 $icon-height--large: 32px;
 $icon-width--large: 32px;
