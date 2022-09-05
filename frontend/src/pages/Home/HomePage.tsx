@@ -11,7 +11,7 @@ import './HomePage.scss';
 const HomePage: React.FC = () => {
   const [products, setProducts] = useState<ProductProps[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const dataUrl = useSelector((state: rootState) => state.filter.url);
   useEffect(() => {
     const fetchData = async () => {
