@@ -1,0 +1,28 @@
+$base-font-size: 14px;
+$font-size--xl: 16px;
+$font-size--xxl: 18px;
+
+$gray-primary: #888;
+$gray-secondary: #999999;
+$gray-dark: rgb(102, 102, 102);
+$gray-light: #e5e7eb;
+$gray-background: #43434375;
+$gray-gradient: linear-gradient(
+  90deg,
+  rgb(0, 0, 0) 0%,
+  rgb(70, 70, 70) 25%,
+  rgb(153, 153, 153) 51%,
+  rgb(0, 0, 0) 100%
+) !important;
+
+$icon-height--large: 32px;
+$icon-width--large: 32px;
+$icon-height--small: 24px;
+$icon-width--small: 24px;
+
+$medium-key-line: 1px solid;
+$thin-key-line: 0.2px solid;
+
+$min-width-container--small: 256px;
+$min-heigh-container--small: 256px;
+$min-width-container--extra-large: 808px;

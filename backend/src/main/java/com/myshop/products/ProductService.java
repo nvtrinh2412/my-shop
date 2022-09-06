@@ -1,5 +1,7 @@
 package com.myshop.products;
 
+import com.myshop.categories.Category;
+import com.myshop.categories.CategoryRepository;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -9,20 +11,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import javax.transaction.Transactional;
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
 @Transactional
 public class ProductService {
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
 
-    public ProductService(ProductRepository productRepository) {
+
+    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     public List<Product> getAllProduct() {
-        return productRepository.getAllProducts();
+        return productRepository.findAll();
     }
 
     public Product addNewProduct(Product product) throws DataAccessException {
@@ -48,7 +55,7 @@ public class ProductService {
 
     public void deleteAllProducts() {
         try {
-            List<Product> products = productRepository.getAllProducts();
+            List<Product> products = productRepository.findAll();
             for (Product product : products) {
                 product.setDeletedAt(new Date(System.currentTimeMillis()));
             }
@@ -58,7 +65,7 @@ public class ProductService {
     }
 
     public List<Product> findProductByName(String name) {
-        Optional<List<Product>> products = productRepository.findProductByName(name);
+        Optional<List<Product>> products = productRepository.findProductByNameContainingIgnoreCase(name);
         return products.orElse(null);
     }
 
@@ -70,7 +77,7 @@ public class ProductService {
         Product product = findProductById(id);
         deleteProduct(product);
     }
-    public List<Product> getAllProductWithCreteria(String name,
+    public List<Product> getAllProductWithCriteria(String name,
                                                    Integer page,
                                                    Integer size,
                                                    String key,
@@ -85,4 +92,30 @@ public class ProductService {
         return productRepository.findByNameContaining(name, pageable);
     }
 
+    public List<Product> getAllProductNewArrival() {
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        return productRepository.findByCreatedAtYear(currentYear);
+    }
+    public List<Product> getAllProductByCategory(String name) {
+        Optional<Category> category = categoryRepository.findCategoryByNameIgnoreCase(name);
+        if (category.isPresent()) {
+            return productRepository.findByCategoryId(category.get().getId());
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category with name \"" + name + "\" not found");
+        }
+    }
+
+    public List<Product> getAllProductByFilter(Map<String, String> filerParams,Pageable pageable) {
+        String name = filerParams.get("name") != null ? filerParams.get("name") : "";
+        String category = filerParams.get("category") != null ? filerParams.get("category") : "";
+        String designer = filerParams.get("designer") != null ? filerParams.get("designer") : "";
+
+        Optional<Category> categoryData = categoryRepository.findCategoryByNameIgnoreCase(category);
+        if (categoryData.isPresent()) {
+            return productRepository.findByCategoryIdAndDesignerContainingAndNameIgnoreCaseContaining(categoryData.get().getId(), designer,name, pageable);
+        }
+        return productRepository.findByDesignerContainingAndNameIgnoreCaseContaining(designer,name, pageable);
+
+    }
 }
+

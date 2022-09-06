@@ -1,0 +1,58 @@
+@import '../../../../../assets/scss/variables.scss';
+@import '../../../../../assets/scss/mixins.scss';
+
+.product {
+  background-color: transparent;
+
+  &__container {
+    position: relative;
+    min-width: $min-width-container--small;
+    min-height: $min-heigh-container--small;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  &__image {
+    width: 256px;
+    height: 256px;
+    object-fit: cover;
+    background-color: $gray-background;
+    opacity: 0.9;
+    transition: transform 0.5s;
+  }
+
+  &__info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+
+    &-name {
+      padding: 16px 24px;
+      background-color: black;
+      font-size: $font-size--xxl;
+      font-weight: 700;
+      line-height: 1.5rem;
+    }
+
+    &-price {
+      display: inline-block;
+      padding: 0.5rem 1.5rem 1rem;
+      background-color: black;
+      font-size: $base-font-size;
+      font-weight: 600;
+      line-height: 1.5rem;
+    }
+  }
+}
+
+.product:hover {
+  cursor: pointer;
+  .product__image {
+    transform: scale(1.1);
+  }
+  .product__info-name,
+  .product__info-price {
+    background-color: #7928c1;
+  }
+}

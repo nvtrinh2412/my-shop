@@ -1,0 +1,33 @@
+@import '../../../../assets/scss/variables.scss';
+
+.filter {
+  display: block;
+  padding-bottom: 40px;
+  line-height: 36px;
+  font-size: $base-font-size;
+  &__container {
+    color: white;
+  }
+
+  &__title {
+    line-height: 40px;
+  }
+
+  &__criterion {
+    color: $gray-dark;
+
+    &-link {
+      color: $gray-dark;
+      text-decoration: none;
+      &--active {
+        color: $gray-dark;
+        text-decoration: underline $medium-key-line !important;
+      }
+    }
+
+    &:hover {
+      color: white !important;
+      cursor: pointer;
+    }
+  }
+}

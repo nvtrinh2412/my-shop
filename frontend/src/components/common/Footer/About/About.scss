@@ -1,0 +1,57 @@
+@import '../../../../assets/scss/mixins.scss';
+@import '../../../../assets/scss/variables.scss';
+.about {
+  &__container {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    padding: 48px 0;
+    border-bottom: $medium-key-line $gray-primary;
+  }
+  &__brand {
+    @include flex(flex-start, flex-start);
+    height: fit-content;
+    &--img {
+      @include logo_icon;
+      &:hover {
+        @include zoom_animation;
+      }
+    }
+    &--name {
+      align-self: center;
+      padding: 0 12px;
+      font-weight: 700;
+    }
+  }
+
+  &__information {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    &-item {
+      display: block;
+      padding: 0 0 16px;
+      font-size: $font-size--xl;
+      text-decoration: none;
+      &:hover {
+        color: $gray-primary;
+      }
+    }
+  }
+  &__more {
+    @include flex(center, flex-end);
+    flex-direction: row;
+    height: fit-content;
+    &-icon {
+      @include logo_icon;
+    }
+    &-language {
+      @include flex(center, none);
+      margin-left: 15px;
+      padding: 3px 25px;
+      border: $medium-key-line $gray-light;
+      border-radius: 6px;
+      &-icon {
+        @include logo_icon--small;
+      }
+    }
+  }
+}

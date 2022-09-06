@@ -1,0 +1,50 @@
+@import '../../../../../assets/scss/variables.scss';
+@import '../../../../../assets/scss/mixins.scss';
+
+.loading {
+  &-list {
+    @include flex(none, center);
+
+    &__container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 20px;
+      margin-bottom: 24px;
+      box-sizing: border-box;
+    }
+  }
+  &__container {
+    position: relative;
+    min-width: $min-width-container--small;
+    min-height: $min-heigh-container--small;
+    background-image: $gray-gradient;
+    background-size: 300% 300%;
+    animation: AnimateBG 2s ease infinite;
+  }
+
+  &__image {
+    width: 256px;
+    height: 256px;
+    background-color: $gray-background;
+    opacity: 0.9;
+    transition: transform 0.5s;
+  }
+}
+
+.loading-animation {
+  background-image: $gray-gradient;
+  background-size: 300% 300%;
+  animation: AnimateBG 2s ease infinite;
+}
+
+@keyframes AnimateBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

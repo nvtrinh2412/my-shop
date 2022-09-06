@@ -9,8 +9,6 @@ import java.util.Optional;
 
 @Service
 public class CategoryService {
-    static final int DEFAULT_PAGE = 0;
-    static final int DEFAULT_PAGE_SIZE = 20;
     private final CategoryRepository categoryRepository;
 
     public CategoryService(CategoryRepository categoryRepository) {
@@ -31,7 +29,7 @@ public class CategoryService {
         if (category.isPresent()) {
             return category.get();
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product with nameID \"" + id + "\" not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category with id \"" + id + "\" not found");
         }
     }
 
