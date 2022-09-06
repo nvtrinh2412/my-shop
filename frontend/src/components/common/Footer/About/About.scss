@@ -4,8 +4,8 @@
   &__container {
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
-    padding: 48px 0px;
-    border-bottom: 1px solid $gray-primary;
+    padding: 48px 0;
+    border-bottom: $medium-key-line $gray-primary;
   }
   &__brand {
     @include flex(flex-start, flex-start);
@@ -47,7 +47,7 @@
       @include flex(center, none);
       margin-left: 15px;
       padding: 3px 25px;
-      border: 1px solid #e5e7eb;
+      border: $medium-key-line $gray-light;
       border-radius: 6px;
       &-icon {
         @include logo_icon--small;

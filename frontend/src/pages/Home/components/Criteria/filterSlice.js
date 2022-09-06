@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const DEFAULT_URL = "http://localhost:8080/api/v1/products"
+const DEFAULT_URL = "http://localhost:8080/api/v1"
 const filterSlice = createSlice({
   name: "filter",
   initialState: {
@@ -9,7 +9,7 @@ const filterSlice = createSlice({
     designer: "",
     key: "",
     order: "",
-    url: DEFAULT_URL,
+    url: `${DEFAULT_URL}/products`,
   },
   reducers: {
     updateName: (state, action) => {
@@ -39,7 +39,7 @@ const filterSlice = createSlice({
           searchUrl.append(key, params[key]);
         }
       }
-      state.url = `http://localhost:8080/api/v1/products/filter?${searchUrl.toString()}`
+      state.url = `${DEFAULT_URL}/products/filter?${searchUrl.toString()}`
     },
     resetAll: (state) => {
       state.name = ""
@@ -47,7 +47,7 @@ const filterSlice = createSlice({
       state.designer = ""
       state.key = ""
       state.order = ""
-      state.url = DEFAULT_URL
+      state.url = `${DEFAULT_URL}/products`
     }
   }
 })

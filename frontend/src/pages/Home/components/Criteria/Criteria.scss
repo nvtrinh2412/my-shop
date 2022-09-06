@@ -3,8 +3,8 @@
 .filter {
   display: block;
   padding-bottom: 40px;
-  line-height: 36px !important;
-  font-size: $base-font-size !important;
+  line-height: 36px;
+  font-size: $base-font-size;
   &__container {
     color: white;
   }
@@ -14,14 +14,14 @@
   }
 
   &__criterion {
-    color: $gray-dark !important;
+    color: $gray-dark;
 
     &-link {
-      color: $gray-dark !important;
+      color: $gray-dark;
       text-decoration: none;
       &--active {
-        color: $gray-dark !important ;
-        text-decoration: underline solid 1px !important;
+        color: $gray-dark;
+        text-decoration: underline $medium-key-line !important;
       }
     }
 
