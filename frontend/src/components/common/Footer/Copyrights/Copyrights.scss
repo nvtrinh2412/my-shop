@@ -1,22 +1,22 @@
 @import '../../../../assets/scss/mixins.scss';
 @import '../../../../assets/scss/variables.scss';
-.copyrights{
-  &__container{
-    @include flex(center,none);
-    padding: 24px 0px 40px;
+.copyrights {
+  &__container {
+    @include flex(center, none);
+    padding: 24px 0 40px;
   }
 
-  &__description{
+  &__description {
     flex-grow: 2;
     color: $gray-secondary;
     font-size: $base-font-size;
   }
 
-  &__owner{
-    @include flex(center,flex-end);
+  &__owner {
+    @include flex(center, flex-end);
     flex-direction: row;
 
-    &-image{
+    &-image {
       width: 40%;
     }
   }

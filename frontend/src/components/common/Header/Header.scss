@@ -8,7 +8,7 @@
     @include flex(center, space-between);
     flex-grow: 1;
     height: 74px;
-    padding: 16px 0px;
+    padding: 16px 0;
   }
 
   &-navigation {
@@ -45,7 +45,7 @@
 
   &-search {
     width: calc(100% / 3);
-    border: 0.1px solid #e5e7eb5c;
+    border: $thin-key-line $gray-secondary;
     &__container {
       @include flex(center, space-between);
     }
@@ -111,7 +111,7 @@
     &__avatar {
       &-img {
         @include logo_icon;
-        border: white solid 0.2px;
+        border: $thin-key-line white;
         &:hover {
           @include zoom_animation;
         }

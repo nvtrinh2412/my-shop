@@ -51,7 +51,9 @@ module.exports = {
         "react/destructuring-assignment": 0,
         "@typescript-eslint/no-unused-vars": 1,
         "no-unused-vars": 1,
-        "no-restricted-syntax": 0
+        "no-restricted-syntax": 0,
+        "react/jsx-props-no-spreading": 0,
+
     }
 }
 

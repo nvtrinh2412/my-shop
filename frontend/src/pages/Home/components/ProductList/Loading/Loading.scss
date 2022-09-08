@@ -15,8 +15,8 @@
   }
   &__container {
     position: relative;
-    min-width: 256px;
-    min-height: 256px;
+    min-width: $min-width-container--small;
+    min-height: $min-heigh-container--small;
     background-image: $gray-gradient;
     background-size: 300% 300%;
     animation: AnimateBG 2s ease infinite;

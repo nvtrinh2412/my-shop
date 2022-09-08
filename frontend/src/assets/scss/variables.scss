@@ -10,6 +10,7 @@ $font-weight--base: 500;
 $gray-primary: #888;
 $gray-secondary: #999999;
 $gray-dark: rgb(102, 102, 102);
+$gray-light: #e5e7eb;
 $gray-background: #43434375;
 $gray-gradient: linear-gradient(
   90deg,
@@ -31,3 +32,9 @@ $icon-width--large: 32px;
 $icon-height--small: 24px;
 $icon-width--small: 24px;
 
+$medium-key-line: 1px solid;
+$thin-key-line: 0.2px solid;
+
+$min-width-container--small: 256px;
+$min-heigh-container--small: 256px;
+$min-width-container--extra-large: 808px;

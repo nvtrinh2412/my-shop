@@ -6,8 +6,8 @@
 
   &__container {
     position: relative;
-    min-width: 256px;
-    min-height: 256px;
+    min-width: $min-width-container--small;
+    min-height: $min-heigh-container--small;
     box-sizing: border-box;
     overflow: hidden;
   }
@@ -29,7 +29,7 @@
 
     &-name {
       padding: 16px 24px;
-      background-color: black ;
+      background-color: black;
       font-size: $font-size--xxl;
       font-weight: $font-weight--bold;
       line-height: 1.5rem;
@@ -56,4 +56,3 @@
     background-color: $purple-primary;
   }
 }
-

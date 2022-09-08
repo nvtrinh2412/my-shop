@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import { FaSearch } from 'react-icons/fa';
 import { FiShoppingBag } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom';
+import slugify from 'slugify';
 import { updateName, updateUrl, resetAll } from '../../../pages/Home/components/Criteria/filterSlice';
+import handleInputEvent from '../../../assets/helper/handleInputEvent';
 import './Header.scss';
-import Cart from './Cart/Cart';
 
-const Header: React.FC = () => {
+const Header: React.FC = (): ReactElement => {
   const navLinks = [
     {
       title: 'All',
       slug: '/search/all',
     },
     {
-      title: 'New Arrival',
+      title: 'New Arrivals',
       slug: '/search/new-arrivals',
     },
     {
@@ -26,13 +27,17 @@ const Header: React.FC = () => {
   const [search, setSearch] = useState('');
 
   const dispatch = useDispatch();
-  const handleSearch = () => {
+  const handleSearch = (): void => {
     dispatch(updateName(search));
     dispatch(updateUrl());
   };
-  const handleNavBar = (title: string) => {
-    if (title === 'All') {
+  const handleNavBar = (title: string): void => {
+    if (title === navLinks[0].title) {
       dispatch(resetAll());
+    } else {
+      const selectedCategory = slugify(title, { lower: true });
+      dispatch(updateName(selectedCategory));
+      dispatch(updateUrl());
     }
   };
   return (
@@ -43,10 +48,10 @@ const Header: React.FC = () => {
             <img className="header-navigation__logo-img logo__icon" src="/images/vercel-icon.jpg" alt="Vercel Logo" />
           </div>
           <div className="header-navigation__links">
-            {navLinks.map(({ title, slug }) => {
+            {navLinks.map(({ title, slug }): ReactElement => {
               return (
                 <NavLink
-                  className={({ isActive }) =>
+                  className={({ isActive }): string =>
                     classNames('header-navigation__links-item', { 'header-navigation__links-item--active': isActive })
                   }
                   key={title}
@@ -67,11 +72,7 @@ const Header: React.FC = () => {
               type="text"
               placeholder="Search for products..."
               onChange={(e) => setSearch(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === 'Enter') {
-                  handleSearch();
-                }
-              }}
+              onKeyUp={(e) => handleInputEvent(e, handleSearch)}
             />
             <FaSearch className="header-search__icon" onClick={() => handleSearch()} />
           </div>
