@@ -31,7 +31,8 @@ public class Product {
     @NotNull(message = "Price is required")
     private float price;
     @NotNull(message = "ImageURL is required")
-    private String imageUrl;
+    @ElementCollection
+    private List<String> imageUrl;
     @ElementCollection
     private List<String> color;
     @ElementCollection
@@ -53,7 +54,7 @@ public class Product {
 
     }
 
-    public Product(String name, float price, String imageUrl, List<String> color, String description) {
+    public Product(String name, float price, List<String> imageUrl, List<String> color, String description) {
         this.name = name;
         this.price = price;
         this.imageUrl = imageUrl;
@@ -62,7 +63,7 @@ public class Product {
         this.createdAt = new Date(System.currentTimeMillis());
     }
 
-    public Product(String name, float price, String imageUrl, List<String> color, List<String> size, String description, Category category) {
+    public Product(String name, float price, List<String> imageUrl, List<String> color, List<String> size, String description, Category category) {
         this.name = name;
         this.price = price;
         this.imageUrl = imageUrl;

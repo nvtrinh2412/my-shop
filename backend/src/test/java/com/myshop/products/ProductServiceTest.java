@@ -43,11 +43,11 @@ class ProductServiceTest {
     void canGetAllProduct() {
 
         List<Product> productsList = new ArrayList<>();
-        productsList.add(new Product("Product1", 100, "image", List.of("red", "blue", "green"), "This is a test product"));
-        productsList.add(new Product("Product2", 100, "image", List.of("red", "blue", "green"), "This is a test product"));
-        productsList.add(new Product("Product3", 100, "image", List.of("red", "blue", "green"), "This is a test product"));
-        productsList.add(new Product("Product4", 100, "image", List.of("red", "blue", "green"), "This is a test product"));
-        productsList.add(new Product("Product5", 100, "image", List.of("red", "blue", "green"), "This is a test product"));
+        productsList.add(new Product("Product1", 100, List.of("image"), List.of("red", "blue", "green"), "This is a test product"));
+        productsList.add(new Product("Product2", 100, List.of("image"), List.of("red", "blue", "green"), "This is a test product"));
+        productsList.add(new Product("Product3", 100, List.of("image"), List.of("red", "blue", "green"), "This is a test product"));
+        productsList.add(new Product("Product4", 100, List.of("image"), List.of("red", "blue", "green"), "This is a test product"));
+        productsList.add(new Product("Product5", 100, List.of("image"), List.of("red", "blue", "green"), "This is a test product"));
 
         when(productRepository.findAll()).thenReturn(productsList);
 
@@ -60,7 +60,7 @@ class ProductServiceTest {
 
     @Test
     void addNewProduct() {
-        Product product = new Product("Testing", 100, "image", List.of("red", "blue", "green"), "This is a test product");
+        Product product = new Product("Testing", 100, List.of("image"), List.of("red", "blue", "green"), "This is a test product");
         Product addedProduct = productRepository.save(product);
 
         ArgumentCaptor<Product> argument = ArgumentCaptor.forClass(Product.class);
@@ -74,8 +74,8 @@ class ProductServiceTest {
     void findAndUpdateProduct() {
 
         float testPrice = 200;
-        Product product = new Product("Long T-shirt", 100, "image", List.of("red", "blue", "green"), "This is a test product");
-        Product updatedProduct = new Product("Long T-shirt", testPrice, "image", List.of("red", "blue", "green"), "Product updated");
+        Product product = new Product("Long T-shirt", 100, List.of("image"), List.of("red", "blue", "green"), "This is a test product");
+        Product updatedProduct = new Product("Long T-shirt", testPrice, List.of("image"), List.of("red", "blue", "green"), "Product updated");
         when(productRepository.findProductById(product.getId())).thenReturn(Optional.of(product));
         when(productRepository.save(any(Product.class))).thenReturn(product);
 
@@ -105,7 +105,7 @@ class ProductServiceTest {
     @Test
     void deleteProduct() {
 
-        Product product = new Product("Long T-shirt", 100, "image", List.of("red", "blue", "green"), "This is a test product");
+        Product product = new Product("Long T-shirt", 100, List.of("image"), List.of("red", "blue", "green"), "This is a test product");
         Long id = product.getId();
 
         when(productRepository.findProductById(product.getId())).thenReturn(null);
@@ -119,8 +119,8 @@ class ProductServiceTest {
     }
     @Test
     void findProductByName() {
-        Product product1 = new Product("Long T-shirt", 100, "image", List.of("red", "blue", "green"), "This is a test product");
-        Product product2 = new Product("Short T-shirt", 100, "image", List.of("red", "blue", "green"), "This is a test product");
+        Product product1 = new Product("Long T-shirt", 100, List.of("image"), List.of("red", "blue", "green"), "This is a test product");
+        Product product2 = new Product("Short T-shirt", 100, List.of("image"), List.of("red", "blue", "green"), "This is a test product");
         List<Product> productsList = new ArrayList<>();
         productsList.add(product1);
         productsList.add(product2);
