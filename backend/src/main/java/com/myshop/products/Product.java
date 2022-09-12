@@ -1,7 +1,5 @@
 package com.myshop.products;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import com.myshop.categories.Category;
 import lombok.Getter;
 import lombok.Setter;
@@ -92,16 +90,6 @@ public class Product {
         this.setSize(newProduct.getSize());
         this.setImageUrl(newProduct.getImageUrl());
         this.setUpdatedAt(new Date(System.currentTimeMillis()));
-    }
-
-    @JsonIgnore
-    public Long getId() {
-        return id;
-    }
-
-    @JsonSetter
-    public void setId(Long id) {
-        this.id = id;
     }
 
     @Override
