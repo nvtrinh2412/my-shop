@@ -1,3 +1,5 @@
+import { CartState } from '../components/common/Header/Cart/cartSlice';
+
 interface filterState {
   name: string;
   category: string;
@@ -9,4 +11,5 @@ interface filterState {
 
 export default interface rootState {
   filter: filterState;
+  cart: CartState;
 }

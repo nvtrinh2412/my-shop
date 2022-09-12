@@ -30,3 +30,9 @@
   top: 0;
   left: 0;
 }
+
+@mixin circle($height, $width) {
+  border-radius: 50% !important;
+  height: $height !important;
+  width: $width !important;
+}

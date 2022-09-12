@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 import Product, { ProductProps } from './Product/Product';
 import './ProductList.scss';
 
@@ -11,10 +11,17 @@ const ProductList: React.FC<IProps> = (props: IProps): ReactElement => {
     <div className="product-list">
       <div className="product-list__container">
         {products.map((product: ProductProps): ReactElement => {
-          const { id, name, price, imageUrl } = product;
+          const { id, name, price, imageUrl, description } = product;
           return (
-            <section className="product-list__item" key={product.id}>
-              <Product id={id} name={name} price={price} imageUrl={imageUrl} />
+            <section className="product-list__item" key={id}>
+              <Product
+                id={id}
+                name={name}
+                price={price}
+                imageUrl={imageUrl}
+                description={description}
+                aria-hidden="true"
+              />
             </section>
           );
         })}
@@ -22,4 +29,5 @@ const ProductList: React.FC<IProps> = (props: IProps): ReactElement => {
     </div>
   );
 };
+
 export default ProductList;

@@ -1,32 +1,36 @@
 import React, { useState, ReactElement } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { FaSearch } from 'react-icons/fa';
 import { FiShoppingBag } from 'react-icons/fi';
+import { CgClose } from 'react-icons/cg';
 import { NavLink } from 'react-router-dom';
-import slugify from 'slugify';
-import { updateName, updateUrl, resetAll } from '../../../pages/Home/components/Criteria/filterSlice';
+import { updateName, updateUrl, resetAll, updateCategory } from '../../../pages/Home/components/Criteria/filterSlice';
 import handleInputEvent from '../../../assets/helper/handleInputEvent';
 import './Header.scss';
+import Cart from './Cart/Cart';
+import rootState from '../../../models/rootState';
 
+const navLinks = [
+  {
+    title: 'All',
+    slug: '/search/all',
+  },
+  {
+    title: 'New Arrivals',
+    slug: '/search/new-arrivals',
+  },
+  {
+    title: 'Featured',
+    slug: '/search/featured',
+  },
+];
 const Header: React.FC = (): ReactElement => {
-  const navLinks = [
-    {
-      title: 'All',
-      slug: '/search/all',
-    },
-    {
-      title: 'New Arrivals',
-      slug: '/search/new-arrivals',
-    },
-    {
-      title: 'Featured',
-      slug: '/search/featured',
-    },
-  ];
   const [search, setSearch] = useState('');
-
+  const [openCart, setOpenCart] = useState(false);
   const dispatch = useDispatch();
+  const cartList = useSelector((state: rootState) => state.cart.cartList);
+  const isEmptyCart = cartList.length === 0;
   const handleSearch = (): void => {
     dispatch(updateName(search));
     dispatch(updateUrl());
@@ -35,8 +39,7 @@ const Header: React.FC = (): ReactElement => {
     if (title === navLinks[0].title) {
       dispatch(resetAll());
     } else {
-      const selectedCategory = slugify(title, { lower: true });
-      dispatch(updateName(selectedCategory));
+      dispatch(updateCategory(title));
       dispatch(updateUrl());
     }
   };
@@ -79,15 +82,27 @@ const Header: React.FC = (): ReactElement => {
         </div>
 
         <div className="header-checkout">
-          <div className="header-checkout__container">
+          <div className="header-checkout__close">
+            <div
+              className={classNames('header-checkout__close-tag', { 'header-checkout__close-tag--hidden': !openCart })}
+            >
+              Close
+              <CgClose className="header-checkout__close-tag-icon" onClick={() => setOpenCart(!openCart)} />
+            </div>
+          </div>
+          <div className="header-checkout__container ">
             <div className="header-checkout__cart-container">
-              <FiShoppingBag className="header-checkout__cart-icon" />
+              <FiShoppingBag className="header-checkout__cart-icon" onClick={() => setOpenCart(!openCart)} />
+              {!isEmptyCart && <p className="header-checkout__cart-amount">{cartList.length}</p>}
             </div>
             <div className="header-checkout__avatar">
               <img className="header-checkout__avatar-img" src="/images/gradient-avatar.jpg" alt="Vercel Logo" />
             </div>
           </div>
-          <div className="header-checkout__cart-detail">{/* <Cart /> */}</div>
+
+          <div className={classNames('header__cart-detail', { 'header__cart-detail--hidden overlay': !openCart })}>
+            <Cart />
+          </div>
         </div>
       </div>
     </div>

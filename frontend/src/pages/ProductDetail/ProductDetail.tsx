@@ -1,18 +1,47 @@
 import React, { useState } from 'react';
-import { AiFillStar, AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { AiFillStar } from 'react-icons/ai';
 import classNames from 'classnames';
+import { addToCart } from '../../components/common/Header/Cart/cartSlice';
 import Selection from './Selection/Selection';
+import useProductDetail from '../../hooks/useProductDetail';
+import renderProductPrice from '../../assets/helper/products';
+import { ProductProps } from '../Home/components/ProductList/Product/Product';
 import './ProductDetail.scss';
 
+const DEFAULT_PRODUCT: ProductProps = {
+  id: 0,
+  name: '',
+  price: 0,
+  imageUrl: [],
+  description: '',
+  color: [],
+  size: [],
+};
 const ProductDetail: React.FC = () => {
-  const imageUrl = [
-    'https://demo.vercel.store/_next/image?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0434%2F0285%2F4564%2Fproducts%2FFront-NoModel_ec3be051-d579-4c03-b55b-64449d0b0445.png%3Fv%3D1623255893&w=1200&q=85',
-    'https://demo.vercel.store/_next/image?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0434%2F0285%2F4564%2Fproducts%2FFrontZoom_6302485d-7f7f-4585-b27b-aea85b7d644a.png%3Fv%3D1623255894&w=1200&q=85',
-    'https://demo.vercel.store/_next/image?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0434%2F0285%2F4564%2Fproducts%2FFront_c81c04e9-333a-4a6c-b91a-e898f2a6025b.png%3Fv%3D1623255894&w=1200&q=85',
-  ];
+  const dispatch = useDispatch();
+  const productName = useParams().name || '';
+  const { product } = useProductDetail(productName);
+  const { id, name, price, imageUrl, description, color, size } = product || DEFAULT_PRODUCT;
+  const formattedPrice = renderProductPrice(price);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [selectedSize, setSelectedSize] = useState(0);
+  const [selectedColor, setSelectedColor] = useState(0);
   const handleClick = (idx: number) => {
     setSelectedImage(idx);
+  };
+  const handleAddToCart = (): void => {
+    const selectedItem = {
+      id,
+      name,
+      price,
+      imageUrl: imageUrl[selectedImage],
+      color: color?.at(selectedColor) || '',
+      size: size?.at(selectedSize) || '',
+      quantity: 1,
+    };
+    dispatch(addToCart(selectedItem));
   };
   return (
     <>
@@ -21,17 +50,17 @@ const ProductDetail: React.FC = () => {
           <div className="product-detail__image-container">
             <div className="product-detail__image--main">
               <div className="product-detail__image-tag">
-                <div className="product-detail__image-tag-name">Special Edition T-Shirt</div>
-                <div className="product-detail__image-tag-price">50.00 $</div>
+                <div className="product-detail__image-tag-name">{name}</div>
+                <div className="product-detail__image-tag-price">{formattedPrice}</div>
               </div>
-              <img className="product-detail__img" src={imageUrl[selectedImage]} alt="" />
+              <img className="product-detail__img" src={imageUrl?.at(selectedImage)} alt="" />
             </div>
 
             <div className="product-detail__image--sub">
-              {imageUrl.map((item, idx) => {
-                const isSelected = idx === selectedImage;
+              {imageUrl?.map((item: string, idx: number) => {
+                const selectedIdx = idx === selectedImage;
                 const itemClassName = classNames('product-detail__image--sub-item', {
-                  'product-detail__image--sub-item--active': isSelected,
+                  'product-detail__image--sub-item--active': selectedIdx,
                 });
                 return (
                   <div className={itemClassName} onClick={() => handleClick(idx)} aria-hidden="true">
@@ -42,15 +71,10 @@ const ProductDetail: React.FC = () => {
             </div>
           </div>
           <div className="product-detail__info">
-            <Selection type="size" title="Size" option={['S', 'M', 'L', 'XL']} />
-            <Selection type="color" title="Color" option={['black', 'gray', 'blue', 'orange']} />
+            <Selection type="size" option={size} selectedIdx={selectedSize} setSelectedIdx={setSelectedSize} />
+            <Selection type="color" option={color} selectedIdx={selectedColor} setSelectedIdx={setSelectedColor} />
 
-            <p className="product-detail__info-description">
-              Show off your love for Next.js and Vercel with this unique, limited edition t-shirt. This design is part
-              of a limited run, numbered drop at the June 2021 Next.js Conf. It features a unique, handcrafted triangle
-              design. Get it while supplies last – only 200 of these shirts will be made! All proceeds will be donated
-              to charity.
-            </p>
+            <p className="product-detail__info-description">{description}</p>
             <div className="product-detail__info-rate">
               <span className="product-detail__info-rate-star">
                 <AiFillStar />
@@ -62,7 +86,7 @@ const ProductDetail: React.FC = () => {
               <p className="product-detail__info-rate-count">36 reviews</p>
             </div>
 
-            <button className="add-to-cart__btn" type="button">
+            <button className="add-to-cart__btn" type="button" onClick={() => handleAddToCart()}>
               ADD TO CART
             </button>
           </div>

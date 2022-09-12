@@ -1,8 +1,8 @@
-import React, { ReactElement } from 'react';
+import React, { useState, ReactElement } from 'react';
 import slugify from 'slugify';
 import classNames from 'classnames';
 import { useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { updateCategory, updateUrl, updateDesigner, updateSort } from './filterSlice';
 import './Criteria.scss';
 
@@ -13,6 +13,7 @@ interface CriteriaProps {
 }
 const Criteria: React.FC<CriteriaProps> = (props: CriteriaProps): ReactElement => {
   const { type, title, criteria } = props;
+  const [selected, setSelected] = useState(-1);
   const dispatch = useDispatch();
   const SORT_KEY = ['name', 'createdAt', 'price'];
   const SORT_ORDER = ['ASC', 'DESC'];
@@ -36,6 +37,7 @@ const Criteria: React.FC<CriteriaProps> = (props: CriteriaProps): ReactElement =
   ];
   const handleClick = (idx: number): void => {
     const clickedItem = criteria[idx];
+    setSelected(idx);
     switch (type) {
       case 'categories':
         dispatch(updateCategory(clickedItem));
@@ -58,16 +60,13 @@ const Criteria: React.FC<CriteriaProps> = (props: CriteriaProps): ReactElement =
         <div className="filter__criteria">
           {criteria.map((criterion: string, idx: number): ReactElement => {
             const filterUrl = `/search/${slugify(criterion, { lower: true, trim: true })}`;
+            const itemClassName = classNames('filter__criterion-link', {
+              'filter__criterion-link--active': selected === idx,
+            });
             return (
-              <NavLink
-                to={filterUrl}
-                className={({ isActive }): string =>
-                  classNames('filter__criterion-link', { 'filter__criterion-link--active': isActive })
-                }
-                onClick={() => handleClick(idx)}
-              >
+              <Link to={filterUrl} className={itemClassName} onClick={() => handleClick(idx)}>
                 <p className="filter__criterion">{criterion}</p>
-              </NavLink>
+              </Link>
             );
           })}
         </div>

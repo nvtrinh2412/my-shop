@@ -53,7 +53,9 @@ module.exports = {
         "no-unused-vars": 1,
         "no-restricted-syntax": 0,
         "react/jsx-props-no-spreading": 0,
-
+        "react/require-default-prop": 0,
+        "@typescript-eslint/ban-types": 0,
+        "react/require-default-props": 0,
     }
 }
 

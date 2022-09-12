@@ -1,29 +1,36 @@
 import React, { ReactElement } from 'react';
-import './Product.scss';
+import { NavLink } from 'react-router-dom';
 import renderProductPrice from '../../../../../assets/helper/products';
+import './Product.scss';
 
 export interface ProductProps {
   id: number;
   name: string;
   price: number;
-  imageUrl: string;
+  description: string;
+  imageUrl: string[];
+  size?: string[];
+  color?: string[];
 }
 
 const Product = (props: ProductProps): ReactElement => {
   const { name, price, imageUrl } = props;
+  const defaultImageUrl = imageUrl[0];
   const formattedPrice = renderProductPrice(price);
   return (
-    <section>
-      <div className="product">
-        <div className="product__container ">
-          <img className="product__image" src={imageUrl} alt="product" />
-          <div className="product__info">
-            <div className="product__info-name">{name}</div>
-            <p className="product__info-price">{formattedPrice}</p>
+    <NavLink end to={`/product/${name}`}>
+      <section>
+        <div className="product">
+          <div className="product__container ">
+            <img className="product__image" src={defaultImageUrl} alt="product" />
+            <div className="product__info">
+              <div className="product__info-name">{name}</div>
+              <p className="product__info-price">{formattedPrice}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </NavLink>
   );
 };
 
