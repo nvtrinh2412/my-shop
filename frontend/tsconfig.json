@@ -14,6 +14,8 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "@typescript-eslint/no-var-requires": true,
+    "import/no-import-module-exports": true,
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
