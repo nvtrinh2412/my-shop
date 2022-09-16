@@ -7,6 +7,7 @@ $font-weight--bold: 700;
 $font-weight--semibold: 600;
 $font-weight--base: 500;
 
+$orange-primary: #ec8b54;
 $gray-primary: #888;
 $gray-secondary: #999999;
 $gray-dark: rgb(102, 102, 102);
@@ -19,9 +20,13 @@ $gray-gradient: linear-gradient(
   rgb(153, 153, 153) 51%,
   rgb(0, 0, 0) 100%
 ) !important;
+$gradient-background--primary: linear-gradient(90deg, #654ea3 0%, #eaafc8 100%) !important;
+$gradient-background--secondary: linear-gradient(90deg, #3c1053 0%, #ad5389 100%) !important;
+$gradient-background--light: linear-gradient(90deg, #d3cce3 0%, #e9e4f0 100%) !important;
 
+$pink-primary: #b565a7;
 $purple-primary: #7928c1;
-$violet: #7928ca;
+$violet: #85388d;
 $violet-dark: #4c2889;
 $blue-primary: rgb(0, 206, 209);
 
@@ -40,4 +45,3 @@ $thin-key-line: 0.2px solid;
 $min-width-container--small: 256px;
 $min-heigh-container--small: 256px;
 $min-width-container--extra-large: 808px;
-

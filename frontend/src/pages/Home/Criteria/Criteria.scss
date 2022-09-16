@@ -1,4 +1,4 @@
-@import '../../../../assets/scss/variables.scss';
+@import '@assets/scss/variables.scss';
 
 .filter {
   display: block;
@@ -10,15 +10,23 @@
   }
 
   &__title {
+    display: inline-block;
+    padding: 0 16px;
     line-height: 40px;
+    text-justify: center;
+    border-radius: 15px;
+    color: white;
+    background: $gradient-background--primary;
   }
 
   &__criterion {
     color: $gray-dark;
+    padding-left: 16px;
 
     &-link {
-      color: $gray-dark;
+      color: black;
       text-decoration: none;
+      font-weight: $font-weight--base;
       &--active {
         color: $gray-dark;
         text-decoration: underline $medium-key-line !important;

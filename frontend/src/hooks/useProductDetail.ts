@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import axios from 'axios';
-import rootState from '../models/rootState';
-import { ProductProps } from '../pages/Home/components/ProductList/Product/Product';
+import { DEFAULT_PRODUCT, ProductProps } from '@pages/Home/ProductList/Product/Product';
 
 interface IProps {
   product: ProductProps | undefined;
@@ -21,15 +19,8 @@ const useProductDetail = (productName: string): IProps => {
         const { data } = await axios.get(`${DEFAULT_URL}/products/search?name=${productName}`);
         setProduct(data[0]);
       } catch (e: any) {
-        const errorProduct: ProductProps = {
-          id: 0,
-          name: '',
-          price: 0,
-          description: '',
-          imageUrl: ['error'],
-        };
         setError(e.message);
-        setProduct(errorProduct);
+        setProduct(DEFAULT_PRODUCT);
       } finally {
         setLoading(false);
       }

@@ -1,5 +1,5 @@
-@import '../../../assets/scss/mixins.scss';
-@import '../../../assets/scss/variables.scss';
+@import '@assets/scss/mixins.scss';
+@import '@assets/scss/variables.scss';
 
 .selection {
   padding: 0 0 16px;
@@ -40,7 +40,7 @@
     &--orange {
       background-color: $orange-primary !important;
     }
-    &--green{
+    &--green {
       background-color: $green-primary !important;
     }
     &--beige {

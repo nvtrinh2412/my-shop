@@ -1,5 +1,5 @@
-@import '../../assets/scss/mixins.scss';
-@import '../../assets/scss/variables.scss';
+@import '@assets/scss/mixins.scss';
+@import '@assets/scss/variables.scss';
 
 .product-detail {
   position: relative;
@@ -79,15 +79,15 @@
       background-color: transparent;
       &-name {
         padding: 16px 24px;
-        background-color: black;
+        background: $gradient-background--primary;
         font-size: $font-size--xxxl;
         font-weight: $font-weight--bold;
       }
       &-price {
         display: inline-block;
         padding: 8px 24px 16px;
-        background-color: black;
-        font-size: $base-font-size;
+        background: $gradient-background--primary;
+        font-size: $font-size--xl;
         font-weight: $font-weight--semibold;
       }
     }

@@ -1,12 +1,16 @@
-@import '../../assets/scss/mixins.scss';
-@import '../../assets/scss/variables.scss';
+@import '@assets/scss/mixins.scss';
+@import '@assets/scss/variables.scss';
 
 .shopping {
   @include flex(none, center);
+  background: $gradient-background--light;
+
   &__container {
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
     grid-gap: 40px;
+    padding: 20px 24px;
+    background: $gradient-background--light;
   }
 
   &__products {
@@ -22,8 +26,10 @@
       flex-direction: column;
     }
   }
-}
-.result__container {
-  margin: 0 0 48px;
-  font-size: $font-size--xxl;
+  &__result {
+    &-container {
+      margin: 10px 0 30px;
+      font-size: $font-size--xxl;
+    }
+  }
 }

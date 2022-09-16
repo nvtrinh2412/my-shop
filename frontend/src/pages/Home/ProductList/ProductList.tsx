@@ -11,7 +11,7 @@ const ProductList: React.FC<IProps> = (props: IProps): ReactElement => {
     <div className="product-list">
       <div className="product-list__container">
         {products.map((product: ProductProps): ReactElement => {
-          const { id, name, price, imageUrl, description } = product;
+          const { id, name, price, imageUrl, description, size, color } = product;
           return (
             <section className="product-list__item" key={id}>
               <Product
@@ -20,6 +20,8 @@ const ProductList: React.FC<IProps> = (props: IProps): ReactElement => {
                 price={price}
                 imageUrl={imageUrl}
                 description={description}
+                size={size}
+                color={color}
                 aria-hidden="true"
               />
             </section>

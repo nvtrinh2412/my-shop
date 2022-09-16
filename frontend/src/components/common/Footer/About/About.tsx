@@ -4,8 +4,8 @@ import { BsGithub } from 'react-icons/bs';
 import './About.scss';
 import slugify from 'slugify';
 
-const About: React.FC = (): ReactElement => {
-  const shoppingInfo = ['Home', 'About', 'Terms of use', 'Shipping'];
+const shoppingInfo = ['Home', 'About', 'Terms of use', 'Shipping'];
+const About = (): ReactElement => {
   return (
     <div className="about">
       <div className="about__container">

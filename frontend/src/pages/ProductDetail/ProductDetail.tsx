@@ -1,25 +1,16 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { AiFillStar } from 'react-icons/ai';
 import classNames from 'classnames';
-import { addToCart } from '../../components/common/Header/Cart/cartSlice';
+import renderProductPrice from '@assets/helper/products';
+import { addToCart } from '@components/common/Header/Cart/cartSlice';
+import useProductDetail from '@hooks/useProductDetail';
+import { DEFAULT_PRODUCT } from '@pages/Home/ProductList/Product/Product';
 import Selection from './Selection/Selection';
-import useProductDetail from '../../hooks/useProductDetail';
-import renderProductPrice from '../../assets/helper/products';
-import { ProductProps } from '../Home/components/ProductList/Product/Product';
 import './ProductDetail.scss';
 
-const DEFAULT_PRODUCT: ProductProps = {
-  id: 0,
-  name: '',
-  price: 0,
-  imageUrl: [],
-  description: '',
-  color: [],
-  size: [],
-};
-const ProductDetail: React.FC = () => {
+const ProductDetail = () => {
   const dispatch = useDispatch();
   const productName = useParams().name || '';
   const { product } = useProductDetail(productName);

@@ -1,5 +1,5 @@
-@import '../../../../../assets/scss/variables.scss';
-@import '../../../../../assets/scss/mixins.scss';
+@import '@assets/scss/variables.scss';
+@import '@assets/scss/mixins.scss';
 
 .loading {
   &-list {
@@ -25,16 +25,16 @@
   &__image {
     width: 256px;
     height: 256px;
-    background-color: $gray-background;
+    background-color: $gradient-background--primary;
     opacity: 0.9;
     transition: transform 0.5s;
   }
-}
 
-.loading-animation {
-  background-image: $gray-gradient;
-  background-size: 300% 300%;
-  animation: AnimateBG 2s ease infinite;
+  &-animation {
+    background-image: $gradient-background--primary;
+    background-size: 300% 300%;
+    animation: AnimateBG 2s ease infinite;
+  }
 }
 
 @keyframes AnimateBG {

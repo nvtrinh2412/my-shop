@@ -1,15 +1,15 @@
-@import '../../../../assets/scss/mixins.scss';
-@import '../../../../assets/scss/variables.scss';
+@import '@assets/scss/mixins.scss';
+@import '@assets/scss/variables.scss';
 .copyrights {
   &__container {
-    @include flex(center, none);
+    @include flex(center, space-between);
     padding: 24px 0 40px;
   }
 
   &__description {
-    flex-grow: 2;
     color: $gray-secondary;
     font-size: $base-font-size;
+    width: 50%;
   }
 
   &__owner {
@@ -17,7 +17,7 @@
     flex-direction: row;
 
     &-image {
-      width: 40%;
+      width: 10%;
     }
   }
 }

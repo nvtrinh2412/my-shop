@@ -1,18 +1,18 @@
-import React, { ReactElement, useState } from 'react';
-import useProductLoad from '../../hooks/useProductLoad';
-import Criteria from './components/Criteria/Criteria';
-import Loading from './components/ProductList/Loading/Loading';
-import ProductList from './components/ProductList/ProductList';
+import React, { ReactElement } from 'react';
+import useProductLoad from '@hooks/useProductLoad';
+import Criteria from './Criteria/Criteria';
+import Loading from './ProductList/Loading/Loading';
+import ProductList from './ProductList/ProductList';
 import './HomePage.scss';
 
 const CRITERIA = {
   category: {
-    type: 'categories',
+    type: 'category',
     title: 'All Categories',
     criteria: ['New Arrivals', 'Featured'],
   },
   designer: {
-    type: 'designers',
+    type: 'designer',
     title: 'All Designers',
     criteria: ['ACME', 'Next.js'],
   },
@@ -22,8 +22,8 @@ const CRITERIA = {
     criteria: ['Trending', 'Latest arrivals', 'Price: Low to high', 'Price: High to low'],
   },
 };
-const HomePage: React.FC = (): ReactElement => {
-  const { products, loading, error } = useProductLoad();
+const HomePage = (): ReactElement => {
+  const { products, loading } = useProductLoad();
   return (
     <div className="home-page">
       <div className="shopping">
@@ -33,7 +33,9 @@ const HomePage: React.FC = (): ReactElement => {
             <Criteria {...CRITERIA.designer} />
           </div>
           <div className="shopping__products">
-            <div className="result__container">{loading ? 'Loading ...' : `Showing ${products.length} results`}</div>
+            <div className="shopping__result-container">
+              {loading ? 'Loading ...' : `Showing ${products.length} results`}
+            </div>
             {loading ? <Loading /> : <ProductList products={products} />}
           </div>
           <div className="shopping__criteria--right">

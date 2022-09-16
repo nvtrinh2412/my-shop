@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FiShoppingBag } from 'react-icons/fi';
-import rootState from '../../../../models/rootState';
-import { addToCart, CartState, removeFromCart } from './cartSlice';
+import rootState from '@models/rootState';
+import renderProductPrice from '@assets/helper/products';
+import { addToCart, removeFromCart } from './cartSlice';
 import './Cart.scss';
-import renderProductPrice from '../../../../assets/helper/products';
 
 export interface CartProps {
   id: number;
@@ -15,7 +15,7 @@ export interface CartProps {
   color: string;
   imageUrl: string;
 }
-const Cart: React.FC = () => {
+const Cart = () => {
   const { cartList, total } = useSelector((state: rootState) => state.cart);
   const formattedTotal = renderProductPrice(total);
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ const Cart: React.FC = () => {
             </div>
             <div className="cart__list">
               {cartList.map((item: CartProps) => {
-                const { id, name, price, quantity, size, color, imageUrl } = item;
+                const { name, price, quantity, size, color, imageUrl } = item;
                 const formattedPrice = renderProductPrice(price);
                 return (
                   <div className="cart__item">

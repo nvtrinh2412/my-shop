@@ -1,4 +1,4 @@
-import { CartState } from '../components/common/Header/Cart/cartSlice';
+import { CartState } from '@components/common/Header/Cart/cartSlice';
 
 interface filterState {
   name: string;
