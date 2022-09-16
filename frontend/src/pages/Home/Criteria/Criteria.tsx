@@ -40,19 +40,6 @@ const Criteria: React.FC<CriteriaProps> = (props: CriteriaProps): ReactElement =
   const searchParamsObject = parseFilterURLParams(searchParams);
   const handleClick = (idx: number): void => {
     setSelected(idx);
-    //   case 'category':
-    //     dispatch(updateCategory(clickedItem));
-    //     break;
-    //   case 'designer':
-    //     dispatch(updateDesigner(clickedItem));
-    //     break;
-    //   case 'sort':
-    //     dispatch(updateSort(sortList[idx]));
-    //     break;
-    //   default:
-    //     break;
-    // }
-    // dispatch(updateUrl());
   };
   useEffect(() => {
     const idx = criteria.findIndex((item) => item === searchParamsObject[type as keyof typeof searchParamsObject]);
