@@ -44,9 +44,11 @@ public class Product {
     private Date updatedAt;
     @Column(name = "deleted_at")
     private Date deletedAt;
-
     @Column(name = "designer")
     private String designer;
+    @Column(name = "sell_quantity")
+    private int sellQuantity;
+
 
     public Product() {
 
