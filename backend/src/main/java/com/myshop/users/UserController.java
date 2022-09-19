@@ -12,12 +12,6 @@ import java.util.List;
 @RequestMapping("api/v1/users")
 public class UserController {
     private final UserService userService;
-    @PostMapping
-    public ResponseEntity<User> saveUser(@RequestBody User user) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentRequest().path("/api/v1/users").toUriString());
-        User newUser = userService.saveUser(user);
-        return ResponseEntity.created(uri).body(newUser);
-    }
 
     @GetMapping
     public ResponseEntity<List<User>> getUsers() {
@@ -25,9 +19,9 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @DeleteMapping("/{username}")
-    public ResponseEntity<User> deleteUserByUsername(@PathVariable String username) {
-        userService.deleteUserByUsername(username);
+    @DeleteMapping("/{email}")
+    public ResponseEntity<User> deleteUserByEmail(@PathVariable String email) {
+        userService.deleteUserByEmail(email);
         return ResponseEntity.ok().build();
     }
 

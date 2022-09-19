@@ -1,7 +1,8 @@
 package com.myshop.users;
 
+import com.myshop.registration.token.ConfirmationToken;
+import com.myshop.registration.token.ConfirmationTokenService;
 import com.myshop.roles.Role;
-import com.myshop.roles.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
@@ -13,11 +14,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
 import javax.transaction.Transactional;
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -25,73 +28,83 @@ import java.util.List;
 @Slf4j
 @Transactional
 public class UserService implements UserDetailsService {
+    private final static String USER_NOT_FOUND_MSG =
+            "User with email %s not found";
+    private final static String USER_ID_NOT_FOUND_MSG =
+            "User with id %s not found";
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
+    private final ConfirmationTokenService confirmationTokenService;
     private final PasswordEncoder passwordEncoder;
+//    private final ConfirmationTokenService confirmationTokenService;
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found");
+            throw new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, email));
         } else {
-            log.info("User with name {} found", username);
+            log.info("User with email {} found", email);
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        user.getRoles().forEach(role ->
-                authorities.add(new SimpleGrantedAuthority(role.getName()))
-        );
+        authorities.add(new SimpleGrantedAuthority(user.getRole().name()));
 
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
     }
 
-    public User saveUser(User user) throws DataAccessException {
-        log.info("Saving new user to the database: {}", user.getName());
-        Collection<Role> roles = user.getRoles();
-        for (Role role : roles) {
-            if (role.getName().equals("ROLE_ADMIN") || role.getName().equals("ROLE_SUPER_ADMIN")) {
-                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Admin role is not allowed");
-            }
+    public String signUpUser(User user) throws DataAccessException {
+        log.info("Saving new user to the database: {}", user.getFirstName());
+        if (user.getRole().name().equals("ROLE_ADMIN")) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Admin role is not allowed");
         }
 
-        User existedUser = userRepository.findByUsername(user.getUsername());
+        User existedUser = userRepository.findByEmail(user.getEmail());
         if (existedUser != null) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "User already exists");
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setCreatedAt(new Date(System.currentTimeMillis()));
-        user.setRoles(List.of(roleRepository.findByName("ROLE_USER")));
-        return userRepository.save(user);
+        userRepository.save(user);
+        String token = UUID.randomUUID().toString();
+
+        ConfirmationToken confirmationToken = new ConfirmationToken(
+                token,
+                LocalDateTime.now(),
+                LocalDateTime.now().plusMinutes(15),
+                user
+        );
+
+        confirmationTokenService.saveConfirmationToken(
+                confirmationToken);
+        return token;
     }
 
-    public void addRoleToUser(String username, String roleName) {
-        log.info("Adding role {} to user {}", roleName, username);
-        User user = userRepository.findByUsername(username);
-        Role roles = roleRepository.findByName(roleName);
-        user.getRoles().add(roles);
-    }
-
-    public User getUser(String username) {
-        return userRepository.findByUsername(username);
+    public User getUser(String email) {
+        return userRepository.findByEmail(email);
     }
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public void deleteUserByUsername(String username) {
-        User user = userRepository.findByUsername(username);
+    public void deleteUserByEmail(String email) {
+        User user = userRepository.findByEmail(email);
         if (user == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with name " + username + " does not exist");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,  String.format(USER_NOT_FOUND_MSG, email));
         }
-        user.setDeletedAt(new Date(System.currentTimeMillis()));
     }
 
     public void deleteUserById(Long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User with id " + id + " does not exist"));
-        user.setDeletedAt(new Date(System.currentTimeMillis()));
+        User user = userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,  String.format(USER_NOT_FOUND_MSG, id)));
+        user.setLocked(true);
     }
 
+    public void enableUser(String email){
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,  String.format(USER_NOT_FOUND_MSG, email));
+        }
+        user.setEnabled(true);
+    }
 }
+

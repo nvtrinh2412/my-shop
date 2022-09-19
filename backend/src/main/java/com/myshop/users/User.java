@@ -7,12 +7,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 @Entity
 @NoArgsConstructor
@@ -21,50 +24,40 @@ import java.util.Collection;
 @Getter
 @Setter
 @Table(name = "users",
-        indexes = @Index(columnList = "username", unique = true))
-public class User {
+        indexes = {@Index(columnList = "email", unique = true),
+                @Index(columnList = "id", unique = true),})
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
-    @NotNull(message = "Name is required")
-    private String name;
-    @NotNull(message = "Username is required")
+
+    private String firstName;
+    private String lastName;
+    @NotNull(message = "Email is required")
     @Column(unique = true)
-    private String username;
+    private String email;
     @NotNull(message = "Password is required")
     private String password;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Collection<Role> roles = new ArrayList<>();
-    @Column(name = "created_at")
-    private Date createdAt;
-    @Column(name = "updated_at")
-    private Date updatedAt;
-    @Column(name = "deleted_at")
-    private Date deletedAt;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private Role role = Role.ROLE_USER;
+    private boolean locked = false;
+    private boolean enabled = false;
 
-    public User(String name, String username, String password, Collection<Role> roles) {
-        this.name = name;
-        this.username = username;
-        this.password = password;
-        this.roles = roles;
-        this.createdAt = new Date(System.currentTimeMillis());
-    }
 
-    public User(String name, String username, String password) {
-        this.name = name;
-        this.username = username;
+    public User(String firstName, String lastName, String email, String password, Role role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
         this.password = password;
-        this.createdAt = new Date(System.currentTimeMillis());
+        this.role = role;
     }
 
     @Override
-    public String toString() {
-        return "User{" +
-                ", name='" + name + '\'' +
-                ", username='" + username + '\'' +
-                ", roles=" + roles +
-                '}';
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.name());
+        return Collections.singletonList(authority);
     }
 
     @JsonIgnore
@@ -77,6 +70,11 @@ public class User {
         this.password = password;
     }
 
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
     @JsonIgnore
     public Long getId() {
         return id;
@@ -87,4 +85,36 @@ public class User {
         this.id = id;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return !locked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + role +
+                ", locked=" + locked +
+                ", enabled=" + enabled +
+                '}';
+    }
 }
