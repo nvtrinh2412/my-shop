@@ -1,0 +1,43 @@
+@import '@assets/scss/variables.scss';
+@import '@assets/scss/mixins.scss';
+@import '@components/common/Header/Header.scss';
+
+// .login__form {
+//   @include flex(center, center);
+//   flex-direction: column;
+//   &-item {
+//     @include flex(flex-start, center);
+//     flex-direction: column;
+//     width: 100%;
+//     padding: 0.3rem 0;
+
+//     &-label {
+//       padding: 8px 0;
+//       background-color: transparent;
+//       color: white;
+//       font-size: $font-size--xl;
+//     }
+
+//     &-input {
+//       width: 50vh;
+//       padding: 8px 8px;
+//       border: none;
+//       border: $medium-key-line black;
+//       background-color: transparent;
+//       color: white;
+//       font-size: $base-font-size;
+//       border-radius: 5px 5px 5px 5px;
+//       &::placeholder {
+//         color: gainsboro;
+//         font-style: italic;
+//       }
+//     }
+
+//     &-error {
+//       padding: 8px 0;
+//       background-color: transparent;
+//       color: red;
+//       font-size: $font-size--xl;
+//     }
+//   }
+// }

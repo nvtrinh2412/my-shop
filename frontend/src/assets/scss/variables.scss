@@ -23,6 +23,7 @@ $gray-gradient: linear-gradient(
 $gradient-background--primary: linear-gradient(90deg, #654ea3 0%, #eaafc8 100%) !important;
 $gradient-background--secondary: linear-gradient(90deg, #3c1053 0%, #ad5389 100%) !important;
 $gradient-background--light: linear-gradient(90deg, #d3cce3 0%, #e9e4f0 100%) !important;
+$gradient-background--blue: linear-gradient(90deg, #d3cce3 0%, #64468f 100%) !important ;
 
 $pink-primary: #b565a7;
 $purple-primary: #7928c1;
@@ -33,9 +34,12 @@ $blue-primary: rgb(0, 206, 209);
 $orange-primary: rgb(255, 160, 122);
 $green-primary: rgb(85, 107, 47);
 $beige-primary: rgb(245, 245, 220);
-
-$icon-height--large: 32px;
-$icon-width--large: 32px;
+$error-color: rgb(116, 21, 21);
+$success-color: rgb(106, 255, 106);
+$icon-height--large: 80px;
+$icon-width--large: 80px;
+$icon-height: 32px;
+$icon-width: 32px;
 $icon-height--small: 24px;
 $icon-width--small: 24px;
 

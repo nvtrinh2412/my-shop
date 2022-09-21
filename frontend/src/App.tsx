@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Footer from './components/common/Footer/Footer';
 import Header from './components/common/Header/Header';
 import HomePage from './pages/Home/HomePage';
-import './App.scss';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
+import './App.scss';
 
 const App = (): ReactElement => {
   return (

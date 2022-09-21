@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosConfig from '@services/axiosConfig';
 import { DEFAULT_PRODUCT, ProductProps } from '@pages/Home/ProductList/Product/Product';
 
 interface IProps {
@@ -7,7 +7,6 @@ interface IProps {
   loading: boolean;
   error: string;
 }
-const DEFAULT_URL = 'http://localhost:8080/api/v1';
 const useProductDetail = (productName: string): IProps => {
   const [product, setProduct] = useState<ProductProps>();
   const [loading, setLoading] = useState(false);
@@ -16,8 +15,9 @@ const useProductDetail = (productName: string): IProps => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const { data } = await axios.get(`${DEFAULT_URL}/products/search?name=${productName}`);
+        const data: ProductProps[] = await axiosConfig.get(`/products/filter?name=${productName}`);
         setProduct(data[0]);
+        console.log(data);
       } catch (e: any) {
         setError(e.message);
         setProduct(DEFAULT_PRODUCT);

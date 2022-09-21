@@ -27,10 +27,12 @@
   &__information {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+
     &-item {
       display: block;
       padding: 0 0 16px;
       font-size: $font-size--xl;
+      color: black;
       text-decoration: none;
       &:hover {
         color: $gray-primary;

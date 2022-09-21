@@ -21,36 +21,39 @@
     }
     &--active {
       border: white 2px solid !important;
+      background: $gradient-background--primary;
     }
   }
   &-color {
-    background-color: black;
+    background: black;
     &--white {
-      background-color: white;
+      background: white !important;
     }
     &--black {
-      background-color: black !important;
+      background: black !important;
     }
     &--gray {
-      background-color: $gray-primary !important;
+      background: $gray-primary !important;
     }
     &--blue {
-      background-color: $blue-primary !important;
+      background: $blue-primary !important;
     }
     &--orange {
-      background-color: $orange-primary !important;
+      background: $orange-primary !important;
     }
     &--green {
-      background-color: $green-primary !important;
+      background: $green-primary !important;
     }
     &--beige {
-      background-color: $beige-primary !important;
+      background: $beige-primary !important;
     }
   }
-}
-
-.selected-item {
-  background-color: transparent;
-  color: white;
-  font-size: $font-size--xxl;
+  &__selected-item {
+    background-color: transparent;
+    color: white;
+    font-size: $font-size--xxl;
+    &--black {
+      color: white;
+    }
+  }
 }

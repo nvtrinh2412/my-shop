@@ -1,6 +1,12 @@
 @import './variables.scss';
 
 @mixin logo_icon {
+  width: $icon-height;
+  height: $icon-height;
+  border-radius: 50%;
+  object-fit: cover;
+}
+@mixin logo_icon--large {
   width: $icon-height--large;
   height: $icon-height--large;
   border-radius: 50%;

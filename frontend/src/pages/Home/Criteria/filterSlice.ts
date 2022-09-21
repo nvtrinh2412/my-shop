@@ -14,14 +14,13 @@ export interface SortProps {
   order: string;
 }
 
-const DEFAULT_URL = 'http://localhost:8080/api/v1';
 const initialState: FilterState = {
   name: '',
   category: '',
   designer: '',
   key: '',
   order: '',
-  url: `${DEFAULT_URL}/products`,
+  url: '/products',
 };
 export const DEFAULT_FILTER = {
   name: '',
@@ -29,7 +28,7 @@ export const DEFAULT_FILTER = {
   designer: '',
   key: '',
   order: '',
-  url: `${DEFAULT_URL}/products`,
+  url: '/products',
 };
 const filterSlice = createSlice({
   name: 'filter',
@@ -57,7 +56,7 @@ const filterSlice = createSlice({
         order: state.order,
       };
       const searchUrl = parseToSearchUrl(params);
-      state.url = `${DEFAULT_URL}/products/filter?${searchUrl}`;
+      state.url = `/products/filter?${searchUrl}`;
     },
     resetAll: (state) => {
       state.name = DEFAULT_FILTER.name;

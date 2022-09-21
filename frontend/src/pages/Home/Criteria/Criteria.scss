@@ -20,7 +20,6 @@
   }
 
   &__criterion {
-    color: $gray-dark;
     padding-left: 16px;
 
     &-link {
@@ -28,13 +27,12 @@
       text-decoration: none;
       font-weight: $font-weight--base;
       &--active {
-        color: $gray-dark;
-        text-decoration: underline $medium-key-line !important;
+        color: white;
       }
     }
 
     &:hover {
-      color: white !important;
+      color: white;
       cursor: pointer;
     }
   }

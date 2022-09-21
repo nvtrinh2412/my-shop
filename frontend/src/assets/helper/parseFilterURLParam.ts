@@ -1,4 +1,4 @@
-const parseFilterURLParams = (search: URLSearchParams): object => {
+const parseFilterURLParams = (search: URLSearchParams): any => {
   const params = new URLSearchParams(search);
   const name = params.get('name');
   const category = params.get('category');

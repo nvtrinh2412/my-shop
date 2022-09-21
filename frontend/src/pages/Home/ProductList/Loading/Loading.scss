@@ -17,17 +17,9 @@
     position: relative;
     min-width: $min-width-container--small;
     min-height: $min-heigh-container--small;
-    background-image: $gray-gradient;
+    background-image: $gradient-background--blue;
     background-size: 300% 300%;
     animation: AnimateBG 2s ease infinite;
-  }
-
-  &__image {
-    width: 256px;
-    height: 256px;
-    background-color: $gradient-background--primary;
-    opacity: 0.9;
-    transition: transform 0.5s;
   }
 
   &-animation {
@@ -42,7 +34,7 @@
     background-position: 0% 50%;
   }
   50% {
-    background-position: 100% 50%;
+    background-position: 60% 50%;
   }
   100% {
     background-position: 0% 50%;

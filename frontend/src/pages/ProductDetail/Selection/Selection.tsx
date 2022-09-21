@@ -30,7 +30,7 @@ const Selection: React.FC<IProps> = (props: IProps) => {
           );
           return (
             <div className={itemClassName} key={item} onClick={() => handleClick(idx)} aria-hidden="true">
-              {isColor && isSelected && <AiOutlineCheck className="selected-item" />}
+              {isColor && isSelected && <AiOutlineCheck className={`selection__selected-item--${item}`} />}
               {!isColor && item}
             </div>
           );

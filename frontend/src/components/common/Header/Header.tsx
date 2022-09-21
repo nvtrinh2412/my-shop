@@ -4,14 +4,15 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { FaSearch } from 'react-icons/fa';
 import { FiShoppingBag } from 'react-icons/fi';
-import { CgClose } from 'react-icons/cg';
 import parseToSearchUrl from '@assets/helper/parseToSearchUrl';
 import handleInputEvent from '@assets/helper/handleInputEvent';
 import parseFilterURLParams from '@assets/helper/parseFilterURLParam';
 import { updateName, updateUrl, updateAll, resetAll, updateCategory } from '@pages/Home/Criteria/filterSlice';
 import rootState from '@models/rootState';
+import Overlay from '@components/common/Overlay/Overlay';
+import Cart from '@components/common/Cart/Cart';
+import Login from '@components/common/Login/Login';
 import './Header.scss';
-import Cart from './Cart/Cart';
 
 const navLinks = [
   {
@@ -30,6 +31,7 @@ const navLinks = [
 const Header = (): ReactElement => {
   const [search, setSearch] = useState('');
   const [openCart, setOpenCart] = useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
   const [selected, setSelected] = useState(-1);
   const [searchParams] = useSearchParams();
   const searchParamsObject = parseFilterURLParams(searchParams);
@@ -115,7 +117,7 @@ const Header = (): ReactElement => {
               />
               {!isEmptyCart && <p className="header-checkout__cart-amount">{cartList.length}</p>}
             </div>
-            <div className="header-checkout__avatar">
+            <div className="header-checkout__avatar" onClick={() => setOpenLogin(!openLogin)} aria-hidden>
               <img className="header-checkout__avatar-img" src="/images/gradient-avatar.jpg" alt="Vercel Logo" />
             </div>
           </div>
@@ -123,9 +125,14 @@ const Header = (): ReactElement => {
           <div className={classNames('header__cart-detail', { 'header__cart-detail--hidden ': !openCart })}>
             <Cart />
           </div>
+          <div className={classNames('header__login', { 'header__login--hidden ': !openLogin })}>
+            <div className="header__login-container">
+              <Login isOpen={openLogin} setOpen={setOpenLogin} />
+            </div>
+          </div>
         </div>
       </div>
-      <div className={classNames({ overlay: openCart })}> </div>
+      {(openCart || openLogin) && <Overlay />}
     </div>
   );
 };

@@ -56,6 +56,19 @@ module.exports = {
         "react/require-default-prop": 0,
         "@typescript-eslint/ban-types": 0,
         "react/require-default-props": 0,
+        "@typescript-eslint/no-var-requires": 0,
+        "import/no-import-module-exports": 0,
+        "jsx-a11y/label-has-associated-control": ["error", {
+            "required": {
+                "some": ["nesting", "id"]
+            }
+        }],
+        "jsx-a11y/label-has-for": ["error", {
+            "required": {
+                "some": ["nesting", "id"]
+            }
+        }]
+
     }
 }
 

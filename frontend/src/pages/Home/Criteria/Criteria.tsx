@@ -42,7 +42,13 @@ const Criteria: React.FC<CriteriaProps> = (props: CriteriaProps): ReactElement =
     setSelected(idx);
   };
   useEffect(() => {
-    const idx = criteria.findIndex((item) => item === searchParamsObject[type as keyof typeof searchParamsObject]);
+    let idx = -1;
+    if (type === 'sort') {
+      const { key, order } = searchParamsObject;
+      idx = sortList.findIndex((item) => item.key === key && item.order === order);
+    } else {
+      idx = criteria.findIndex((item) => item === searchParamsObject[type as keyof typeof searchParamsObject]);
+    }
     setSelected(idx);
     dispatch(updateAll(searchParamsObject));
     dispatch(updateUrl());
