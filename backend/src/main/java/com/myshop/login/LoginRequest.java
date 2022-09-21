@@ -1,7 +1,10 @@
-package com.myshop.registration;
+package com.myshop.login;
 
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import javax.validation.constraints.Email;
 
@@ -9,9 +12,7 @@ import javax.validation.constraints.Email;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class RegistrationRequest {
-    private final String firstName;
-    private final String lastName;
+public class LoginRequest {
     @Email
     private final String email;
     private final String password;

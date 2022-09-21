@@ -32,10 +32,10 @@ public class UserService implements UserDetailsService {
             "User with email %s not found";
     private final static String USER_ID_NOT_FOUND_MSG =
             "User with id %s not found";
+    private final int EXPRIED_TOKEN_MINUTE = 15;
     private final UserRepository userRepository;
     private final ConfirmationTokenService confirmationTokenService;
     private final PasswordEncoder passwordEncoder;
-//    private final ConfirmationTokenService confirmationTokenService;
 
 
     @Override
@@ -60,17 +60,20 @@ public class UserService implements UserDetailsService {
 
         User existedUser = userRepository.findByEmail(user.getEmail());
         if (existedUser != null) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "User already exists");
+            if(!existedUser.isEnabled()){
+                throw new ResponseStatusException(HttpStatus.FOUND, "Please confirm your registered account in your Email");
+            }
+
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email is already taken");
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         String token = UUID.randomUUID().toString();
-
         ConfirmationToken confirmationToken = new ConfirmationToken(
                 token,
                 LocalDateTime.now(),
-                LocalDateTime.now().plusMinutes(15),
+                LocalDateTime.now().plusMinutes(EXPRIED_TOKEN_MINUTE),
                 user
         );
 

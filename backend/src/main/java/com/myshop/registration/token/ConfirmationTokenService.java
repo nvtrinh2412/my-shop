@@ -27,4 +27,6 @@ public class ConfirmationTokenService {
                 .orElseThrow(() -> new IllegalStateException("Token not found"));
         confirmationToken.setConfirmedAt(LocalDateTime.now());
     }
+
+
 }

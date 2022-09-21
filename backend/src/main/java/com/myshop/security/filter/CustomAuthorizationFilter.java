@@ -25,7 +25,10 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         response.addHeader("Access-Control-Allow-Origin", "*");
-        if (request.getRequestURI().equals("/api/login")) {
+        response.addHeader("Access-Control-Allow-Credentials", "true");
+        response.addHeader("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
+        response.addHeader("Content-Type","application/json");
+        if (request.getRequestURI().equals("/api/v1/login")) {
             filterChain.doFilter(request, response);
         } else {
             String token = request.getHeader("Authorization");
