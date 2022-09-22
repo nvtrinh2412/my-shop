@@ -4,14 +4,13 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { FaSearch } from 'react-icons/fa';
 import { FiShoppingBag } from 'react-icons/fi';
-import { CgClose } from 'react-icons/cg';
-import parseToSearchUrl from '@assets/helper/parseToSearchUrl';
-import handleInputEvent from '@assets/helper/handleInputEvent';
-import parseFilterURLParams from '@assets/helper/parseFilterURLParam';
+import handleInputEvent from '@helpers/handleInputEvent';
+import parseToSearchUrl from '@helpers/parseToSearchUrl';
+import parseFilterURLParams from '@helpers/parseFilterURLParam';
 import { updateName, updateUrl, updateAll, resetAll, updateCategory } from '@pages/Home/Criteria/filterSlice';
 import rootState from '@models/rootState';
-import './Header.scss';
 import Cart from './Cart/Cart';
+import './Header.scss';
 
 const navLinks = [
   {

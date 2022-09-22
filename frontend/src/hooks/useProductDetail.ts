@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosConfig from '@services/axiosConfig';
+import { AxiosError } from 'axios';
 import { DEFAULT_PRODUCT, ProductProps } from '@pages/Home/ProductList/Product/Product';
 
-interface IProps {
+interface useProductDetailResponseProps {
   product: ProductProps | undefined;
   loading: boolean;
   error: string;
 }
-const DEFAULT_URL = 'http://localhost:8080/api/v1';
-const useProductDetail = (productName: string): IProps => {
+const useProductDetail = (productName: string): useProductDetailResponseProps => {
   const [product, setProduct] = useState<ProductProps>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -16,7 +16,7 @@ const useProductDetail = (productName: string): IProps => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const { data } = await axios.get(`${DEFAULT_URL}/products/search?name=${productName}`);
+        const data: ProductProps[] = await axiosConfig.get(`/products/search?name=${productName}`);
         setProduct(data[0]);
       } catch (e: any) {
         setError(e.message);

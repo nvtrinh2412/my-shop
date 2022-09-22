@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import parseToSearchUrl from '@assets/helper/parseToSearchUrl';
+import parseToSearchUrl from '@helpers/parseToSearchUrl';
 
 export interface FilterState {
   name: string;
@@ -14,14 +14,13 @@ export interface SortProps {
   order: string;
 }
 
-const DEFAULT_URL = 'http://localhost:8080/api/v1';
 const initialState: FilterState = {
   name: '',
   category: '',
   designer: '',
   key: '',
   order: '',
-  url: `${DEFAULT_URL}/products`,
+  url: `/products`,
 };
 export const DEFAULT_FILTER = {
   name: '',
@@ -29,7 +28,7 @@ export const DEFAULT_FILTER = {
   designer: '',
   key: '',
   order: '',
-  url: `${DEFAULT_URL}/products`,
+  url: `/products`,
 };
 const filterSlice = createSlice({
   name: 'filter',
@@ -57,18 +56,13 @@ const filterSlice = createSlice({
         order: state.order,
       };
       const searchUrl = parseToSearchUrl(params);
-      state.url = `${DEFAULT_URL}/products/filter?${searchUrl}`;
+      state.url = `/products/filter?${searchUrl}`;
     },
     resetAll: (state) => {
-      state.name = DEFAULT_FILTER.name;
-      state.category = DEFAULT_FILTER.category;
-      state.designer = DEFAULT_FILTER.designer;
-      state.key = DEFAULT_FILTER.key;
-      state.order = DEFAULT_FILTER.order;
-      state.url = DEFAULT_FILTER.url;
+      state = { ...DEFAULT_FILTER };
     },
     updateAll: (state, action) => {
-      state.name = action.payload?.name;
+      state.name = action.payload.name;
       state.category = action.payload?.category;
       state.designer = action.payload?.designer;
       state.key = action.payload?.key;

@@ -2,8 +2,9 @@ import React, { useState, useEffect, ReactElement } from 'react';
 import classNames from 'classnames';
 import { useDispatch } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
-import parseFilterURLParams from '@assets/helper/parseFilterURLParam';
-import parseToSearchUrl from '@assets/helper/parseToSearchUrl';
+import parseFilterURLParams from '@helpers/parseFilterURLParam';
+import parseToSearchUrl from '@helpers/parseToSearchUrl';
+import { SORT_KEY, SORT_ORDER } from '@constants/sort';
 import { updateUrl, updateAll } from './filterSlice';
 import './Criteria.scss';
 
@@ -12,8 +13,7 @@ interface CriteriaProps {
   criteria: string[];
   type: string;
 }
-const SORT_KEY = ['name', 'createdAt', 'price', 'sellQuantity'];
-const SORT_ORDER = ['ASC', 'DESC'];
+
 const sortList = [
   {
     key: SORT_KEY[3],

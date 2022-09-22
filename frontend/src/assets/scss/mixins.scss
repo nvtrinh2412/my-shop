@@ -32,7 +32,7 @@
 }
 
 @mixin circle($height, $width) {
-  border-radius: 50% !important;
-  height: $height !important;
-  width: $width !important;
+  border-radius: 50%;
+  height: $height;
+  width: $width;
 }

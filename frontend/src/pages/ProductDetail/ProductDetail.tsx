@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AiFillStar } from 'react-icons/ai';
 import classNames from 'classnames';
-import renderProductPrice from '@assets/helper/products';
+import renderProductPrice from '@helpers/products';
 import { addToCart } from '@components/common/Header/Cart/cartSlice';
 import useProductDetail from '@hooks/useProductDetail';
 import { DEFAULT_PRODUCT } from '@pages/Home/ProductList/Product/Product';
@@ -12,9 +12,9 @@ import './ProductDetail.scss';
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
-  const productName = useParams().name || '';
-  const { product } = useProductDetail(productName);
-  const { id, name, price, imageUrl, description, color, size } = product || DEFAULT_PRODUCT;
+  const { name: productName = '' } = useParams();
+  const { product = DEFAULT_PRODUCT } = useProductDetail(productName);
+  const { id, name, price, imageUrl, description, color, size } = product;
   const formattedPrice = renderProductPrice(price);
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState(0);
