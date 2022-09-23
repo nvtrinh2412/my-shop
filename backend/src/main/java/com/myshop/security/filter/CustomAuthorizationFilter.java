@@ -28,6 +28,8 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
         response.addHeader("Access-Control-Allow-Credentials", "true");
         response.addHeader("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
         response.addHeader("Content-Type","application/json");
+        response.addHeader("Content-Type","application/x-www-form-urlencoded");
+
         if (request.getRequestURI().equals("/api/v1/login")) {
             filterChain.doFilter(request, response);
         } else {
