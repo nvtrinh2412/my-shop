@@ -35,14 +35,14 @@ const sortList = [
 const Criteria: React.FC<CriteriaProps> = (props: CriteriaProps): ReactElement => {
   const { type, title, criteria } = props;
   const [selected, setSelected] = useState(-1);
-  const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const searchParamsObject = parseFilterURLParams(searchParams);
+  const dispatch = useDispatch();
   const handleClick = (idx: number): void => {
     setSelected(idx);
   };
   useEffect(() => {
-    let idx = -1;
+    let idx;
     if (type === 'sort') {
       const { key, order } = searchParamsObject;
       idx = sortList.findIndex((item) => item.key === key && item.order === order);

@@ -121,10 +121,12 @@
 
         &-message {
           &--success {
+            font-size: smaller;
             padding-left: 0.5rem;
             color: $success-color;
           }
           &--error {
+            font-size: smaller;
             padding-left: 0.5rem;
             color: $error-color;
           }

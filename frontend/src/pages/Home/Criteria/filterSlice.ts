@@ -1,6 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import parseToSearchUrl from '@assets/helper/parseToSearchUrl';
+import parseFilterURLParams from '@assets/helper/parseFilterURLParam';
 
+const searchParams = new URLSearchParams(window.location.search);
+const searchParamsObject = parseFilterURLParams(searchParams);
+const initialURL = parseToSearchUrl(searchParamsObject);
 export interface FilterState {
   name: string;
   category: string;
@@ -20,7 +24,7 @@ const initialState: FilterState = {
   designer: '',
   key: '',
   order: '',
-  url: '/products',
+  url: `/products/filter?${initialURL}`,
 };
 export const DEFAULT_FILTER = {
   name: '',
@@ -44,34 +48,38 @@ const filterSlice = createSlice({
       state.designer = action.payload;
     },
     updateSort: (state, action: PayloadAction<SortProps>) => {
-      state.key = action.payload.key;
-      state.order = action.payload.order;
+      const { key, order } = action.payload;
+      state.key = key;
+      state.order = order;
     },
     updateUrl: (state) => {
+      const { name, category, designer, key, order } = state;
       const params = {
-        name: state.name,
-        category: state.category,
-        designer: state.designer,
-        key: state.key,
-        order: state.order,
+        name,
+        category,
+        designer,
+        key,
+        order,
       };
       const searchUrl = parseToSearchUrl(params);
       state.url = `/products/filter?${searchUrl}`;
     },
     resetAll: (state) => {
-      state.name = DEFAULT_FILTER.name;
-      state.category = DEFAULT_FILTER.category;
-      state.designer = DEFAULT_FILTER.designer;
-      state.key = DEFAULT_FILTER.key;
-      state.order = DEFAULT_FILTER.order;
-      state.url = DEFAULT_FILTER.url;
+      const { name, category, designer, key, order, url } = DEFAULT_FILTER;
+      state.name = name;
+      state.category = category;
+      state.designer = designer;
+      state.key = key;
+      state.order = order;
+      state.url = url;
     },
     updateAll: (state, action) => {
-      state.name = action.payload?.name;
-      state.category = action.payload?.category;
-      state.designer = action.payload?.designer;
-      state.key = action.payload?.key;
-      state.order = action.payload?.order;
+      const { name, category = '', designer = '', key = '', order = '' } = action.payload;
+      state.name = name;
+      state.category = category;
+      state.designer = designer;
+      state.key = key;
+      state.order = order;
     },
   },
 });

@@ -1,8 +1,13 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import useProductLoad from '@hooks/useProductLoad';
+import rootState from '@models/rootState';
+import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
+import parseFilterURLParams from '@assets/helper/parseFilterURLParam';
 import Criteria from './Criteria/Criteria';
 import Loading from './ProductList/Loading/Loading';
 import ProductList from './ProductList/ProductList';
+import { updateAll, updateUrl } from './Criteria/filterSlice';
 import './HomePage.scss';
 
 const CRITERIA = {
@@ -23,6 +28,14 @@ const CRITERIA = {
   },
 };
 const HomePage = (): ReactElement => {
+  const [searchParams] = useSearchParams();
+  const searchParamsObject = parseFilterURLParams(searchParams);
+  const dispatch = useDispatch();
+  const dataUrl = useSelector((state: rootState): string => state.filter.url);
+  useEffect(() => {
+    dispatch(updateAll(searchParamsObject));
+    dispatch(updateUrl());
+  }, []);
   const { products, loading } = useProductLoad();
   return (
     <div className="home-page">

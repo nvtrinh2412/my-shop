@@ -10,16 +10,17 @@ interface IProps {
   error: string;
 }
 const useProductLoad = (): IProps => {
+  const dataUrl = useSelector((state: rootState) => state.filter.url);
   const [products, setProducts] = useState<ProductProps[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const dataUrl = useSelector((state: rootState): string => state.filter.url);
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
         const data: ProductProps[] = await axiosConfig.get(dataUrl);
         setProducts(data);
+        console.log(dataUrl);
       } catch (e: any) {
         setError(e.message);
       } finally {

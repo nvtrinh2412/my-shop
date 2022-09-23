@@ -1,8 +1,9 @@
-import React, { useState, ReactElement, ReactNode } from 'react';
+import React, { useState, ReactElement } from 'react';
 import { RiErrorWarningFill } from 'react-icons/ri';
 import { IoCheckmarkDoneCircleSharp } from 'react-icons/io5';
-import { useForm, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm, FieldValues } from 'react-hook-form';
+import queryString from 'query-string';
 import { validateLoginSchema, validateSignUpSchema } from '@models/validateFormSchema';
 import axiosConfig from '@services/axiosConfig';
 import './Login.scss';
@@ -11,13 +12,7 @@ interface LoginProps {
   isOpen: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
-interface FormProps {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-}
-const SUCCESS_SIGN_UP_MESSAGE = 'Please access your email to verify your registration';
+const SUCCESS_SIGN_UP_MESSAGE = 'Success! Check your email for activation';
 const SUCCESS_LOG_IN_MESSAGE = 'Login successfully';
 const ERROR_LOG_IN_MESSAGE = 'Email or password is incorrect';
 const FORM_LOGIN = {
@@ -97,16 +92,16 @@ const Login: React.FC<LoginProps> = ({ isOpen, setOpen }: LoginProps): ReactElem
   };
 
   const handleSubmitForm = async (data: FieldValues) => {
-    const targetUrl = isSignUp ? '/registration' : `/login?email=${data.email}&password=${data.password}`;
+    const targetUrl = isSignUp ? '/registration' : '/login';
     setLoading(true);
-
+    const submitData = isSignUp ? queryString.stringify(data) : new URLSearchParams(data);
     await axiosConfig
-      .post(targetUrl, data)
+      .post(targetUrl, submitData)
       .then((res: any) => {
         if (res?.error) {
           setIsSuccess(false);
           setIsError(true);
-          setErrorMessage(!isSignUp ? ERROR_LOG_IN_MESSAGE : res.error);
+          setErrorMessage(!isSignUp ? ERROR_LOG_IN_MESSAGE : res.message);
         } else {
           setIsError(false);
           setIsSuccess(true);

@@ -12,7 +12,7 @@ import './ProductDetail.scss';
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
-  const productName = useParams().name || '';
+  const { name: productName = '' } = useParams();
   const { product = DEFAULT_PRODUCT } = useProductDetail(productName);
   const { id, name, price, imageUrl, description, color, size } = product;
   const formattedPrice = renderProductPrice(price);

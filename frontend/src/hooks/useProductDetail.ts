@@ -15,9 +15,8 @@ const useProductDetail = (productName: string): IProps => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const data: ProductProps[] = await axiosConfig.get(`/products/filter?name=${productName}`);
+        const data: ProductProps[] = await axiosConfig.get(`/products/filter?name=${productName}`).then();
         setProduct(data[0]);
-        console.log(data);
       } catch (e: any) {
         setError(e.message);
         setProduct(DEFAULT_PRODUCT);
