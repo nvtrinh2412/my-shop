@@ -7,6 +7,7 @@ const parseToSearchUrl = (params: filterParams): string => {
       searchUrl.append(key, params[key as keyof typeof params]);
     }
   }
+
   return searchUrl.toString();
 };
 export default parseToSearchUrl;

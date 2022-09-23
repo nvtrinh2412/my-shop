@@ -36,3 +36,28 @@
   height: $height;
   width: $width;
 }
+
+@mixin modified_color {
+  background-color: black;
+  &--white {
+    background-color: white;
+  }
+  &--black {
+    background-color: black !important;
+  }
+  &--gray {
+    background-color: $gray-primary !important;
+  }
+  &--blue {
+    background-color: $blue-primary !important;
+  }
+  &--orange {
+    background-color: $orange-primary !important;
+  }
+  &--green {
+    background-color: $green-primary !important;
+  }
+  &--beige {
+    background-color: $beige-primary !important;
+  }
+}

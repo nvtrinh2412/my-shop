@@ -9,7 +9,7 @@ import parseToSearchUrl from '@helpers/parseToSearchUrl';
 import parseFilterURLParams from '@helpers/parseFilterURLParam';
 import { updateName, updateUrl, updateAll, resetAll, updateCategory } from '@pages/Home/Criteria/filterSlice';
 import rootState from '@models/rootState';
-import Cart from './Cart/Cart';
+import Cart from '../Cart/Cart';
 import './Header.scss';
 
 const navLinks = [
@@ -26,6 +26,11 @@ const navLinks = [
     slug: '/search/filter?category=Featured',
   },
 ];
+const NAV_LINK = {
+  ALL: 'All',
+  NEW_ARRIVALS: 'New Arrivals',
+  FEATURED: 'Featured',
+};
 const Header = (): ReactElement => {
   const [search, setSearch] = useState('');
   const [openCart, setOpenCart] = useState(false);
@@ -50,7 +55,7 @@ const Header = (): ReactElement => {
 
   const handleNavBar = (title: string, idx: number): void => {
     navigate(navLinks[idx].slug);
-    if (title === navLinks[0].title) {
+    if (title === navLinks.filter((item) => item.title === NAV_LINK.ALL)[0].title) {
       dispatch(resetAll());
     } else {
       setSelected(idx);

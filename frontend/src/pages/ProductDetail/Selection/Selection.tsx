@@ -5,7 +5,7 @@ import './Selection.scss';
 
 interface IProps {
   type: string;
-  option: string[] | undefined;
+  option: string[];
   selectedIdx: number;
   setSelectedIdx: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -18,7 +18,7 @@ const Selection: React.FC<IProps> = (props: IProps) => {
     <div className="selection">
       <h3>{type.toUpperCase()}</h3>
       <div className="selection__list">
-        {option?.map((item: string, idx: number) => {
+        {option.map((item: string, idx: number) => {
           const isColor = type === 'color';
           const isSelected = idx === selectedIdx;
           const itemClassName = classNames(

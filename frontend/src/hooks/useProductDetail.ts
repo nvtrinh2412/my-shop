@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import axiosConfig from '@services/axiosConfig';
-import { AxiosError } from 'axios';
 import { DEFAULT_PRODUCT, ProductProps } from '@pages/Home/ProductList/Product/Product';
 
 interface useProductDetailResponseProps {
@@ -15,7 +14,6 @@ const useProductDetail = (productName: string): useProductDetailResponseProps =>
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
         const data: ProductProps[] = await axiosConfig.get(`/products/search?name=${productName}`);
         setProduct(data[0]);
       } catch (e: any) {

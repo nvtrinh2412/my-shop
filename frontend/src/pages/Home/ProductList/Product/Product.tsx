@@ -9,8 +9,8 @@ export interface ProductProps {
   price: number;
   description: string;
   imageUrl: string[];
-  size?: string[];
-  color?: string[];
+  size: string[];
+  color: string[];
 }
 const DEFAULT_VALUE = 'default';
 export const DEFAULT_PRODUCT: ProductProps = {

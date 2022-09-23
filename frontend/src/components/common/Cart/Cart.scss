@@ -135,33 +135,11 @@
       background-color: transparent;
     }
   }
-}
-.circle {
-  @include flex(center, center);
-  @include circle(20px, 20px);
-  border: $thin-key-line $gray-primary;
-  background-color: black;
-  color: white;
-
-  &--white {
-    background-color: white;
-  }
-  &--black {
-    background-color: black !important;
-  }
-  &--gray {
-    background-color: $gray-primary !important;
-  }
-  &--blue {
-    background-color: $blue-primary !important;
-  }
-  &--orange {
-    background-color: $orange-primary !important;
-  }
-  &--green {
-    background-color: $green-primary !important;
-  }
-  &--beige {
-    background-color: $beige-primary !important;
+  &__selected-circle {
+    @include flex(center, center);
+    @include circle(20px, 20px);
+    border: $thin-key-line $gray-primary;
+    color: white;
+    @include modified_color;
   }
 }

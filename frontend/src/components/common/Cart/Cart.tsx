@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FiShoppingBag } from 'react-icons/fi';
 import rootState from '@models/rootState';
 import renderProductPrice from '@helpers/products';
+import onKeyDownHandler from '@helpers/onKeyDownHandler';
 import { addToCart, removeFromCart } from './cartSlice';
 import './Cart.scss';
 
@@ -52,17 +53,19 @@ const Cart = () => {
           <div className="cart__item-info-name">{name}</div>
           <div className="cart__item-info-color">
             <span>Color</span>
-            <div className={` circle circle--${color}`}> </div>
+            <div className={` cart__selected-circle cart__selected-circle--${color}`}> </div>
           </div>
           <div className="cart__item-info-size">
             <span>Size</span>
-            <div className="circle">{size}</div>
+            <div className="cart__selected-circle">{size}</div>
           </div>
           <div className="cart__item-info-quantity">
             <div
               className="cart__item-info-quantity-decrease"
               onClick={() => handleAdjustQuantity(item, ADJUST_QUANTITY_OPTIONS.DECREASE)}
-              aria-hidden
+              role="button"
+              tabIndex={0}
+              onKeyDown={() => handleAdjustQuantity(item, ADJUST_QUANTITY_OPTIONS.DECREASE)}
             >
               -
             </div>
@@ -70,7 +73,11 @@ const Cart = () => {
             <div
               className="cart__item-info-quantity-increase"
               onClick={() => handleAdjustQuantity(item, ADJUST_QUANTITY_OPTIONS.INCREASE)}
-              aria-hidden
+              role="button"
+              tabIndex={0}
+              onKeyDown={(evt) =>
+                onKeyDownHandler(evt, () => handleAdjustQuantity(item, ADJUST_QUANTITY_OPTIONS.INCREASE))
+              }
             >
               +
             </div>

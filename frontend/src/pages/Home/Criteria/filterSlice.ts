@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import parseToSearchUrl from '@helpers/parseToSearchUrl';
+import SLICE_NAMES from '@constants/slice';
 
 export interface FilterState {
   name: string;
@@ -31,7 +32,7 @@ export const DEFAULT_FILTER = {
   url: `/products`,
 };
 const filterSlice = createSlice({
-  name: 'filter',
+  name: SLICE_NAMES.FILTER,
   initialState,
   reducers: {
     updateName: (state, action: PayloadAction<string>) => {
@@ -44,16 +45,18 @@ const filterSlice = createSlice({
       state.designer = action.payload;
     },
     updateSort: (state, action: PayloadAction<SortProps>) => {
-      state.key = action.payload.key;
-      state.order = action.payload.order;
+      const { key, order } = action.payload;
+      state.key = key;
+      state.order = order;
     },
     updateUrl: (state) => {
+      const { name, category, designer, key, order } = state;
       const params = {
-        name: state.name,
-        category: state.category,
-        designer: state.designer,
-        key: state.key,
-        order: state.order,
+        name,
+        category,
+        designer,
+        key,
+        order,
       };
       const searchUrl = parseToSearchUrl(params);
       state.url = `/products/filter?${searchUrl}`;
@@ -62,11 +65,12 @@ const filterSlice = createSlice({
       state = { ...DEFAULT_FILTER };
     },
     updateAll: (state, action) => {
-      state.name = action.payload.name;
-      state.category = action.payload?.category;
-      state.designer = action.payload?.designer;
-      state.key = action.payload?.key;
-      state.order = action.payload?.order;
+      const { name, category, designer, key, order } = action.payload;
+      state.name = name;
+      state.category = category;
+      state.designer = designer;
+      state.key = key;
+      state.order = order;
     },
   },
 });

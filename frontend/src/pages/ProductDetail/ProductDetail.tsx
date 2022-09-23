@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { AiFillStar } from 'react-icons/ai';
 import classNames from 'classnames';
 import renderProductPrice from '@helpers/products';
-import { addToCart } from '@components/common/Header/Cart/cartSlice';
+import { addToCart } from '@components/common/Cart/cartSlice';
 import useProductDetail from '@hooks/useProductDetail';
 import { DEFAULT_PRODUCT } from '@pages/Home/ProductList/Product/Product';
 import Selection from './Selection/Selection';
@@ -28,8 +28,8 @@ const ProductDetail = () => {
       name,
       price,
       imageUrl: imageUrl[selectedImage],
-      color: color?.at(selectedColor) || '',
-      size: size?.at(selectedSize) || '',
+      color: color[selectedColor],
+      size: size[selectedSize],
       quantity: 1,
     };
     dispatch(addToCart(selectedItem));
@@ -44,11 +44,11 @@ const ProductDetail = () => {
                 <div className="product-detail__image-tag-name">{name}</div>
                 <div className="product-detail__image-tag-price">{formattedPrice}</div>
               </div>
-              <img className="product-detail__img" src={imageUrl?.at(selectedImage)} alt="" />
+              <img className="product-detail__img" src={imageUrl[selectedImage]} alt="" />
             </div>
 
             <div className="product-detail__image--sub">
-              {imageUrl?.map((item: string, idx: number) => {
+              {imageUrl.map((item: string, idx: number) => {
                 const selectedIdx = idx === selectedImage;
                 const itemClassName = classNames('product-detail__image--sub-item', {
                   'product-detail__image--sub-item--active': selectedIdx,

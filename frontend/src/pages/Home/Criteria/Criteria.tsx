@@ -32,6 +32,12 @@ const sortList = [
     order: SORT_ORDER[1],
   },
 ];
+const FILTER_TYPE = {
+  SORT: 'sort',
+  CATEGORY: 'category',
+  PRICE: 'price',
+  NAME: 'name',
+};
 const Criteria: React.FC<CriteriaProps> = (props: CriteriaProps): ReactElement => {
   const { type, title, criteria } = props;
   const [selected, setSelected] = useState(-1);
@@ -55,7 +61,7 @@ const Criteria: React.FC<CriteriaProps> = (props: CriteriaProps): ReactElement =
         <div className="filter__criteria">
           {criteria.map((criterion: string, idx: number): ReactElement => {
             let targetLink;
-            if (type === 'sort') {
+            if (type === FILTER_TYPE.SORT) {
               targetLink = parseToSearchUrl({ ...searchParamsObject, ...sortList[idx] });
             } else {
               targetLink = parseToSearchUrl({ ...searchParamsObject, [type]: criterion });
