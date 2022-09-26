@@ -68,7 +68,7 @@
           }
         }
         &--active {
-          background-color: white !important;
+          background-color: white;
         }
       }
     }
@@ -104,7 +104,7 @@
 .related-product {
   &__container {
     padding: 3rem 1.5rem;
-    border-top: 0.625rem solid $gray-primary;
+    border-top: 0.0625rem solid $gray-primary;
   }
 
   &__title {
@@ -153,6 +153,23 @@
     &:hover {
       background-color: $gray-primary;
       cursor: pointer;
+    }
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .product-detail {
+    padding: 0 0 1.5rem;
+    &__info {
+      &-rate {
+        height: fit-content;
+        margin-top: 5rem;
+      }
+    }
+  }
+  .add-to-cart {
+    &__btn {
+      margin-top: 4rem;
     }
   }
 }

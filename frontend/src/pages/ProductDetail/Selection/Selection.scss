@@ -13,39 +13,39 @@
     width: 3rem;
     margin: 0 0.75rem 0 0;
     padding: 0 0.625rem;
-    border: $gray-primary 0.625rem solid;
+    border: $gray-primary 0.0625rem solid;
     border-radius: 50%;
     transition: all 0.1s ease-in-out;
     &:hover {
       @include zoom_animation;
     }
     &--active {
-      border: white 0.125rem solid !important;
+      border: white 0.125rem solid;
       background: $gradient-background--primary;
     }
   }
   &-color {
     background: black;
     &--white {
-      background: white !important;
+      background: white;
     }
     &--black {
-      background: black !important;
+      background: black;
     }
     &--gray {
-      background: $gray-primary !important;
+      background: $gray-primary;
     }
     &--blue {
-      background: $blue-primary !important;
+      background: $blue-primary;
     }
     &--orange {
-      background: $orange-primary !important;
+      background: $orange-primary;
     }
     &--green {
-      background: $green-primary !important;
+      background: $green-primary;
     }
     &--beige {
-      background: $beige-primary !important;
+      background: $beige-primary;
     }
   }
   &__selected-item {

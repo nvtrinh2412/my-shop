@@ -17,7 +17,7 @@
     @include flex(none, flex-start);
     flex-direction: column;
     min-width: $min-width-container--extra-large;
-    padding: 0 1.875rem 3.125rem 0;
+    padding: 0 0 3.125rem 0;
   }
 
   &__criteria {
@@ -30,6 +30,24 @@
     &-container {
       margin: 0.625rem 0 1.875rem;
       font-size: $font-size--xxl;
+    }
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .shopping {
+    &__container {
+      padding: 1.25rem 0;
+      grid-gap: 0.4rem;
+    }
+    &__products {
+      min-width: fit-content;
+    }
+
+    &__result {
+      &-container {
+        padding: 0 1.5rem;
+      }
     }
   }
 }

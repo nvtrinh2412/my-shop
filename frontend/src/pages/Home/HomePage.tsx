@@ -1,7 +1,6 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import useProductLoad from '@hooks/useProductLoad';
-import rootState from '@models/rootState';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import parseFilterURLParams from '@assets/helper/parseFilterURLParam';
 import Criteria from './Criteria/Criteria';
@@ -31,7 +30,6 @@ const HomePage = (): ReactElement => {
   const [searchParams] = useSearchParams();
   const searchParamsObject = parseFilterURLParams(searchParams);
   const dispatch = useDispatch();
-  const dataUrl = useSelector((state: rootState): string => state.filter.url);
   useEffect(() => {
     dispatch(updateAll(searchParamsObject));
     dispatch(updateUrl());

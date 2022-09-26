@@ -13,17 +13,11 @@ $gray-secondary: #999999;
 $gray-dark: rgb(102, 102, 102);
 $gray-light: #e5e7eb;
 $gray-background: #43434375;
-$gray-gradient: linear-gradient(
-  90deg,
-  rgb(0, 0, 0) 0%,
-  rgb(70, 70, 70) 25%,
-  rgb(153, 153, 153) 51%,
-  rgb(0, 0, 0) 100%
-) !important;
-$gradient-background--primary: linear-gradient(90deg, #654ea3 0%, #eaafc8 100%) !important;
-$gradient-background--secondary: linear-gradient(90deg, #3c1053 0%, #ad5389 100%) !important;
-$gradient-background--light: linear-gradient(90deg, #d3cce3 0%, #e9e4f0 100%) !important;
-$gradient-background--blue: linear-gradient(90deg, #d3cce3 0%, #64468f 100%) !important ;
+$gray-gradient: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgb(70, 70, 70) 25%, rgb(153, 153, 153) 51%, rgb(0, 0, 0) 100%);
+$gradient-background--primary: linear-gradient(90deg, #654ea3 0%, #eaafc8 100%);
+$gradient-background--secondary: linear-gradient(90deg, #3c1053 0%, #ad5389 100%);
+$gradient-background--light: linear-gradient(90deg, #d3cce3 0%, #e9e4f0 100%);
+$gradient-background--blue: linear-gradient(90deg, #d3cce3 0%, #64468f 100%);
 
 $pink-primary: #b565a7;
 $purple-primary: #7928c1;
@@ -43,11 +37,13 @@ $icon-width: 2rem;
 $icon-height--small: 1.5rem;
 $icon-width--small: 1.5rem;
 
-$medium-key-line: 0.0625rem solid;
-$thin-key-line: 0.0125rem solid;
+$medium-key-line: 0.00625rem solid;
+$thin-key-line: 0.00125rem solid;
 
 $min-width-container--small: 16rem;
 $min-heigh-container--small: 16rem;
+$min-width-container--tablet: 14rem;
+$min-heigh-container--tablet: 14rem;
 $min-width-container--extra-large: 50.5rem;
 
 $letter-spacing--base: 0.0125rem;

@@ -33,7 +33,7 @@
       font-size: $font-size--xxl;
       font-weight: $font-weight--bold;
       line-height: 1.5rem;
-      color: white !important;
+      color: white;
     }
 
     &-price {
@@ -43,7 +43,7 @@
       font-size: $base-font-size;
       font-weight: $font-weight--semibold;
       line-height: 1.5rem;
-      color: white !important;
+      color: white;
     }
   }
 }
@@ -56,5 +56,25 @@
   .product__info-name,
   .product__info-price {
     background-color: $purple-primary;
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .product {
+    &__container {
+      min-width: $min-heigh-container--tablet;
+      min-height: $min-heigh-container--tablet;
+      grid-gap: 0.5rem;
+    }
+    &__image {
+      width: $min-heigh-container--tablet;
+      height: $min-heigh-container--tablet;
+    }
+    &__info-name {
+      font-size: $font-size--xl;
+    }
+    &__info-price {
+      font-size: $base-font-size;
+    }
   }
 }

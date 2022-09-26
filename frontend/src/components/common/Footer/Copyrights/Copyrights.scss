@@ -21,3 +21,11 @@
     }
   }
 }
+
+@media screen and (max-width: 810px) {
+  .copyrights {
+    &__description {
+      width: 75%;
+    }
+  }
+}

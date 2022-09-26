@@ -39,7 +39,7 @@
         text-decoration: none;
         transition: all 0.3s ease-in-out;
         &--active {
-          color: black !important;
+          color: black;
         }
         &:hover {
           color: black;
@@ -113,7 +113,7 @@
 
       &-amount {
         @include flex(center, center);
-        @include circle(10.5rem, 10.5rem);
+        @include circle(1.125rem, 1.125rem);
         position: absolute;
         bottom: -0.5rem;
         left: -0.5rem;
@@ -151,7 +151,7 @@
         &-icon {
           font-size: $font-size--xxl;
           color: white;
-          stroke: white !important;
+          stroke: white;
           &:hover {
             cursor: pointer;
           }
@@ -186,6 +186,65 @@
       @include flex(center, center);
       height: 100%;
       width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .header {
+    &__container {
+      padding: 1rem 0.5rem;
+      background: red;
+    }
+    &-navigation {
+      width: 20%;
+      &__links {
+        display: none;
+      }
+    }
+    &-search {
+      width: 100%;
+      &__input {
+        width: 100%;
+      }
+    }
+    &-checkout {
+      width: 20%;
+      &__container {
+        padding-left: 0;
+      }
+      &__close {
+        display: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .header {
+    &__container {
+      padding: 1rem 0.5rem;
+      background: blue;
+    }
+    &-navigation {
+      width: 20%;
+      &__links {
+        display: none;
+      }
+    }
+    &-search {
+      width: 100%;
+      &__input {
+        width: 100%;
+      }
+    }
+    &-checkout {
+      display: inline-block;
+      &__container {
+      }
+      &__close {
+        display: none;
+      }
     }
   }
 }

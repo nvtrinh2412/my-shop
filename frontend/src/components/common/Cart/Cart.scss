@@ -108,14 +108,14 @@
     }
 
     &-image {
-      width: 90.5rem;
-      height: 90.5rem;
+      width: 6.125rem;
+      height: 6.125rem;
       @include flex(center, center);
       border-radius: 50%;
       background-color: white;
       &-icon {
         background-color: transparent;
-        stroke: black !important;
+        stroke: black;
         width: 1.56rem;
         height: 1.56rem;
       }
@@ -144,21 +144,29 @@
     background-color: white;
   }
   &--black {
-    background-color: black !important;
+    background-color: black;
   }
   &--gray {
-    background-color: $gray-primary !important;
+    background-color: $gray-primary;
   }
   &--blue {
-    background-color: $blue-primary !important;
+    background-color: $blue-primary;
   }
   &--orange {
-    background-color: $orange-primary !important;
+    background-color: $orange-primary;
   }
   &--green {
-    background-color: $green-primary !important;
+    background-color: $green-primary;
   }
   &--beige {
-    background-color: $beige-primary !important;
+    background-color: $beige-primary;
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .cart {
+    &__container {
+      width: 60vw;
+    }
   }
 }
