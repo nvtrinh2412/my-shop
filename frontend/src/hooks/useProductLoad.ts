@@ -20,7 +20,6 @@ const useProductLoad = (): IProps => {
         setLoading(true);
         const data: ProductProps[] = await axiosConfig.get(dataUrl);
         setProducts(data);
-        console.log(dataUrl);
       } catch (e: any) {
         setError(e.message);
       } finally {

@@ -1,7 +1,7 @@
-$base-font-size: 14px;
-$font-size--xl: 16px;
-$font-size--xxl: 18px;
-$font-size--xxxl: 32px;
+$base-font-size: 0.875rem;
+$font-size--xl: 1rem;
+$font-size--xxl: 1.25rem;
+$font-size--xxxl: 2rem;
 
 $font-weight--bold: 700;
 $font-weight--semibold: 600;
@@ -36,16 +36,18 @@ $green-primary: rgb(85, 107, 47);
 $beige-primary: rgb(245, 245, 220);
 $error-color: rgb(116, 21, 21);
 $success-color: rgb(106, 255, 106);
-$icon-height--large: 80px;
-$icon-width--large: 80px;
-$icon-height: 32px;
-$icon-width: 32px;
-$icon-height--small: 24px;
-$icon-width--small: 24px;
+$icon-height--large: 5rem;
+$icon-width--large: 5rem;
+$icon-height: 2rem;
+$icon-width: 2rem;
+$icon-height--small: 1.5rem;
+$icon-width--small: 1.5rem;
 
-$medium-key-line: 1px solid;
-$thin-key-line: 0.2px solid;
+$medium-key-line: 0.0625rem solid;
+$thin-key-line: 0.0125rem solid;
 
-$min-width-container--small: 256px;
-$min-heigh-container--small: 256px;
-$min-width-container--extra-large: 808px;
+$min-width-container--small: 16rem;
+$min-heigh-container--small: 16rem;
+$min-width-container--extra-large: 50.5rem;
+
+$letter-spacing--base: 0.0125rem;

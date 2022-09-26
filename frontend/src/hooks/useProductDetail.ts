@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axiosConfig from '@services/axiosConfig';
 import { DEFAULT_PRODUCT, ProductProps } from '@pages/Home/ProductList/Product/Product';
+import { Exception } from 'sass';
 
 interface IProps {
   product: ProductProps | undefined;
@@ -15,7 +16,7 @@ const useProductDetail = (productName: string): IProps => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const data: ProductProps[] = await axiosConfig.get(`/products/filter?name=${productName}`).then();
+        const data: ProductProps[] = await axiosConfig.get(`/products/filter?name=${productName}`);
         setProduct(data[0]);
       } catch (e: any) {
         setError(e.message);

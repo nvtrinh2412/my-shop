@@ -2,8 +2,8 @@
 
 .filter {
   display: block;
-  padding-bottom: 40px;
-  line-height: 36px;
+  padding-bottom: 2.5rem;
+  line-height: 2.25rem;
   font-size: $base-font-size;
   &__container {
     color: white;
@@ -11,16 +11,16 @@
 
   &__title {
     display: inline-block;
-    padding: 0 16px;
-    line-height: 40px;
+    padding: 0 1rem;
+    line-height: 2.5rem;
     text-justify: center;
-    border-radius: 15px;
+    border-radius: 1rem;
     color: white;
     background: $gradient-background--primary;
   }
 
   &__criterion {
-    padding-left: 16px;
+    padding-left: 1rem;
 
     &-link {
       color: black;

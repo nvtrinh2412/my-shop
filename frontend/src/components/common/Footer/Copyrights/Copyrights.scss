@@ -3,7 +3,7 @@
 .copyrights {
   &__container {
     @include flex(center, space-between);
-    padding: 24px 0 40px;
+    padding: 1.5rem 0 2.5rem;
   }
 
   &__description {

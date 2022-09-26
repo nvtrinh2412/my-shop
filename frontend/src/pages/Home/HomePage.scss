@@ -8,8 +8,8 @@
   &__container {
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
-    grid-gap: 40px;
-    padding: 20px 24px;
+    grid-gap: 2.5rem;
+    padding: 1.25rem 1.5rem;
     background: $gradient-background--light;
   }
 
@@ -17,7 +17,7 @@
     @include flex(none, flex-start);
     flex-direction: column;
     min-width: $min-width-container--extra-large;
-    padding: 0 30px 50px 0;
+    padding: 0 1.875rem 3.125rem 0;
   }
 
   &__criteria {
@@ -28,7 +28,7 @@
   }
   &__result {
     &-container {
-      margin: 10px 0 30px;
+      margin: 0.625rem 0 1.875rem;
       font-size: $font-size--xxl;
     }
   }

@@ -2,25 +2,25 @@
 @import '@assets/scss/variables.scss';
 
 .selection {
-  padding: 0 0 16px;
+  padding: 0 0 1rem;
   &__list {
     @include flex(center, flex-start);
-    padding: 16px 0px;
+    padding: 1rem 0;
   }
   &__item {
     @include flex(center, center);
-    height: 48px;
-    width: 48px;
-    margin: 0 11px 0 0;
-    padding: 0 1px;
-    border: $gray-primary 1px solid;
+    height: 3rem;
+    width: 3rem;
+    margin: 0 0.75rem 0 0;
+    padding: 0 0.625rem;
+    border: $gray-primary 0.625rem solid;
     border-radius: 50%;
     transition: all 0.1s ease-in-out;
     &:hover {
       @include zoom_animation;
     }
     &--active {
-      border: white 2px solid !important;
+      border: white 0.125rem solid !important;
       background: $gradient-background--primary;
     }
   }

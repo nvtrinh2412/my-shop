@@ -12,7 +12,7 @@
 //     padding: 0.3rem 0;
 
 //     &-label {
-//       padding: 8px 0;
+//       padding: 0.5rem 0;
 //       background-color: transparent;
 //       color: white;
 //       font-size: $font-size--xl;
@@ -20,13 +20,13 @@
 
 //     &-input {
 //       width: 50vh;
-//       padding: 8px 8px;
+//       padding: 0.5rem 0.5rem;
 //       border: none;
 //       border: $medium-key-line black;
 //       background-color: transparent;
 //       color: white;
 //       font-size: $base-font-size;
-//       border-radius: 5px 5px 5px 5px;
+//       border-radius: 0.3125rem 0.3125rem 0.3125rem 0.3125rem;
 //       &::placeholder {
 //         color: gainsboro;
 //         font-style: italic;
@@ -34,7 +34,7 @@
 //     }
 
 //     &-error {
-//       padding: 8px 0;
+//       padding: 0.5rem 0;
 //       background-color: transparent;
 //       color: red;
 //       font-size: $font-size--xl;
