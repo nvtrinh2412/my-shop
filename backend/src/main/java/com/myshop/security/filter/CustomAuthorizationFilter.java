@@ -24,6 +24,7 @@ import static java.util.Arrays.stream;
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        response.addHeader("Access-Control-Allow-Origin", "*");
         if (request.getRequestURI().equals("/api/login")) {
             filterChain.doFilter(request, response);
         } else {

@@ -1,0 +1,35 @@
+@import '@assets/scss/mixins.scss';
+@import '@assets/scss/variables.scss';
+
+.selection {
+  padding: 0 0 16px;
+  &__list {
+    @include flex(center, flex-start);
+    padding: 16px 0px;
+  }
+  &__item {
+    @include flex(center, center);
+    height: 48px;
+    width: 48px;
+    margin: 0 11px 0 0;
+    padding: 0 1px;
+    border: $gray-primary 1px solid;
+    border-radius: 50%;
+    transition: all 0.1s ease-in-out;
+    &:hover {
+      @include zoom_animation;
+    }
+    &--active {
+      border: white 2px solid;
+    }
+  }
+  &-color {
+    @include modified_color;
+  }
+}
+
+.selected-item {
+  background-color: transparent;
+  color: white;
+  font-size: $font-size--xxl;
+}

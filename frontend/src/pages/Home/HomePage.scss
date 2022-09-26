@@ -1,20 +1,23 @@
-@import '../../assets/scss/mixins.scss';
-@import '../../assets/scss/variables.scss';
+@import '@assets/scss/mixins.scss';
+@import '@assets/scss/variables.scss';
 
 .shopping {
   @include flex(none, center);
+  background: $gradient-background--light;
+
   &__container {
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
     grid-gap: 40px;
-    padding: 0 24px;
+    padding: 20px 24px;
+    background: $gradient-background--light;
   }
 
   &__products {
     @include flex(none, flex-start);
     flex-direction: column;
     min-width: $min-width-container--extra-large;
-    padding: 0 30px 50px0;
+    padding: 0 30px 50px 0;
   }
 
   &__criteria {
@@ -23,8 +26,10 @@
       flex-direction: column;
     }
   }
-}
-.result__container {
-  margin: 0 0 48px;
-  font-size: $font-size--xxl;
+  &__result {
+    &-container {
+      margin: 10px 0 30px;
+      font-size: $font-size--xxl;
+    }
+  }
 }

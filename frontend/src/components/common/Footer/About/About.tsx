@@ -4,14 +4,14 @@ import { BsGithub } from 'react-icons/bs';
 import './About.scss';
 import slugify from 'slugify';
 
-const About: React.FC = (): ReactElement => {
-  const shoppingInfo = ['Home', 'About', 'Terms of use', 'Shipping'];
+const shoppingInfo = ['Home', 'About', 'Terms of use', 'Shipping'];
+const About = (): ReactElement => {
   return (
     <div className="about">
       <div className="about__container">
         <div className="about__brand">
-          <img className="about__brand--img" src="/images/vercel-icon.jpg" alt="Vercel Logo" />
-          <span className="about__brand--name">ACME</span>
+          <img className="about__brand-img" src="/images/vercel-icon.jpg" alt="Vercel Logo" />
+          <span className="about__brand-name">ACME</span>
         </div>
 
         <div className="about__information">

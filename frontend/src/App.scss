@@ -1,7 +1,11 @@
+@import '@assets/scss/variables.scss';
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  background-color: black;
-  color: white;
+  color: black;
+}
+
+.App {
+  background: $gradient-background--light;
 }

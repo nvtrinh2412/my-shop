@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
-import rootState from '../models/rootState';
-import { ProductProps } from '../pages/Home/components/ProductList/Product/Product';
+import axiosConfig from '@services/axiosConfig';
+import rootState from '@models/rootState';
+import { ProductProps } from '@pages/Home/ProductList/Product/Product';
 
 interface IProps {
   products: ProductProps[];
@@ -18,7 +18,7 @@ const useProductLoad = (): IProps => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const { data } = await axios.get(dataUrl);
+        const { data } = await axiosConfig.get(dataUrl);
         setProducts(data);
       } catch (e: any) {
         setError(e.message);

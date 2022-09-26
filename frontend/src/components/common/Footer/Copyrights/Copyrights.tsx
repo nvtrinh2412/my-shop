@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import './Copyrights.scss';
 
-const Copyrights: React.FC = (): ReactElement => {
+const Copyrights = (): ReactElement => {
   return (
     <div className="copyrights">
       <div className="copyrights__container">

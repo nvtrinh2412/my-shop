@@ -1,7 +1,5 @@
 package com.myshop.products;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import com.myshop.categories.Category;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,7 +29,8 @@ public class Product {
     @NotNull(message = "Price is required")
     private float price;
     @NotNull(message = "ImageURL is required")
-    private String imageUrl;
+    @ElementCollection
+    private List<String> imageUrl;
     @ElementCollection
     private List<String> color;
     @ElementCollection
@@ -45,15 +44,17 @@ public class Product {
     private Date updatedAt;
     @Column(name = "deleted_at")
     private Date deletedAt;
-
     @Column(name = "designer")
     private String designer;
+    @Column(name = "sell_quantity")
+    private int sellQuantity;
+
 
     public Product() {
 
     }
 
-    public Product(String name, float price, String imageUrl, List<String> color, String description) {
+    public Product(String name, float price, List<String> imageUrl, List<String> color, String description) {
         this.name = name;
         this.price = price;
         this.imageUrl = imageUrl;
@@ -62,7 +63,7 @@ public class Product {
         this.createdAt = new Date(System.currentTimeMillis());
     }
 
-    public Product(String name, float price, String imageUrl, List<String> color, List<String> size, String description, Category category) {
+    public Product(String name, float price, List<String> imageUrl, List<String> color, List<String> size, String description, Category category) {
         this.name = name;
         this.price = price;
         this.imageUrl = imageUrl;
@@ -93,16 +94,6 @@ public class Product {
         this.setUpdatedAt(new Date(System.currentTimeMillis()));
     }
 
-    @JsonIgnore
-    public Long getId() {
-        return id;
-    }
-
-    @JsonSetter
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     @Override
     public String toString() {
         return "Product{" +
@@ -114,5 +105,5 @@ public class Product {
                 ", description='" + description + '\'' +
                 '}';
     }
-
 }
+
