@@ -48,7 +48,7 @@ const Criteria: React.FC<CriteriaProps> = (props: CriteriaProps): ReactElement =
     setSelected(idx);
   };
   useEffect(() => {
-    const idx = criteria.findIndex((item) => item === searchParamsObject[type as keyof typeof searchParamsObject]);
+    const idx = criteria.findIndex((item) => item === searchParamsObject[type]);
     setSelected(idx);
     dispatch(updateAll(searchParamsObject));
     dispatch(updateUrl());

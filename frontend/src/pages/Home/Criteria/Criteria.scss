@@ -29,12 +29,12 @@
       font-weight: $font-weight--base;
       &--active {
         color: $gray-dark;
-        text-decoration: underline $medium-key-line !important;
+        text-decoration: underline $medium-key-line;
       }
     }
 
     &:hover {
-      color: white !important;
+      color: white;
       cursor: pointer;
     }
   }

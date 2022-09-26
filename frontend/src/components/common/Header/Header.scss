@@ -39,7 +39,7 @@
         text-decoration: none;
         transition: all 0.3s ease-in-out;
         &--active {
-          color: black !important;
+          color: black;
         }
         &:hover {
           color: black;
@@ -149,7 +149,7 @@
         &-icon {
           font-size: $font-size--xxl;
           color: white;
-          stroke: white !important;
+          stroke: white;
           &:hover {
             cursor: pointer;
           }

@@ -1,5 +1,5 @@
 export default interface filterParams {
-  name: string;
+  [name: string]: string;
   category: string;
   designer: string;
   key: string;

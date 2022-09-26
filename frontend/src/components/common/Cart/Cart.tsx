@@ -62,10 +62,13 @@ const Cart = () => {
           <div className="cart__item-info-quantity">
             <div
               className="cart__item-info-quantity-decrease"
+              itemType="decrease"
               onClick={() => handleAdjustQuantity(item, ADJUST_QUANTITY_OPTIONS.DECREASE)}
               role="button"
               tabIndex={0}
-              onKeyDown={() => handleAdjustQuantity(item, ADJUST_QUANTITY_OPTIONS.DECREASE)}
+              onKeyDown={(evt) =>
+                onKeyDownHandler(evt, () => handleAdjustQuantity(item, ADJUST_QUANTITY_OPTIONS.DECREASE))
+              }
             >
               -
             </div>

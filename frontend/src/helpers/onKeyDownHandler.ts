@@ -1,15 +1,8 @@
-import { CartItemProps } from '@components/common/Cart/Cart';
 import { KeyboardEvent } from 'react';
 
-const onKeyDownHandler = (
-  event: KeyboardEvent<HTMLDivElement>,
-  action: (item: CartItemProps, option: string) => void
-) => {
+const onKeyDownHandler = (event: KeyboardEvent<HTMLDivElement>, action: Function) => {
   if (event.code === 'Enter') {
-    const { item, option } = event.currentTarget.dataset;
-    if (item && option) {
-      action(JSON.parse(item), option);
-    }
+    action();
   }
 };
 export default onKeyDownHandler;

@@ -55,7 +55,7 @@ const Header = (): ReactElement => {
 
   const handleNavBar = (title: string, idx: number): void => {
     navigate(navLinks[idx].slug);
-    if (title === navLinks.filter((item) => item.title === NAV_LINK.ALL)[0].title) {
+    if (navLinks.find((item) => item.title === NAV_LINK.ALL)) {
       dispatch(resetAll());
     } else {
       setSelected(idx);

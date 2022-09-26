@@ -20,7 +20,7 @@
       @include zoom_animation;
     }
     &--active {
-      border: white 2px solid !important;
+      border: white 2px solid;
     }
   }
   &-color {

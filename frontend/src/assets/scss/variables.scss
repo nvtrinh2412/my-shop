@@ -13,16 +13,10 @@ $gray-secondary: #999999;
 $gray-dark: rgb(102, 102, 102);
 $gray-light: #e5e7eb;
 $gray-background: #43434375;
-$gray-gradient: linear-gradient(
-  90deg,
-  rgb(0, 0, 0) 0%,
-  rgb(70, 70, 70) 25%,
-  rgb(153, 153, 153) 51%,
-  rgb(0, 0, 0) 100%
-) !important;
-$gradient-background--primary: linear-gradient(90deg, #654ea3 0%, #eaafc8 100%) !important;
-$gradient-background--secondary: linear-gradient(90deg, #3c1053 0%, #ad5389 100%) !important;
-$gradient-background--light: linear-gradient(90deg, #d3cce3 0%, #e9e4f0 100%) !important;
+$gray-gradient: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgb(70, 70, 70) 25%, rgb(153, 153, 153) 51%, rgb(0, 0, 0) 100%);
+$gradient-background--primary: linear-gradient(90deg, #654ea3 0%, #eaafc8 100%);
+$gradient-background--secondary: linear-gradient(90deg, #3c1053 0%, #ad5389 100%);
+$gradient-background--light: linear-gradient(90deg, #d3cce3 0%, #e9e4f0 100%);
 
 $pink-primary: #b565a7;
 $purple-primary: #7928c1;

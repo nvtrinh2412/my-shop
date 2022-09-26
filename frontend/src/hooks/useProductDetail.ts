@@ -7,6 +7,7 @@ interface useProductDetailResponseProps {
   loading: boolean;
   error: string;
 }
+const firstProductIndex = 0;
 const useProductDetail = (productName: string): useProductDetailResponseProps => {
   const [product, setProduct] = useState<ProductProps>();
   const [loading, setLoading] = useState(false);
@@ -14,8 +15,8 @@ const useProductDetail = (productName: string): useProductDetailResponseProps =>
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data: ProductProps[] = await axiosConfig.get(`/products/search?name=${productName}`);
-        setProduct(data[0]);
+        const { data } = await axiosConfig.get(`/products/search?name=${productName}`);
+        setProduct(data[firstProductIndex]);
       } catch (e: any) {
         setError(e.message);
         setProduct(DEFAULT_PRODUCT);
