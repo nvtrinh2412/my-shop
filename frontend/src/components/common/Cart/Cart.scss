@@ -29,19 +29,10 @@
     padding: 1rem 0;
     width: 100%;
     font-size: $base-font-size;
-<<<<<<< HEAD
     &-image > img {
       width: 4rem;
       height: 4rem;
       background-color: $violet;
-=======
-    &-image {
-      &-img {
-        width: 64px;
-        height: 64px;
-        background-color: $violet;
-      }
->>>>>>> f1b89a9aee710ada6509aed42ffb3559bdd879a8
     }
     &-info {
       width: calc(100% / 3 * 2);
@@ -117,22 +108,16 @@
     }
 
     &-image {
-      width: 90.5rem;
-      height: 90.5rem;
+      width: 6.125rem;
+      height: 6.125rem;
       @include flex(center, center);
       border-radius: 50%;
       background-color: white;
       &-icon {
         background-color: transparent;
-<<<<<<< HEAD
         stroke: black !important;
         width: 1.56rem;
         height: 1.56rem;
-=======
-        stroke: black;
-        width: 25px;
-        height: 25px;
->>>>>>> f1b89a9aee710ada6509aed42ffb3559bdd879a8
       }
     }
     &-title {
@@ -147,42 +132,11 @@
       background-color: transparent;
     }
   }
-<<<<<<< HEAD
-}
-.circle {
-  @include flex(center, center);
-  @include circle(1.25rem, 1.25rem);
-  border: $thin-key-line $gray-primary;
-  background-color: black;
-  color: white;
-
-  &--white {
-    background-color: white;
-  }
-  &--black {
-    background-color: black !important;
-  }
-  &--gray {
-    background-color: $gray-primary !important;
-  }
-  &--blue {
-    background-color: $blue-primary !important;
-  }
-  &--orange {
-    background-color: $orange-primary !important;
-  }
-  &--green {
-    background-color: $green-primary !important;
-  }
-  &--beige {
-    background-color: $beige-primary !important;
-=======
   &__selected-circle {
     @include flex(center, center);
     @include circle(20px, 20px);
     border: $thin-key-line $gray-primary;
     color: white;
     @include modified_color;
->>>>>>> f1b89a9aee710ada6509aed42ffb3559bdd879a8
   }
 }

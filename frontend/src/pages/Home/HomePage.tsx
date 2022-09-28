@@ -3,7 +3,7 @@ import useProductLoad from '@hooks/useProductLoad';
 import rootState from '@models/rootState';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import parseFilterURLParams from '@assets/helper/parseFilterURLParam';
+import parseFilterURLParams from 'src/helpers/parseFilterURLParam';
 import Criteria from './Criteria/Criteria';
 import Loading from './ProductList/Loading/Loading';
 import ProductList from './ProductList/ProductList';

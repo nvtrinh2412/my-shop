@@ -1,6 +1,6 @@
-import React, { useState, useEffect, ReactElement } from 'react';
+import React, { useState, useEffect, ReactElement, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useSearchParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { FaSearch } from 'react-icons/fa';
 import { FiShoppingBag } from 'react-icons/fi';
@@ -12,6 +12,9 @@ import rootState from '@models/rootState';
 import Overlay from '@components/common/Overlay/Overlay';
 import Cart from '@components/common/Cart/Cart';
 import Login from '@components/common/Login/Login';
+import TIME from '@constants/time';
+import { ProductProps } from '@pages/Home/ProductList/Product/Product';
+import axiosConfig from '@services/axiosConfig';
 import './Header.scss';
 
 const navLinks = [
@@ -45,6 +48,30 @@ const Header = (): ReactElement => {
   const dispatch = useDispatch();
   const cartList = useSelector((state: rootState) => state.cart.cartList);
   const isEmptyCart = cartList.length === 0;
+  const typingTimeoutRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [hint, setHint] = useState<ProductProps[]>();
+  const [visibleHint, setVisibleHint] = useState(false);
+  const handleSearchTermChange = async (value: string) => {
+    const url = `/products/filter?name=${value}`;
+    await axiosConfig.get(url).then((res) => setHint(res.data));
+    setVisibleHint(true);
+  };
+  const handleOnchangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    if (value.length === 0) {
+      setVisibleHint(false);
+      setSearch('');
+      return;
+    }
+    setSearch(value);
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+    typingTimeoutRef.current = setTimeout(() => {
+      handleSearchTermChange(value);
+    }, TIME.WAITING_TIME);
+  };
+
   useEffect(() => {
     const idx = navLinks.findIndex((item) => item.slug.includes(searchParamsString));
     setSelected(idx);
@@ -97,10 +124,28 @@ const Header = (): ReactElement => {
               className="header-search__input"
               type="text"
               placeholder="Search for products..."
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => handleOnchangeInput(e)}
               onKeyUp={(e) => handleInputEvent(e, handleSearch)}
+              onFocus={() => setVisibleHint(!visibleHint)}
             />
             <FaSearch className="header-search__icon" onClick={() => handleSearch()} />
+          </div>
+
+          <div className={classNames('header-search__dropdown', { 'header-search__dropdown--hidden': !visibleHint })}>
+            {hint?.map((product) => {
+              const { name, imageUrl } = product;
+              const firstImage = imageUrl[0];
+              return (
+                <NavLink
+                  className="header-search__dropdown-item"
+                  to={`product/${name}`}
+                  onClick={() => setVisibleHint(false)}
+                >
+                  <img className="header-search__dropdown-item-img" src={firstImage} alt="Vercel Logo" />
+                  <div className="header-search__dropdown-item-name"> {name} </div>
+                </NavLink>
+              );
+            })}
           </div>
         </div>
 

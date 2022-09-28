@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import parseToSearchUrl from '@helpers/parseToSearchUrl';
 import SLICE_NAMES from '@constants/slice';
+import parseFilterURLParams from '@helpers/parseFilterURLParam';
 
 const searchParams = new URLSearchParams(window.location.search);
 const searchParamsObject = parseFilterURLParams(searchParams);

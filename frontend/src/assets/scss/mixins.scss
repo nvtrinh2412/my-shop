@@ -44,21 +44,21 @@
 }
 
 @mixin modified_color {
-  background-color: black;
+  background: black;
   &--white {
-    background-color: white;
+    background: white;
   }
   &--black {
-    background-color: black;
+    background: black;
   }
   &--gray {
-    background-color: $gray-primary;
+    background: $gray-primary;
   }
   &--blue {
-    background-color: $blue-primary;
+    background: $blue-primary;
   }
   &--orange {
-    background-color: $orange-primary;
+    background: $orange-primary;
   }
   &--green {
     background-color: $green-primary;

@@ -4,12 +4,12 @@ import axiosConfig from '@services/axiosConfig';
 import rootState from '@models/rootState';
 import { ProductProps } from '@pages/Home/ProductList/Product/Product';
 
-interface IProps {
+interface useProductLoadProps {
   products: ProductProps[];
   loading: boolean;
   error: string;
 }
-const useProductLoad = (): IProps => {
+const useProductLoad = (): useProductLoadProps => {
   const dataUrl = useSelector((state: rootState) => state.filter.url);
   const [products, setProducts] = useState<ProductProps[]>([]);
   const [loading, setLoading] = useState(false);
