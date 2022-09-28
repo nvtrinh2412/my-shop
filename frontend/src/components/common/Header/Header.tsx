@@ -4,9 +4,9 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { FaSearch } from 'react-icons/fa';
 import { FiShoppingBag } from 'react-icons/fi';
-import parseToSearchUrl from '@assets/helper/parseToSearchUrl';
-import handleInputEvent from '@assets/helper/handleInputEvent';
-import parseFilterURLParams from '@assets/helper/parseFilterURLParam';
+import handleInputEvent from '@helpers/handleInputEvent';
+import parseToSearchUrl from '@helpers/parseToSearchUrl';
+import parseFilterURLParams from '@helpers/parseFilterURLParam';
 import { updateName, updateUrl, updateAll, resetAll, updateCategory } from '@pages/Home/Criteria/filterSlice';
 import rootState from '@models/rootState';
 import Overlay from '@components/common/Overlay/Overlay';
@@ -28,6 +28,11 @@ const navLinks = [
     slug: '/search/filter?category=Featured',
   },
 ];
+const NAV_LINK = {
+  ALL: 'All',
+  NEW_ARRIVALS: 'New Arrivals',
+  FEATURED: 'Featured',
+};
 const Header = (): ReactElement => {
   const [search, setSearch] = useState('');
   const [openCart, setOpenCart] = useState(false);
@@ -53,7 +58,7 @@ const Header = (): ReactElement => {
 
   const handleNavBar = (title: string, idx: number): void => {
     navigate(navLinks[idx].slug);
-    if (title === navLinks[0].title) {
+    if (navLinks.find((item) => item.title === NAV_LINK.ALL)) {
       dispatch(resetAll());
     } else {
       setSelected(idx);

@@ -2,8 +2,9 @@ import React, { useState, useEffect, ReactElement } from 'react';
 import classNames from 'classnames';
 import { useDispatch } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
-import parseFilterURLParams from '@assets/helper/parseFilterURLParam';
-import parseToSearchUrl from '@assets/helper/parseToSearchUrl';
+import parseFilterURLParams from '@helpers/parseFilterURLParam';
+import parseToSearchUrl from '@helpers/parseToSearchUrl';
+import { SORT_KEY, SORT_ORDER } from '@constants/sort';
 import { updateUrl, updateAll } from './filterSlice';
 import './Criteria.scss';
 
@@ -12,8 +13,7 @@ interface CriteriaProps {
   criteria: string[];
   type: string;
 }
-const SORT_KEY = ['name', 'createdAt', 'price', 'sellQuantity'];
-const SORT_ORDER = ['ASC', 'DESC'];
+
 const sortList = [
   {
     key: SORT_KEY[3],
@@ -32,6 +32,12 @@ const sortList = [
     order: SORT_ORDER[1],
   },
 ];
+const FILTER_TYPE = {
+  SORT: 'sort',
+  CATEGORY: 'category',
+  PRICE: 'price',
+  NAME: 'name',
+};
 const Criteria: React.FC<CriteriaProps> = (props: CriteriaProps): ReactElement => {
   const { type, title, criteria } = props;
   const [selected, setSelected] = useState(-1);
@@ -42,13 +48,7 @@ const Criteria: React.FC<CriteriaProps> = (props: CriteriaProps): ReactElement =
     setSelected(idx);
   };
   useEffect(() => {
-    let idx;
-    if (type === 'sort') {
-      const { key, order } = searchParamsObject;
-      idx = sortList.findIndex((item) => item.key === key && item.order === order);
-    } else {
-      idx = criteria.findIndex((item) => item === searchParamsObject[type as keyof typeof searchParamsObject]);
-    }
+    const idx = criteria.findIndex((item) => item === searchParamsObject[type]);
     setSelected(idx);
     dispatch(updateAll(searchParamsObject));
     dispatch(updateUrl());
@@ -61,7 +61,7 @@ const Criteria: React.FC<CriteriaProps> = (props: CriteriaProps): ReactElement =
         <div className="filter__criteria">
           {criteria.map((criterion: string, idx: number): ReactElement => {
             let targetLink;
-            if (type === 'sort') {
+            if (type === FILTER_TYPE.SORT) {
               targetLink = parseToSearchUrl({ ...searchParamsObject, ...sortList[idx] });
             } else {
               targetLink = parseToSearchUrl({ ...searchParamsObject, [type]: criterion });

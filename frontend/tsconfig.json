@@ -24,8 +24,9 @@
       "@assets/*": ["./src/assets/*"],
       "@app/*": ["./src/app/*"],
       "@models/*": ["./src/models/*"],
+      "@helpers/*": ["./src/helpers/*"],
       "@services/*": ["./src/services/*"],
-      "@api/*": ["./src/api/*"],
+      "@constants/*": ["./src/constants/*"]
     }
   },
   "include": ["src"]

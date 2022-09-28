@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Footer from './components/common/Footer/Footer';
-import Header from './components/common/Header/Header';
-import HomePage from './pages/Home/HomePage';
-import ProductDetail from './pages/ProductDetail/ProductDetail';
+import Footer from '@components/common/Footer/Footer';
+import Header from '@components/common/Header/Header';
+import HomePage from '@pages/Home/HomePage';
+import ProductDetail from '@pages/ProductDetail/ProductDetail';
 import './App.scss';
 
 const App = (): ReactElement => {

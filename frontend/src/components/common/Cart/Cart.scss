@@ -29,10 +29,19 @@
     padding: 1rem 0;
     width: 100%;
     font-size: $base-font-size;
+<<<<<<< HEAD
     &-image > img {
       width: 4rem;
       height: 4rem;
       background-color: $violet;
+=======
+    &-image {
+      &-img {
+        width: 64px;
+        height: 64px;
+        background-color: $violet;
+      }
+>>>>>>> f1b89a9aee710ada6509aed42ffb3559bdd879a8
     }
     &-info {
       width: calc(100% / 3 * 2);
@@ -115,9 +124,15 @@
       background-color: white;
       &-icon {
         background-color: transparent;
+<<<<<<< HEAD
         stroke: black !important;
         width: 1.56rem;
         height: 1.56rem;
+=======
+        stroke: black;
+        width: 25px;
+        height: 25px;
+>>>>>>> f1b89a9aee710ada6509aed42ffb3559bdd879a8
       }
     }
     &-title {
@@ -132,6 +147,7 @@
       background-color: transparent;
     }
   }
+<<<<<<< HEAD
 }
 .circle {
   @include flex(center, center);
@@ -160,5 +176,13 @@
   }
   &--beige {
     background-color: $beige-primary !important;
+=======
+  &__selected-circle {
+    @include flex(center, center);
+    @include circle(20px, 20px);
+    border: $thin-key-line $gray-primary;
+    color: white;
+    @include modified_color;
+>>>>>>> f1b89a9aee710ada6509aed42ffb3559bdd879a8
   }
 }

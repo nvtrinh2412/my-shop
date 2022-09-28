@@ -33,7 +33,7 @@
       font-size: $font-size--xxl;
       font-weight: $font-weight--bold;
       line-height: 1.5rem;
-      color: white !important;
+      color: white;
     }
 
     &-price {
@@ -43,7 +43,7 @@
       font-size: $base-font-size;
       font-weight: $font-weight--semibold;
       line-height: 1.5rem;
-      color: white !important;
+      color: white;
     }
   }
 }

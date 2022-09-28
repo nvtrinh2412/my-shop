@@ -25,28 +25,7 @@
     }
   }
   &-color {
-    background: black;
-    &--white {
-      background: white !important;
-    }
-    &--black {
-      background: black !important;
-    }
-    &--gray {
-      background: $gray-primary !important;
-    }
-    &--blue {
-      background: $blue-primary !important;
-    }
-    &--orange {
-      background: $orange-primary !important;
-    }
-    &--green {
-      background: $green-primary !important;
-    }
-    &--beige {
-      background: $beige-primary !important;
-    }
+    @include modified_color;
   }
   &__selected-item {
     background-color: transparent;

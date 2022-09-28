@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import parseToSearchUrl from '@assets/helper/parseToSearchUrl';
-import parseFilterURLParams from '@assets/helper/parseFilterURLParam';
+import parseToSearchUrl from '@helpers/parseToSearchUrl';
+import SLICE_NAMES from '@constants/slice';
 
 const searchParams = new URLSearchParams(window.location.search);
 const searchParamsObject = parseFilterURLParams(searchParams);
@@ -35,7 +35,7 @@ export const DEFAULT_FILTER = {
   url: '/products',
 };
 const filterSlice = createSlice({
-  name: 'filter',
+  name: SLICE_NAMES.FILTER,
   initialState,
   reducers: {
     updateName: (state, action: PayloadAction<string>) => {
@@ -65,16 +65,10 @@ const filterSlice = createSlice({
       state.url = `/products/filter?${searchUrl}`;
     },
     resetAll: (state) => {
-      const { name, category, designer, key, order, url } = DEFAULT_FILTER;
-      state.name = name;
-      state.category = category;
-      state.designer = designer;
-      state.key = key;
-      state.order = order;
-      state.url = url;
+      state = { ...DEFAULT_FILTER };
     },
     updateAll: (state, action) => {
-      const { name, category = '', designer = '', key = '', order = '' } = action.payload;
+      const { name, category, designer, key, order } = action.payload;
       state.name = name;
       state.category = category;
       state.designer = designer;

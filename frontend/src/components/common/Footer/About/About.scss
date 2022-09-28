@@ -11,13 +11,13 @@
   &__brand {
     @include flex(flex-start, flex-start);
     height: fit-content;
-    &--img {
+    &-img {
       @include logo_icon;
       &:hover {
         @include zoom_animation;
       }
     }
-    &--name {
+    &-name {
       align-self: center;
       padding: 0 0.75rem;
       font-weight: $font-weight--bold;

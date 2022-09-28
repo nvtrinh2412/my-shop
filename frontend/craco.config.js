@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path');
 
 module.exports = {
@@ -9,8 +10,9 @@ module.exports = {
       '@assets': path.resolve(__dirname, 'src/assets'),
       '@app': path.resolve(__dirname, 'src/app'),
       '@models': path.resolve(__dirname, 'src/models'),
+      '@helpers': path.resolve(__dirname, 'src/helpers'),
       '@services': path.resolve(__dirname, 'src/services'),
-      '@api': path.resolve(__dirname, 'src/api'),
+      '@constants': path.resolve(__dirname, 'src/constants'),
     },
   },
 };

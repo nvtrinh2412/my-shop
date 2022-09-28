@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { NavLink } from 'react-router-dom';
-import renderProductPrice from '@assets/helper/products';
+import renderProductPrice from '@helpers/products';
 import './Product.scss';
 
 export interface ProductProps {
@@ -9,17 +9,18 @@ export interface ProductProps {
   price: number;
   description: string;
   imageUrl: string[];
-  size?: string[];
-  color?: string[];
+  size: string[];
+  color: string[];
 }
+const DEFAULT_VALUE = 'default';
 export const DEFAULT_PRODUCT: ProductProps = {
   id: 0,
   name: '',
   price: 0,
-  imageUrl: ['default'],
+  imageUrl: [DEFAULT_VALUE],
   description: '',
-  color: ['default'],
-  size: ['default'],
+  color: [DEFAULT_VALUE],
+  size: [DEFAULT_VALUE],
 };
 const Product = (props: ProductProps): ReactElement => {
   const { name, price, imageUrl } = props;
